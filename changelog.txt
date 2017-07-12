@@ -1,0 +1,17 @@
+Version 2.5.2 ChangeLog:
+    added changelog.txt & ChangeLog
+    added anagram func
+    changed keywords in package.json: CMSChatDiscordBot(old) PowerBot(new)
+    added commands, util, events folder on github
+    added help func with Discord.RichEmbed()
+    added color func that returns a ColorHex link
+    changed/fixed masspurge's permissions
+    changed setgame permissions
+    changed setstatus permissions
+    fixed startup command bold & text formatting issues
+    added commands func/cmd
+    ccencode moved from index.js to ccencode.js 
+    ccdecode moved from index.js to ccdecode.js 
+    cleaned up all the comments in index.js to index.jsbackup.txt
+    fixed bot token leak issues...
+    updated github repo
