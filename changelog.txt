@@ -15,3 +15,22 @@ Version 2.5.2 ChangeLog:
     cleaned up all the comments in index.js to index.jsbackup.txt
     fixed bot token leak issues...
     updated github repo
+
+Version 2.5.7 changelog
+    changed kick command permissions
+    updated guildMemberRemove
+    added ban
+    added unban
+    added warn
+    added mute
+    added unmute
+    changed modlog Discord.RichEmbed formatting
+    added lockdown
+    added stats command 
+    added userstats (mentioned user status)
+    added bot info & stats
+    WIP command alluserinfo; displays all user in guild's info, WIP: privacy issue, 2000 word discord text limit. POS Rightnow: console.log(<cmd>)
+    added morse command
+    added util.js 
+    new npm: 'ms' used to convert timestamps to human readable time. For lockdown command
+    updated commands command
