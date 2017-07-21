@@ -6,6 +6,7 @@ module.exports = message => {
     if (!message.content.startsWith(config.prefix)) return;
     
     const client = message.client;
+    
     //let embed = new Discord.RichEmbed() 
 //   let command = message.content.split(" ")[0];
 //     command = command.slice(config.prefix.length);
@@ -16,7 +17,7 @@ module.exports = message => {
 
     let command = message.content.split(" ")[0];
     command = command.slice(config.prefix.length);
-
+    
     let args = message.content.split(" ").slice(1);
 
     let args2 = message.content.split(" ").slice(2);
