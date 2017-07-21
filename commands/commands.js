@@ -51,7 +51,17 @@ exports.run = function (client, message, args, args2, cmd) {
         .addField('sqrt|Square Root the User Input Number', `\`sqrt <Square Root Number>\``)
         .addField('startup|Displays Some Startup Information', `\`startup\``)
         .addField('subtract|Subtracts numbers', `\`subtract <First Number> <Second Number>\``)
-   
+        .addField('ban|Bans a mentioned member',`\`ban <@user>\``)
+        .addField('unban|Unbans a user by ID **(Special Permission Required: BAN_MEMBERS)**', `\`unban <user ID>\``)
+        .addField('warn|Warns a mentioned user **(Special Permission Required: MANAGE_ROLES_OR_PERMISSIONS)**', `\`warn <@user>\``)
+        .addField('mute|Mute the mentioned user **(Special Permission Required: MANAGE_ROLES_OR_PERMISSIONS)**', `\`warn <@user>\``)
+        .addField('unmute|Unmute the mentioned user **(Special Permission Required: MANAGE_ROLES_OR_PERMISSIONS)**',`\`unmute <@user>\`` )
+        .addField('lockdown|Locks down the messaged channel **(Special Permission Required: MANAGE_CHANNELS)**', `\`lockdown <time; h/m/s>\``)
+        .addField('unlock|Unlocks the lockdown in the current channel **(Special Permission Required: MANAGE_CHANNELS)**', `\`lockdown unlock\``)
+        .addField('stats|Displays status about the author of the message', `\`stats\``)
+        .addField('userstats|Displays stats on the mentioned user', `\`userstats <@user>\``)
+        .addField('botinfo|Displays info about the bot', `\`botinfo\``)
+        .addField('morse|Converts words & sentences into morse code', `\`morse <letter/word/sentence>\``)
     message.channel.sendEmbed(embed1, {
         disableEveryone: true
     })

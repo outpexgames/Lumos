@@ -3,17 +3,17 @@ exports.run = function (client, message, args, args2, cmd, config) {
     const Discord = require('discord.js');
     let user = message.mentions.users.first()
     let member = message.guild.member(user)
-    if (!message.guild.member(message.author).hasPermission('KICK_MEMBERS')) return message.reply('You must be a moderator to kick people!').catch(console.error)
-    if (message.mentions.users.size < 1) return message.reply('Please mention someone to kick!').catch(console.error)
-    if (reason.length < 1) return message.reply('Please supply a reason for the kick!').catch(console.error)
-    if (!message.guild.member(client.user).hasPermission('KICK_MEMBERS')) return message.reply('I do not have the correct permissions!').catch(console.error)
-    if (user === message.author) return message.reply("You cannot kick yourself")
-        if (message.guild.member(member) && member.kickable) {
+    if (!message.guild.member(message.author).hasPermission('BAN_MEMBERS')) return message.reply('You must be a moderator to kick people!').catch(console.error)
+    if (message.mentions.users.size < 1) return message.reply('Please mention someone to ban!').catch(console.error)
+    if (reason.length < 1) return message.reply('Please supply a reason for the ban!').catch(console.error)
+    if (!message.guild.member(client.user).hasPermission('BAN_MEMBERS')) return message.reply('I do not have the correct permissions!').catch(console.error)
+    if (user === message.author) return message.reply("You cannot ban yourself")
+        if (message.guild.member(user).bannable) { //message.guild.member(member) && member.bannable
         const channelsendlol = new Discord.RichEmbed()
             .setColor('#2D7FFF') //change the color!!!
             .setTimestamp()
             .setThumbnail(message.author.avatarURL)
-            .addField('Action:', "Kick")
+            .addField('Action:', "Ban")
             .addField('User:', user.username + '#' + user.discriminator)
             .addField("User ID:", user.id)
             .addField("Moderator:", message.author.username + "#" + message.author.discriminator)
@@ -25,7 +25,7 @@ exports.run = function (client, message, args, args2, cmd, config) {
             .setColor('#2D7FFF') //change the color!!!
             .setTimestamp()
             .setThumbnail(message.author.avatarURL)
-            .addField('Action:', "Kick")
+            .addField('Action:', "Ban")
             .addField('User:', user.username + '#' + user.discriminator)
             .addField("User ID:", user.id)
             .addField("Moderator:", message.author.username + "#" + message.author.discriminator)
@@ -38,7 +38,7 @@ exports.run = function (client, message, args, args2, cmd, config) {
         });
         //message.channel.send("\n\n")
         setTimeout(function () {
-            message.guild.member(user).kick();
+           message.guild.ban(user)
         }, 1000);
 
 
