@@ -7,7 +7,7 @@ module.exports = message => {
     
     const client = message.client;
     
-    //let embed = new Discord.RichEmbed() 
+//    let embed = new Discord.RichEmbed() 
 //   let command = message.content.split(" ")[0];
 //     command = command.slice(config.prefix.length);
 
