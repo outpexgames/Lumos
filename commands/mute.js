@@ -14,7 +14,7 @@ exports.run = function (client, message, args, args2, cmd, config) {
     message.guild.member(user).addRole(muteRole);
 
     const embed = new Discord.RichEmbed()
-        .setColor('#2D7FFF') //change the color!!!
+        .setColor('#ff2800') //change the color!!!
         .setTimestamp()
         .setThumbnail(message.author.avatarURL)
         .addField('Action:', "Mute")
@@ -26,7 +26,7 @@ exports.run = function (client, message, args, args2, cmd, config) {
         disableEveryone: true
     });
     const embed1 = new Discord.RichEmbed()
-        .setColor('#2D7FFF') //change the color!!!
+        .setColor('#ff2800') //change the color!!!
         .setTimestamp()
         .setThumbnail(message.author.avatarURL)
         .addField('Action:', "Mute")

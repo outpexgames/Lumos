@@ -39,6 +39,8 @@ exports.run = function (client, message, args, args2, cmd, config) {
     var string = args.join(' ') //problem with slice
     var shift = parseInt(args2.join(' '))
     var array = string
+     if (!string) return message.reply("You need to fill in a string")
+    if (!shift) return message.reply("You need to fill in a shift")
     //var array = temparray[0].split()
     var res = ""
     if (shift > 25) {

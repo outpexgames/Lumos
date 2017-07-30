@@ -9,7 +9,7 @@ exports.run = function (client, message, args, args2, cmd, config) {
     let validUnlocks = ['release', 'unlock'];
     if (!time) return message.reply('You must set a duration for the lockdown in either hours, minutes or seconds');
     const embed = new Discord.RichEmbed()
-        .setColor('#2D7FFF') //change the color!!!
+        .setColor('#00ff00') //change the color!!!
         .setTimestamp()
         .setThumbnail(message.author.avatarURL)
         .addField('Action:', "Lockdown")

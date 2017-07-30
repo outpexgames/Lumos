@@ -3,14 +3,14 @@ exports.run = function (client, message, args, args2, cmd, config) {
     const Discord = require('discord.js');
     let user = message.mentions.users.first()
     let member = message.guild.member(user)
-    if (!message.guild.member(message.author).hasPermission('BAN_MEMBERS')) return message.reply('You must be a moderator to kick people!').catch(console.error)
+    if (!message.guild.member(message.author).hasPermission('BAN_MEMBERS')) return message.reply('You must be a moderator to ban people!').catch(console.error)
     if (message.mentions.users.size < 1) return message.reply('Please mention someone to ban!').catch(console.error)
     if (reason.length < 1) return message.reply('Please supply a reason for the ban!').catch(console.error)
     if (!message.guild.member(client.user).hasPermission('BAN_MEMBERS')) return message.reply('I do not have the correct permissions!').catch(console.error)
     if (user === message.author) return message.reply("You cannot ban yourself")
         if (message.guild.member(user).bannable) { //message.guild.member(member) && member.bannable
         const channelsendlol = new Discord.RichEmbed()
-            .setColor('#2D7FFF') //change the color!!!
+            .setColor('#003366') //change the color!!!
             .setTimestamp()
             .setThumbnail(message.author.avatarURL)
             .addField('Action:', "Ban")
@@ -22,7 +22,7 @@ exports.run = function (client, message, args, args2, cmd, config) {
             disableEveryone: true
         });
         const okgoogle = new Discord.RichEmbed()
-            .setColor('#2D7FFF') //change the color!!!
+            .setColor('#003366') //change the color!!!
             .setTimestamp()
             .setThumbnail(message.author.avatarURL)
             .addField('Action:', "Ban")

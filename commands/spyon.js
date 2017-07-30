@@ -7,7 +7,7 @@
         message.reply(' they don\'t allow me to generate invites :(')
     }
   } else{
-      message.reply(" only AirFusion gets to spy on servers, sorry")
+      message.reply(" only AirFusion gets to spy on servers, sorry.")
   }
 }
 

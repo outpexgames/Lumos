@@ -9,7 +9,7 @@ exports.run = function (client, message, args, args2, cmd, config) {
     if (message.mentions.users.size < 1) return message.reply("You must mention someone to warn them.").catch(console.error)
     if (user === message.author) return message.reply("You cannot warn yourself")
     const embed = new Discord.RichEmbed()
-        .setColor('#2D7FFF') //change the color!!!
+        .setColor('#66ff00') //change the color!!!
         .setTimestamp()
         .setThumbnail(message.author.avatarURL)
         .addField('Action:', "Warning")
@@ -21,7 +21,7 @@ exports.run = function (client, message, args, args2, cmd, config) {
         disableEveryone: true
     });
     const embed1 = new Discord.RichEmbed()
-        .setColor('#2D7FFF') //change the color!!!
+        .setColor('#66ff00') //change the color!!!
         .setTimestamp()
         .setThumbnail(message.author.avatarURL)
         .addField('Action:', "Warning")
