@@ -60,3 +60,4 @@ Version 2.5.9.5
     edited morse command; so it actually prints 
     edited anagram if user inputs nothing, the bot will provide a reply prompt
     changed up all the colors of commands that use Discord.RichEmbed
+    stopped multi tagging user when leaving the server
