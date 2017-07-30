@@ -16,7 +16,7 @@ Version 2.5.2 ChangeLog:
     fixed bot token leak issues...
     updated github repo
 
-Version 2.5.7 changelog
+Version 2.5.7 changelog:
     changed kick command permissions
     updated guildMemberRemove
     added ban
@@ -34,3 +34,29 @@ Version 2.5.7 changelog
     added util.js 
     new npm: 'ms' used to convert timestamps to human readable time. For lockdown command
     updated commands command
+
+Version 2.5.9 changelog:
+    updated morse command
+    updated commands command
+    updated ccencode command
+    updated ccdecode command
+    moved morse command to sepatate js file
+    added binary command
+    moved botinfo command to separate js file
+    moved userstats command to separate js file
+    moved stats command to separate js file
+    cleaned up util.js
+    updated/backuped index.js to index.jsbackup.txt
+
+Version 2.5.9.5
+    added/made a trello (https://trello.com/b/lyGy3ydI/powerbot-bugs)
+    updated ban command user feedback/bot reply message
+    updated unban command user feedback/bot reply message
+    updated commands command's prefix in RichEmbed
+    fixed where dndexit command tags the message author 2 times
+    fixed startup command print to channel
+    fixed spyon command print to channel
+    changed setstatus command permissions
+    edited morse command; so it actually prints 
+    edited anagram if user inputs nothing, the bot will provide a reply prompt
+    changed up all the colors of commands that use Discord.RichEmbed
