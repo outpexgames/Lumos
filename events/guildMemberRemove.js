@@ -7,5 +7,6 @@ module.exports = member => {
     else {
         guild.defaultChannel.sendMessage(`Goodbye to user ${member.user} :(`);
     }
+
 }
 
