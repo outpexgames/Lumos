@@ -16,9 +16,8 @@ exports.run = function (client, message, args, args2, cmd, config) {
         .addField('Duration/Time:', time)
         .addField("Moderator:", message.author.username + "#" + message.author.discriminator)
 
-    client.channels.get(modlog.id).sendEmbed(embed, {
-        disableEveryone: true
-    });
+    client.channels.get(modlog.id).send({embed: embed})
+    
     if (validUnlocks.includes(time)) {
         message.channel.overwritePermissions(message.guild.id, {
             SEND_MESSAGES: null

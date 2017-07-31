@@ -1,6 +1,6 @@
 exports.run = function (client, message, args, args2, cmd) {
      const Discord = require('discord.js');
-    
+
 let user = message.mentions.users.first()
         let game = ''
         if (user.presence.game === null) {
@@ -21,7 +21,5 @@ let user = message.mentions.users.first()
             .addField('Created Account', user.createdAt)
         //.addField('Roles', message.member.roles.size > 0 ? message.member.roles.map(d => d.name).join(', ') : 'None')
 
-        message.channel.sendEmbed(userInfo, {
-            disableEveryone: true
-        })
+        message.channel.send({embed: userInfo})
 };

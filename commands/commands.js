@@ -1,7 +1,7 @@
 function getRandomIntInclusive(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive 
+    return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive
 }
 
 exports.run = function (client, message, args, args2, cmd) {
@@ -40,9 +40,8 @@ exports.run = function (client, message, args, args2, cmd) {
             .addField('say|Echo what you said/sent', `\`say <Message You Want To Echo>\``)
             .addField("setgame|Sets PowerBot's game! **(Special Permissions Required: This Command Is Owner ONLY!)**", `\`setgame <Mood/Game>\``)
         //25
-        message.channel.sendEmbed(embed, {
-            disableEveryone: true
-        })
+        message.channel.send({embed: embed})
+
         const embed1 = new Discord.RichEmbed()
             .setColor('#ccff00') //change the color!
             //.setTitle("PowerBot Commands-Continued\n\n")
@@ -54,7 +53,7 @@ exports.run = function (client, message, args, args2, cmd) {
             .addField('ban|Bans a mentioned member', `\`ban <@user>\``)
             .addField('unban|Unbans a user by ID **(Special Permission Required: BAN_MEMBERS)**', `\`unban <user ID>\``)
             .addField('warn|Warns a mentioned user **(Special Permission Required: MANAGE_ROLES_OR_PERMISSIONS)**', `\`warn <@user>\``)
-            .addField('mute|Mute the mentioned user **(Special Permission Required: MANAGE_ROLES_OR_PERMISSIONS)**', `\`warn <@user>\``)
+            .addField('mute|Mute the mentioned user **(Special Permission Required: MANAGE_ROLES_OR_PERMISSIONS)**', `\`mute <@user>\``)
             .addField('unmute|Unmute the mentioned user **(Special Permission Required: MANAGE_ROLES_OR_PERMISSIONS)**', `\`unmute <@user>\``)
             .addField('lockdown|Locks down the messaged channel **(Special Permission Required: MANAGE_CHANNELS)**', `\`lockdown <time; h/m/s>\``)
             .addField('unlock|Unlocks the lockdown in the current channel **(Special Permission Required: MANAGE_CHANNELS)**', `\`lockdown unlock\``)
@@ -62,9 +61,7 @@ exports.run = function (client, message, args, args2, cmd) {
             .addField('userstats|Displays stats on the mentioned user', `\`userstats <@user>\``)
             .addField('botinfo|Displays info about the bot', `\`botinfo\``)
             .addField('morse|Converts words & sentences into morse code', `\`morse <letter/word/sentence>\``)
-        message.channel.sendEmbed(embed1, {
-            disableEveryone: true
-        })
+        message.channel.send({embed: embed1})
     }
     if (select === 2) {
         const embed = new Discord.RichEmbed()
@@ -98,9 +95,8 @@ exports.run = function (client, message, args, args2, cmd) {
             .addField('say|Echo what you said/sent', `\`say <Message You Want To Echo>\``)
             .addField("setgame|Sets PowerBot's game! **(Special Permissions Required: This Command Is Owner ONLY!)**", `\`setgame <Mood/Game>\``)
         //25
-        message.channel.sendEmbed(embed, {
-            disableEveryone: true
-        })
+        message.channel.send({embed: embed})
+
         const embed1 = new Discord.RichEmbed()
             .setColor('#e32636') //change the color!
             //.setTitle("PowerBot Commands-Continued\n\n")
@@ -112,7 +108,7 @@ exports.run = function (client, message, args, args2, cmd) {
             .addField('ban|Bans a mentioned member', `\`ban <@user>\``)
             .addField('unban|Unbans a user by ID **(Special Permission Required: BAN_MEMBERS)**', `\`unban <user ID>\``)
             .addField('warn|Warns a mentioned user **(Special Permission Required: MANAGE_ROLES_OR_PERMISSIONS)**', `\`warn <@user>\``)
-            .addField('mute|Mute the mentioned user **(Special Permission Required: MANAGE_ROLES_OR_PERMISSIONS)**', `\`warn <@user>\``)
+            .addField('mute|Mute the mentioned user **(Special Permission Required: MANAGE_ROLES_OR_PERMISSIONS)**', `\`mute <@user>\``)
             .addField('unmute|Unmute the mentioned user **(Special Permission Required: MANAGE_ROLES_OR_PERMISSIONS)**', `\`unmute <@user>\``)
             .addField('lockdown|Locks down the messaged channel **(Special Permission Required: MANAGE_CHANNELS)**', `\`lockdown <time; h/m/s>\``)
             .addField('unlock|Unlocks the lockdown in the current channel **(Special Permission Required: MANAGE_CHANNELS)**', `\`lockdown unlock\``)
@@ -120,9 +116,7 @@ exports.run = function (client, message, args, args2, cmd) {
             .addField('userstats|Displays stats on the mentioned user', `\`userstats <@user>\``)
             .addField('botinfo|Displays info about the bot', `\`botinfo\``)
             .addField('morse|Converts words & sentences into morse code', `\`morse <letter/word/sentence>\``)
-        message.channel.sendEmbed(embed1, {
-            disableEveryone: true
-        })
+        message.channel.send({embed: embed1})
     }
     if (select === 3) {
          const embed = new Discord.RichEmbed()
@@ -156,9 +150,8 @@ exports.run = function (client, message, args, args2, cmd) {
             .addField('say|Echo what you said/sent', `\`say <Message You Want To Echo>\``)
             .addField("setgame|Sets PowerBot's game! **(Special Permissions Required: This Command Is Owner ONLY!)**", `\`setgame <Mood/Game>\``)
         //25
-        message.channel.sendEmbed(embed, {
-            disableEveryone: true
-        })
+        message.channel.send({embed: embed})
+
         const embed1 = new Discord.RichEmbed()
             .setColor('#0047ab') //change the color!
             //.setTitle("PowerBot Commands-Continued\n\n")
@@ -170,7 +163,7 @@ exports.run = function (client, message, args, args2, cmd) {
             .addField('ban|Bans a mentioned member', `\`ban <@user>\``)
             .addField('unban|Unbans a user by ID **(Special Permission Required: BAN_MEMBERS)**', `\`unban <user ID>\``)
             .addField('warn|Warns a mentioned user **(Special Permission Required: MANAGE_ROLES_OR_PERMISSIONS)**', `\`warn <@user>\``)
-            .addField('mute|Mute the mentioned user **(Special Permission Required: MANAGE_ROLES_OR_PERMISSIONS)**', `\`warn <@user>\``)
+            .addField('mute|Mute the mentioned user **(Special Permission Required: MANAGE_ROLES_OR_PERMISSIONS)**', `\`mute <@user>\``)
             .addField('unmute|Unmute the mentioned user **(Special Permission Required: MANAGE_ROLES_OR_PERMISSIONS)**', `\`unmute <@user>\``)
             .addField('lockdown|Locks down the messaged channel **(Special Permission Required: MANAGE_CHANNELS)**', `\`lockdown <time; h/m/s>\``)
             .addField('unlock|Unlocks the lockdown in the current channel **(Special Permission Required: MANAGE_CHANNELS)**', `\`lockdown unlock\``)
@@ -178,9 +171,7 @@ exports.run = function (client, message, args, args2, cmd) {
             .addField('userstats|Displays stats on the mentioned user', `\`userstats <@user>\``)
             .addField('botinfo|Displays info about the bot', `\`botinfo\``)
             .addField('morse|Converts words & sentences into morse code', `\`morse <letter/word/sentence>\``)
-        message.channel.sendEmbed(embed1, {
-            disableEveryone: true
-        })
+        message.channel.send({embed: embed1})
     }
     //   }
 };

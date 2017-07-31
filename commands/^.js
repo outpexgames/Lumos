@@ -2,5 +2,5 @@
         var test = args.join(' ');
         var res = test.slice(0, 1);
         var answer = Math.pow(res, args2.join(' '));
-        message.channel.sendMessage(answer);
+        message.channel.send(answer);
  };

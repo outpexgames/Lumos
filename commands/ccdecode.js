@@ -28,7 +28,7 @@ function decode(ch, shift) {
             return String.fromCharCode(y)
         }
         // else {
-        // 	message.channel.sendMessage("Invalid Input");
+        // 	message.channel.send("Invalid Input");
         // }
     }
 
@@ -50,7 +50,7 @@ exports.run = function (client, message, args, args2, cmd, config) {
         // console.log(array[i])
         res += decode(array[i], shift)
         res.replace("undefined", " ");
-        //message.channel.sendMessage("Your answer is " + res)
+        //message.channel.send("Your answer is " + res)
         // console.log(array[i])
     }
 
@@ -62,6 +62,6 @@ exports.run = function (client, message, args, args2, cmd, config) {
             break;
         }
     }
-    message.channel.sendMessage("Your answer is " + res.replace("undefined", " "))
+    message.channel.send("Your answer is " + res.replace("undefined", " "))
 
 }

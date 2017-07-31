@@ -32,7 +32,5 @@ const embed = new Discord.RichEmbed()
             // .addField('💾 Last Commit', jsonBody[0].commit.message, true)
             .addField('🐏 RAM Usage', `${((process.memoryUsage().heapUsed / 1024) / 1024).toFixed(2)} MB`, true)
             .addField('🏓 Ping', `${(client.ping).toFixed(0)} ms`, true)
-        message.channel.sendEmbed(embed, {
-            disableEveryone: true
-        })
+        message.channel.send({embed: embed})
 };

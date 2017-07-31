@@ -6,5 +6,5 @@ exports.run = function (client, message, args, args2, cmd) {
     for (var i = 0; i < input.length; i++) {
         output += input[i].charCodeAt(0).toString(2) + " "; //tostring reverse enginerners hex to binary.
     }
-    message.channel.sendMessage(output)
+    message.channel.send(output)
 };

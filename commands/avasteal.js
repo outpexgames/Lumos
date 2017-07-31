@@ -1,3 +1,3 @@
 exports.run = function (client, message, args, args2, cmd, config) {
-message.channel.sendMessage(message.mentions.users.first().avatarURL);
+message.channel.send(message.mentions.users.first().avatarURL);
 };

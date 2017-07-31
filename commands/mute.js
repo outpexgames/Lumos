@@ -22,9 +22,8 @@ exports.run = function (client, message, args, args2, cmd, config) {
         .addField("User ID:", user.id)
         .addField("Moderator:", message.author.username + "#" + message.author.discriminator)
         .addField("Reason:", reason)
-    client.channels.get(modlog.id).sendEmbed(embed, {
-        disableEveryone: true
-    });
+    client.channels.get(modlog.id).send({embed: embed})
+
     const embed1 = new Discord.RichEmbed()
         .setColor('#ff2800') //change the color!!!
         .setTimestamp()
@@ -34,9 +33,8 @@ exports.run = function (client, message, args, args2, cmd, config) {
         .addField("User ID:", user.id)
         .addField("Moderator:", message.author.username + "#" + message.author.discriminator)
         .addField("Reason:", reason)
-    message.channel.sendEmbed(embed1, {
-        disableEveryone: true
-    });
+    message.channel.send({embed: embed1})
+  
 
 
 };

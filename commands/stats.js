@@ -19,7 +19,6 @@ let game = ''
             .addField('Created Account', message.author.createdAt)
             .addField('Roles', message.member.roles.size > 0 ? message.member.roles.map(d => d.name).join(', ') : 'None')
 
-        message.channel.sendEmbed(userInfo, {
-            disableEveryone: true
-        })
+        message.channel.send({embed: userInfo})
+    
 };

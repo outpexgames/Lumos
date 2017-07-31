@@ -3,7 +3,7 @@
 // var amount = args.join(' ')
 // var str = args2.join(' ')
 // if (amount < 0)
-//         message.channel.sendMessage(caesarShift(str, amount + 26));
+//         message.channel.send(caesarShift(str, amount + 26));
 
 //     // Make an output variable
 //     var output = '';
@@ -36,5 +36,5 @@
 //     }
 
 //     // All done!
-//     message.channel.sendMessage(output);
+//     message.channel.send(output);
 // }

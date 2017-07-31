@@ -18,9 +18,7 @@ exports.run = function (client, message, args, args2, cmd, config) {
             .addField("User ID:", user.id)
             .addField("Moderator:", message.author.username + "#" + message.author.discriminator)
             .addField("Reason:", reason)
-       message.channel.sendEmbed(channelsendlol, {
-            disableEveryone: true
-        });
+       message.channel.send({embed: channelsendlol});
         const okgoogle = new Discord.RichEmbed()
             .setColor('#003366') //change the color!!!
             .setTimestamp()
@@ -33,9 +31,7 @@ exports.run = function (client, message, args, args2, cmd, config) {
         //  .addField('Kicked User ID: ', `${message.mentions.users.first().id}`)
 
 
-        client.channels.find("name", "modlog").sendEmbed(okgoogle, {
-            disableEveryone: true
-        });
+        client.channels.find("name", "modlog").send({embed: okgoogle})
         //message.channel.send("\n\n")
         setTimeout(function () {
            message.guild.ban(user)

@@ -4,6 +4,6 @@ exports.run = function (client, message, args, args2, cmd) {
     client.user.setGame(args.join(' '));
 }
 else{
-    message.channel.sendMessage("Insufficant Permissions!")
+    message.channel.send("Insufficant Permissions!")
 }
 };

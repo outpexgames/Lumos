@@ -2,15 +2,15 @@
  var first = args.join(' ');
         var second = args2.join(' ');
         if (!first) {
-            message.channel.sendMessage("You need to provide the first word!")
+            message.channel.send("You need to provide the first word!")
             stop();
         }
         else if (!second) {
-            message.channel.sendMessage("You need to provide the second word!")
+            message.channel.send("You need to provide the second word!")
             stop();
         }
         if (first && !second) {
-           message.channel.sendMessage("You need to provide the second word!") 
+           message.channel.send("You need to provide the second word!") 
            stop();
         }
         first = first.replace(second, "")
@@ -18,9 +18,9 @@
         var reverse = first.split("").reverse().join("");
 
         if (reverse === second) {
-            message.channel.sendMessage("Anagram");
+            message.channel.send("Anagram");
         } else {
-            message.channel.sendMessage("Not Anagram");
+            message.channel.send("Not Anagram");
         }
 
  };
