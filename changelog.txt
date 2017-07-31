@@ -10,8 +10,8 @@ Version 2.5.2 ChangeLog:
     changed setstatus permissions
     fixed startup command bold & text formatting issues
     added commands func/cmd
-    ccencode moved from index.js to ccencode.js 
-    ccdecode moved from index.js to ccdecode.js 
+    ccencode moved from index.js to ccencode.js
+    ccdecode moved from index.js to ccdecode.js
     cleaned up all the comments in index.js to index.jsbackup.txt
     fixed bot token leak issues...
     updated github repo
@@ -26,12 +26,12 @@ Version 2.5.7 changelog:
     added unmute
     changed modlog Discord.RichEmbed formatting
     added lockdown
-    added stats command 
+    added stats command
     added userstats (mentioned user status)
     added bot info & stats
     WIP command alluserinfo; displays all user in guild's info, WIP: privacy issue, 2000 word discord text limit. POS Rightnow: console.log(<cmd>)
     added morse command
-    added util.js 
+    added util.js
     new npm: 'ms' used to convert timestamps to human readable time. For lockdown command
     updated commands command
 
@@ -57,7 +57,19 @@ Version 2.5.9.5
     fixed startup command print to channel
     fixed spyon command print to channel
     changed setstatus command permissions
-    edited morse command; so it actually prints 
+    edited morse command; so it actually prints
     edited anagram if user inputs nothing, the bot will provide a reply prompt
     changed up all the colors of commands that use Discord.RichEmbed
     stopped multi tagging user when leaving the server
+
+Version 2.5.9.7 ----- !!!CRITICAL UPDATE DUE TO SOME DISCORD.JS CODE DEPRECATED
+    Updated discord.js to 10.1.0
+    updated chalk to 2.0.1
+    updated @types/node to 8.0.17
+    updated cheerio to 1.0.0-rc.2
+    updated all sendMessage, sendCode, sendEmbed to send //THIS WAS THE REASON FOR THE CRITICAL UPDATE
+    fixed eval after changing the sendCode to send
+    updated color command
+    updated the mute command help in commands
+    NOW EVERYTHING IS CONVERTED TO DISCORD.JS 10.1.0!
+    added Discord.RichEmbed List.txt

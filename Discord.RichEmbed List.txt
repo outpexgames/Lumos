@@ -1,0 +1,13 @@
+ban--
+botinfo--
+color--
+commands--
+help--
+kick--
+lockdown--
+mute--
+stats--
+unban--
+unmute--
+userstats--
+warn--

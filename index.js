@@ -22,11 +22,11 @@ var reload = (message, cmd) => {
     try {
         let cmdFile = require('./commands/' + cmd);
     } catch (error) {
-        message.channel.sendMessage(`Problem loading ${cmd}: ${error}`).then(
+        message.channel.send(`Problem loading ${cmd}: ${error}`).then(
             response => response.delete(1000).catch(error => console.log(error.stack))
         ).catch(error => console.log(error.stack));
     }
-    message.channel.sendMessage(`${cmd} reload was a success!`).then(
+    message.channel.send(`${cmd} reload was a success!`).then(
         response => response.delete(1000).catch(error => console.log(error.stack))
     ).catch(error => console.log(error.stack));
 };
@@ -69,7 +69,7 @@ client.on("message", message => {  //message handler starts here!
         //console.log(client.users)
         //}
         // else {
-        //     message.channel.sendMessage("Insufficant Perms")
+        //     message.channel.send("Insufficant Perms")
         // }
     }
     
@@ -82,13 +82,13 @@ client.on("message", message => {  //message handler starts here!
                 var done = eval(jvs);
                 if (typeof done !== "string")
                     done = require("util").inspect(done);
-                message.channel.sendCode("x1", clean(done));
+                message.channel.send("```"+`${clean(done)}`+"```");
             } catch (e) {
-                message.channel.sendMessage(`\`ERROR\` \`\`\`x1\n${clean(e)}\n\`\`\``);
+                message.channel.send(`\`ERROR\` \`\`\`x1\n${clean(e)}\n\`\`\``);
             }
         }
         else {
-            message.channel.sendMessage("HEY! Stop trying to get into Fusion's computer!")
+            message.channel.send("HEY! Stop trying to get into Fusion's computer!")
         }
     }
 
