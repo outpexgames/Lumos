@@ -63,7 +63,7 @@ Version 2.5.9.5
     stopped multi tagging user when leaving the server
 
 Version 2.5.9.7 ----- !!!CRITICAL UPDATE DUE TO SOME DISCORD.JS CODE DEPRECATED
-    Updated discord.js to 10.1.0
+    Updated discord.js to 11.1.0
     updated chalk to 2.0.1
     updated @types/node to 8.0.17
     updated cheerio to 1.0.0-rc.2
@@ -71,5 +71,5 @@ Version 2.5.9.7 ----- !!!CRITICAL UPDATE DUE TO SOME DISCORD.JS CODE DEPRECATED
     fixed eval after changing the sendCode to send
     updated color command
     updated the mute command help in commands
-    NOW EVERYTHING IS CONVERTED TO DISCORD.JS 10.1.0!
+    NOW EVERYTHING IS CONVERTED TO DISCORD.JS 11.1.0!
     added Discord.RichEmbed List.txt
