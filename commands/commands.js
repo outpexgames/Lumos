@@ -40,7 +40,7 @@ exports.run = function (client, message, args, args2, cmd) {
             .addField('say|Echo what you said/sent', `\`say <Message You Want To Echo>\``)
             .addField("setgame|Sets PowerBot's game! **(Special Permissions Required: This Command Is Owner ONLY!)**", `\`setgame <Mood/Game>\``)
         //25
-        message.channel.send({embed: embed})
+        message.channel.send({ embed: embed })
 
         const embed1 = new Discord.RichEmbed()
             .setColor('#ccff00') //change the color!
@@ -60,8 +60,17 @@ exports.run = function (client, message, args, args2, cmd) {
             .addField('stats|Displays status about the author of the message', `\`stats\``)
             .addField('userstats|Displays stats on the mentioned user', `\`userstats <@user>\``)
             .addField('botinfo|Displays info about the bot', `\`botinfo\``)
-            .addField('morse|Converts words & sentences into morse code', `\`morse <letter/word/sentence>\``)
-        message.channel.send({embed: embed1})
+            .addField('morse|Converts words & sentences into morse code', `\`morse <letter/word/sentence>\``) //from here
+            .addField('binary|Converts something to binary', `\`binary <word/number>\``)
+            .addField('emojimap|Displays all custom uploaded emojis on a server', `\`emojimap\``)
+            .addField('emojisearch|Search for the emoji that you input', `\`emojisearch <emoji name>\``)
+            .addField('yt|Search YouTube for videos, channels & playlists', `\`yt <video name/channel name/playlist name>\``)
+            //wolfram WIP
+            .addField('google|Search Google for the user input', `\`google <quary>\``)
+            .addField('outer-reload|Reloads the specified file in the outer file structure **(Special Permission Required: This Command Is Owner ONLY!)**', `\`outer-reload <reload file name>\``)
+            .addField('reload|Reloads the specified file in the file structure **(Special Permission Required: This Command Is Owner ONLY!)**', `\`reload <module name>\``)
+
+        message.channel.send({ embed: embed1 })
     }
     if (select === 2) {
         const embed = new Discord.RichEmbed()
@@ -95,7 +104,7 @@ exports.run = function (client, message, args, args2, cmd) {
             .addField('say|Echo what you said/sent', `\`say <Message You Want To Echo>\``)
             .addField("setgame|Sets PowerBot's game! **(Special Permissions Required: This Command Is Owner ONLY!)**", `\`setgame <Mood/Game>\``)
         //25
-        message.channel.send({embed: embed})
+        message.channel.send({ embed: embed })
 
         const embed1 = new Discord.RichEmbed()
             .setColor('#e32636') //change the color!
@@ -116,10 +125,18 @@ exports.run = function (client, message, args, args2, cmd) {
             .addField('userstats|Displays stats on the mentioned user', `\`userstats <@user>\``)
             .addField('botinfo|Displays info about the bot', `\`botinfo\``)
             .addField('morse|Converts words & sentences into morse code', `\`morse <letter/word/sentence>\``)
-        message.channel.send({embed: embed1})
+            .addField('binary|Converts something to binary', `\`binary <word/number>\``)
+            .addField('emojimap|Displays all custom uploaded emojis on a server', `\`emojimap\``)
+            .addField('emojisearch|Search for the emoji that you input', `\`emojisearch <emoji name>\``)
+            .addField('yt|Search YouTube for videos, channels & playlists', `\`yt <video name/channel name/playlist name>\``)
+            //wolfram WIP
+            .addField('google|Search Google for the user input', `\`google <quary>\``)
+            .addField('outer-reload|Reloads the specified file in the outer file structure **(Special Permission Required: This Command Is Owner ONLY!)**', `\`outer-reload <reload file name>\``)
+            .addField('reload|Reloads the specified file in the file structure **(Special Permission Required: This Command Is Owner ONLY!)**', `\`reload <module name>\``)
+        message.channel.send({ embed: embed1 })
     }
     if (select === 3) {
-         const embed = new Discord.RichEmbed()
+        const embed = new Discord.RichEmbed()
             .setColor('#0047ab') //change the color!
             .setTitle("PowerBot Commands\n\n")
             .addField("Prefix:", `\`${config.prefix}\``)
@@ -150,7 +167,7 @@ exports.run = function (client, message, args, args2, cmd) {
             .addField('say|Echo what you said/sent', `\`say <Message You Want To Echo>\``)
             .addField("setgame|Sets PowerBot's game! **(Special Permissions Required: This Command Is Owner ONLY!)**", `\`setgame <Mood/Game>\``)
         //25
-        message.channel.send({embed: embed})
+        message.channel.send({ embed: embed })
 
         const embed1 = new Discord.RichEmbed()
             .setColor('#0047ab') //change the color!
@@ -171,7 +188,15 @@ exports.run = function (client, message, args, args2, cmd) {
             .addField('userstats|Displays stats on the mentioned user', `\`userstats <@user>\``)
             .addField('botinfo|Displays info about the bot', `\`botinfo\``)
             .addField('morse|Converts words & sentences into morse code', `\`morse <letter/word/sentence>\``)
-        message.channel.send({embed: embed1})
+            .addField('binary|Converts something to binary', `\`binary <word/number>\``)
+            .addField('emojimap|Displays all custom uploaded emojis on a server', `\`emojimap\``)
+            .addField('emojisearch|Search for the emoji that you input', `\`emojisearch <emoji name>\``)
+            .addField('yt|Search YouTube for videos, channels & playlists', `\`yt <video name/channel name/playlist name>\``)
+            //wolfram WIP
+            .addField('google|Search Google for the user input', `\`google <quary>\``)
+            .addField('outer-reload|Reloads the specified file in the outer file structure **(Special Permission Required: This Command Is Owner ONLY!)**', `\`outer-reload <reload file name>\``)
+            .addField('reload|Reloads the specified file in the file structure **(Special Permission Required: This Command Is Owner ONLY!)**', `\`reload <module name>\``)
+        message.channel.send({ embed: embed1 })
     }
     //   }
 };
