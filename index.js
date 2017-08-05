@@ -5,8 +5,17 @@ const fs = require('fs')
 const path = require('path')
 const config = require("./config.json");
 const chalk = require('chalk');
+var YouTube = require('youtube-node');
+var google = require('google')
+var youTube = new YouTube();
+const youtubeKey = config.yt;
+youTube.setKey(youtubeKey)
+var LocalStorage = require('node-localstorage').LocalStorage;
+localStorage = new LocalStorage('./');
 const embed = new Discord.RichEmbed()
+var pastebin = require('./node_modules/pastebin/src/pastebin.js')(config.pastebin);
 const { binary } = require('./util.js')
+var wolfram = require('wolfram').createClient(config.wolfram)
 require('./util/eventLoader')(client);
 
 
@@ -53,38 +62,67 @@ client.on("message", message => {  //message handler starts here!
     let cmd2 = args2.join(' ');
     var res = cmd.slice(0, 1)
 
-    // !!!added super script
-    if (command === "alluserinfo") {  //wip
-        // if (message.author.id === "243222905188646912") {
-        console.log(client.users)
-        //message.member.roles.map(d => d.name).join(', ') : 'None'
-        //     const embed = new Discord.RichEmbed()
-        //     .setColor('#7d5bbe')
-        //     .setTitle(client.user.username + " " + config.version + ` Stats`)
-        //     .setDescription(client.user.username + ' has been awake for ' + timeCon(process.uptime()))
-        //     .addField("client users", client.users)
-        //      message.channel.sendEmbed(embed, {
-        //     disableEveryone: true
-        // })
-        //console.log(client.users)
-        //}
-        // else {
-        //     message.channel.send("Insufficant Perms")
-        // }
+    if (command === "outer-reload") {
+        if (message.author.id === config.owner) {
+            if (!args || args.size < 1) return message.reply("Must provide a command name to reload.");
+            // the path is relative to the *current folder*, so just ./filename.js
+            delete require.cache[require.resolve(`./${args[0]}.js`)];
+            message.reply(`:white_check_mark: The command ${args[0]} has been reloaded`);
+        }
+        else {
+            message.reply(":x: Insufficant Permissions!")
+        }
     }
-    
-    
+
+    if (command === "wolfram") { //WIP
+        wolfram.query(args.join(' '), function (err, result) {
+            if (err) throw err
+            localStorage.setItem('Wolfram-Results.json', result);
+            message.channel.send({ files: ['Wolfram-Results.json'] });
+            message.channel.send("**Solution: **" + result)
+            console.log(result)
+        })
+    }
+
 
     if (command === "eval") {
         if (message.author.id === config.owner) {
+            var x = Date.now();
+            //var y = 0;
             try {
                 var jvs = args.join(" ");
                 var done = eval(jvs);
                 if (typeof done !== "string")
                     done = require("util").inspect(done);
-                message.channel.send("```"+`${clean(done)}`+"```");
-            } catch (e) {
-                message.channel.send(`\`ERROR\` \`\`\`x1\n${clean(e)}\n\`\`\``);
+                message.channel.send(":white_check_mark: **Output:**\n" + "```" + `${clean(done)}` + "```");
+                localStorage.setItem('Eval-Results.json', clean(done));
+                message.channel.send({ files: ['Eval-Results.json'] });
+                pastebin.new({ title: 'Eval Results', content: clean(done) }, function (err, ret) {
+                    if (err)
+                        message.channel.send(err);
+                    else
+                        message.channel.send(ret);
+
+                });
+                var y = Date.now();
+                var noplz = y - x
+                message.channel.send("Time used: " + noplz + " ms");
+            }
+
+            catch (e) {
+                message.channel.send(":x: **Output:**\n" + `\`ERROR\` \`\`\`x1\n${clean(e)}\n\`\`\``);
+                localStorage.setItem('Eval-Results.json', clean(e));
+                message.channel.send({ files: ['Eval-Results.json'] });
+                pastebin.new({ title: 'Eval Results', content: clean(e) }, function (err, ret) {
+                    if (err)
+                        message.channel.send(err);
+                    else
+                        message.channel.send(ret);
+
+                });
+                var y = Date.now();
+                var noplz = y - x
+                message.channel.send("Time used: " + noplz + " ms");
             }
         }
         else {
