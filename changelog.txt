@@ -73,24 +73,3 @@ Version 2.5.9.7 ----- !!!CRITICAL UPDATE DUE TO SOME DISCORD.JS CODE DEPRECATED
     updated the mute command help in commands
     NOW EVERYTHING IS CONVERTED TO DISCORD.JS 11.1.0!
     added Discord.RichEmbed List.txt
-
-Version 2.6.0
-    added emojimap -- shows all custom emojis on a server
-    added emojisearch -- shows the emoji of the user's input
-    added yt search
-    added .json file return on command alluserinfo
-    added .json file return on yt search
-    added pastebin intergration for eval
-    added a exec timer for eval
-    added a file output containing the results from eval for eval
-    added wolfram alpha intergration, .json file return & channel send results !!WIP
-    moved emojimap, emojisearch, alluserinfo, yt to func like .js files
-    added google search intergration
-    moved google cmd to func like .js files
-    added outer-reload command to reload modules outside of folders
-    fixed reload command for commands folder
-    fixed the version in config.json
-    added api keys to config.json
-    changed license in package.json
-    added LICENSE doc
-
