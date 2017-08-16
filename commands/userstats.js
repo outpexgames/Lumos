@@ -19,7 +19,8 @@ let user = message.mentions.users.first()
             .addField('Playing', game, true)
             //.addField('Joined Server', message.mentions.users.first().joinedAt)
             .addField('Created Account', user.createdAt)
-        //.addField('Roles', message.member.roles.size > 0 ? message.member.roles.map(d => d.name).join(', ') : 'None')
+           
+       // .addField('Roles', message.member.roles.size > 0 ? message.member.roles.map(d => d.name).join(', ') : 'None')
 
         message.channel.send({embed: userInfo})
 };

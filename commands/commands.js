@@ -69,8 +69,19 @@ exports.run = function (client, message, args, args2, cmd) {
             .addField('google|Search Google for the user input', `\`google <quary>\``)
             .addField('outer-reload|Reloads the specified file in the outer file structure **(Special Permission Required: This Command Is Owner ONLY!)**', `\`outer-reload <reload file name>\``)
             .addField('reload|Reloads the specified file in the file structure **(Special Permission Required: This Command Is Owner ONLY!)**', `\`reload <module name>\``)
-
+            .addField('embed|Sends a embeded version of a message', `\`embed <your message.\``)
+            .addField('prime|Finds the nth prime', `\`prime <n th>\``)
         message.channel.send({ embed: embed1 })
+
+        const embed2 = new Discord.RichEmbed()
+            .setColor('#ccff00')
+            .addField('numrand|Number randomizer', `\`numrand <min range number> <max range number>\``)
+            .addField(`rps|Rock paper scissor game`, `\`rps <your selection>\``)
+            .addField('dm|Directly Message a mentioned user', `\`dm <@user> <message>\``)
+            .addField('clean|Cleans reaction on messages by PowerBot', `\`clean <number of messages (atleast 2; which is one message)>\``)
+            .addField('killall|A kill switch for PowerBot')
+            .addField('serverinv|Generates a invite for the current server', `\`serverinv\``)
+        message.channel.send({ embed: embed2 })
     }
     if (select === 2) {
         const embed = new Discord.RichEmbed()
@@ -133,7 +144,18 @@ exports.run = function (client, message, args, args2, cmd) {
             .addField('google|Search Google for the user input', `\`google <quary>\``)
             .addField('outer-reload|Reloads the specified file in the outer file structure **(Special Permission Required: This Command Is Owner ONLY!)**', `\`outer-reload <reload file name>\``)
             .addField('reload|Reloads the specified file in the file structure **(Special Permission Required: This Command Is Owner ONLY!)**', `\`reload <module name>\``)
-        message.channel.send({ embed: embed1 })
+            .addField('embed|Sends a embeded version of a message', `\`embed <your message.\``)
+            .addField('prime|Finds the nth prime', `\`prime <n th>\``)
+            message.channel.send({ embed: embed1 })
+        const embed2 = new Discord.RichEmbed()
+            .setColor('#e32636')
+            .addField('numrand|Number randomizer', `\`numrand <min range number> <max range number>\``)
+            .addField(`rps|Rock paper scissor game`, `\`rps <your selection>\``)
+            .addField('dm|Directly Message a mentioned user', `\`dm <@user> <message>\``)
+            .addField('clean|Cleans reaction on messages by PowerBot', `\`clean <number of messages (atleast 2; which is one message)>\``)
+            .addField('killall|A kill switch for PowerBot')
+            .addField('serverinv|Generates a invite for the current server', `\`serverinv\``)
+        message.channel.send({ embed: embed2 })
     }
     if (select === 3) {
         const embed = new Discord.RichEmbed()
@@ -196,7 +218,17 @@ exports.run = function (client, message, args, args2, cmd) {
             .addField('google|Search Google for the user input', `\`google <quary>\``)
             .addField('outer-reload|Reloads the specified file in the outer file structure **(Special Permission Required: This Command Is Owner ONLY!)**', `\`outer-reload <reload file name>\``)
             .addField('reload|Reloads the specified file in the file structure **(Special Permission Required: This Command Is Owner ONLY!)**', `\`reload <module name>\``)
+            .addField('embed|Sends a embeded version of a message', `\`embed <your message.\``)
+            .addField('prime|Finds the nth prime', `\`prime <n th>\``)
         message.channel.send({ embed: embed1 })
+        const embed2 = new Discord.RichEmbed()
+            .setColor('#0047ab')
+            .addField('numrand|Number randomizer', `\`numrand <min range number> <max range number>\``)
+            .addField(`rps|Rock paper scissor game`, `\`rps <your selection>\``)
+            .addField('dm|Directly Message a mentioned user', `\`dm <@user> <message>\``)
+            .addField('clean|Cleans reaction on messages by PowerBot', `\`clean <number of messages (atleast 2; which is one message)>\``)
+            .addField('killall|A kill switch for PowerBot')
+            .addField('serverinv|Generates a invite for the current server', `\`serverinv\``)
+        message.channel.send({ embed: embed2 })
     }
-    //   }
 };

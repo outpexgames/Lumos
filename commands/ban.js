@@ -41,6 +41,6 @@ exports.run = function (client, message, args, args2, cmd, config) {
 
     }
     else {
-        message.reply("This user doesn't exist in the server!")
+        message.reply(":x: I can not ban " + user)
     }
 };
