@@ -94,3 +94,19 @@ Version 2.6.0
     changed license in package.json
     added LICENSE doc
 
+Version 2.6.5
+    updated command -^ where 2 digits as base would return 1
+    updated botinfo command; minor changes
+    added embed to let users embed custom msgs. //woo 100 lines of changelog :P LOL
+    added nth prime command
+    added numrand; random number generator
+    added rps command; rock paper scissors
+    added dm; a message system to dm people on the server
+    updated botinfo; minor text feedback changes
+    added clean; cleans reactions on bot's messages (message author needs to be the bot)
+    added killall; kill switch for the bot
+    added serverinv; generate a invite for the current server
+    cleaned up index.js
+    updated commands command
+    updated kick; minor feedback changes
+    updated ban; minor feedback changes

@@ -7,6 +7,8 @@ const config = require("./config.json");
 const chalk = require('chalk');
 var YouTube = require('youtube-node');
 var google = require('google')
+var rand = getRandomIntInclusive(1, 100);
+var base64url = require('base64-url');
 var youTube = new YouTube();
 const youtubeKey = config.yt;
 youTube.setKey(youtubeKey)
@@ -18,11 +20,15 @@ const { binary } = require('./util.js')
 var wolfram = require('wolfram').createClient(config.wolfram)
 require('./util/eventLoader')(client);
 
+function getRandomIntInclusive(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive
+}
 
 //TODO: https://youtu.be/Znvxk14Tg6A
 //TODO: https://youtu.be/8AiZBdcPKOM?t=29m10s
 //TODO: https://youtu.be/zdQplH3fwbU?t=16m1s
-//TODO: @ melmsie github, how did he do pls tts with speak of echos.
 ////https://youtu.be/qEDhVKFWoVg?t=18m21s
 //https://youtu.be/1AjBVocSQhM?t=24m58s
 
@@ -41,24 +47,14 @@ var reload = (message, cmd) => {
 };
 exports.reload = reload;
 
-
-
-
-
-
 client.on("message", message => {  //message handler starts here!
     if (message.author.bot) return;
     if (!message.content.startsWith(config.prefix)) return;
-
     let command = message.content.split(" ")[0];
     command = command.slice(config.prefix.length);
-
     let args = message.content.split(" ").slice(1);
-
     let args2 = message.content.split(" ").slice(2);
-
     let cmd = args.join(' ');
-
     let cmd2 = args2.join(' ');
     var res = cmd.slice(0, 1)
 
@@ -84,16 +80,67 @@ client.on("message", message => {  //message handler starts here!
         })
     }
 
+    function getRandomIntInclusive(min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive
+    }
+
+    if (command === 'serverinfo') {
+        const embed = new Discord.RichEmbed()
+            .setColor('#7d5bbe')
+            .setTitle(message.guild.name + ` Server Stats`)
+            .addField('📄 Channels', message.guild.channels.size, true)
+            .addField('🏠 Default Channel', message.guild.defaultChannel, true)
+            .addField(':man: Users', message.guild.memberCount, true)
+            .addField(':date: Guild Created At', message.guild.createdAt, true)
+            .addField(":globe_with_meridians: Server Region", message.guild.region, true)
+            .addField(`:keyboard: AFK Channel ID `, message.guild.afkChannelID, true)
+            .addField(`:keyboard: AFK Channel Timeout`, message.guild.afkTimeout + " seconds", true)
+            .addField(`:frame_photo: Server Icon`, message.guild.iconURL, true)
+            .addField(`:id: Guild ID`, message.guild.id, true)
+            .addField(`:man_in_tuxedo: Server Owner`, message.guild.owner, true)
+            .addField(`:man_in_tuxedo: Server Owner ID`, message.guild.ownerID, true)
+            .addField(`:closed_lock_with_key: Server Verification Level`, message.guild.verificationLevel, true)
+            .addField(`:joystick: Roles Size`, message.guild.roles.size, true)
+
+
+        message.channel.send({ embed: embed })
+        // Enable this if you want server roles to be printed message.channel.send("Roles List:\n" + message.guild.roles.map(e => e.toString()).join(" "), { code: 'js' })
+        message.guild.defaultChannel.createInvite({ maxAge: 300 }).then(inv => message.channel.send(inv.url ? inv.url : "discord.gg/" + inv.code))
+    }
+
+    if (command === "killall") {
+        if (message.author.id === config.owner) {
+            var check = base64url.encode(rand.toString())
+            if (!args.join(' ')) {
+                message.channel.send('Please get a password! It has been Directly Messaged to you!')
+                message.author.send("Base 64 of " + rand)
+                message.author.send("Then remove any equal signs(=) from the result!")
+            }
+            else if (args.join(' ') === check) {
+                message.channel.send("Success! PowerBot shutting down...")
+                setTimeout(function () {
+                    process.abort();
+                }, 3000);
+            }
+            else {
+                console.log(check)
+                message.channel.send("you said no")
+            }
+        } else {
+            message.channel.send("Insufficant Permissions")
+        }
+    }
 
     if (command === "eval") {
         if (message.author.id === config.owner) {
             var x = Date.now();
-            //var y = 0;
             try {
                 var jvs = args.join(" ");
                 var done = eval(jvs);
                 if (typeof done !== "string")
-                    done = require("util").inspect(done);
+                done = require("util").inspect(done);
                 message.channel.send(":white_check_mark: **Output:**\n" + "```" + `${clean(done)}` + "```");
                 localStorage.setItem('Eval-Results.json', clean(done));
                 message.channel.send({ files: ['Eval-Results.json'] });
@@ -102,13 +149,11 @@ client.on("message", message => {  //message handler starts here!
                         message.channel.send(err);
                     else
                         message.channel.send(ret);
-
                 });
                 var y = Date.now();
                 var noplz = y - x
                 message.channel.send("Time used: " + noplz + " ms");
             }
-
             catch (e) {
                 message.channel.send(":x: **Output:**\n" + `\`ERROR\` \`\`\`x1\n${clean(e)}\n\`\`\``);
                 localStorage.setItem('Eval-Results.json', clean(e));
@@ -118,7 +163,6 @@ client.on("message", message => {  //message handler starts here!
                         message.channel.send(err);
                     else
                         message.channel.send(ret);
-
                 });
                 var y = Date.now();
                 var noplz = y - x
@@ -143,6 +187,7 @@ function clean(text) {
 
 
 
+
 var token = /[\w\d]{24}\.[\w\d]{6}\.[\w\d-_]{27}/g;
 client.on("debug", error => {
     console.log(chalk.cyan(error.replace(token, "HIDDEN")));
@@ -153,7 +198,6 @@ client.on("warn", error => {
 client.on("error", error => {
     console.log(chalk.red(error.replace(token, "HIDDEN")));
 });
-
 
 
 client.login(config.token);
