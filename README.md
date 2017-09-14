@@ -6,11 +6,12 @@ It is still private/development stage, but I may consider making it public later
 
 ## Links that helped me:
 
-* [An Idiot's Guide's GitBook] (https://anidiots.guide/)
-* [Discord.js Docs] (discord.js.org)
+* [An Idiot's Guide's GitBook](https://anidiots.guide/)
+* [Discord.js Docs](https://discord.js.org)
 
 =================================================================================
 
 ## Contact me:
 
-* [Email] (mailto:airfusiongithubhelp@gmail.com)
+* [Email](mailto:airfusiongithubhelp@gmail.com)
+
