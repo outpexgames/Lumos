@@ -3,7 +3,16 @@ function getRandomIntInclusive(min, max) {
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive
 }
-exports.run = function (client, message, args, args2, cmd, config) {
+exports.run = function (client, message, args, args2, cmd) {
+    const Discord = require('discord.js');
+    const config = require("./config.json");
+    const embed19 = new Discord.RichEmbed()
+        .setColor("#f0ffff")
+        .setDescription("**Command: **" + `${config.prefix}rps`)
+        .addField("**Usage:**", `${config.prefix}rps <your choice>`)
+        .addField("**Example:**", `${config.prefix}rps rock`)
+        .addField("**Expected Result From Example:**", "Should return if you won or lost, and the computer's choice.")
+    if (args.join(' ') == "" && args2.join(" ") == "") return message.channel.send({ embed: embed19 })
     var computerchoose = getRandomIntInclusive(1, 3) //rock paper sissor
     var computerfinal = '';
     if (computerchoose === 1) {

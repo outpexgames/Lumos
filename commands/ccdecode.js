@@ -1,45 +1,54 @@
 function decode(ch, shift) {
-        var y = parseInt(ch.charCodeAt(0))
-        var temp = 0
-        if (y >= 65 && y <= 90 || y == 32) {
-            if (y == 32) {
-                return ' '
-            }
-            else if (shift < 65) {
-                temp = shift - (y - 65)
-                y = 91 - temp
-            }
-            else {
-                y = y - shift
-            }
-            return String.fromCharCode(y)
+    var y = parseInt(ch.charCodeAt(0))
+    var temp = 0
+    if (y >= 65 && y <= 90 || y == 32) {
+        if (y == 32) {
+            return ' '
         }
-        else if (y >= 97 && y <= 122 || y == 32) {
-            if (y == 32) {
-                return ' '
-            }
-            else if (y - shift < 97) {
-                temp = shift - (y - 97)
-                y = 123 - temp
-            }
-            else {
-                y = y - shift
-            }
-            return String.fromCharCode(y)
+        else if (shift < 65) {
+            temp = shift - (y - 65)
+            y = 91 - temp
         }
-        // else {
-        // 	message.channel.send("Invalid Input");
-        // }
+        else {
+            y = y - shift
+        }
+        return String.fromCharCode(y)
     }
+    else if (y >= 97 && y <= 122 || y == 32) {
+        if (y == 32) {
+            return ' '
+        }
+        else if (y - shift < 97) {
+            temp = shift - (y - 97)
+            y = 123 - temp
+        }
+        else {
+            y = y - shift
+        }
+        return String.fromCharCode(y)
+    }
+    // else {
+    // 	message.channel.send("Invalid Input");
+    // }
+}
 
 
 
-exports.run = function (client, message, args, args2, cmd, config) {
+exports.run = function (client, message, args, args2, cmd) {
 
     var string = args.join(' ') //problem with slice
     var shift = parseInt(args2.join(' '))
     var array = string
-     if (!string) return message.reply("You need to fill in a string")
+    const Discord = require('discord.js')
+    const config = require("./config.json");
+    const embed = new Discord.RichEmbed()
+        .setColor("#f0ffff")
+        .setDescription("**Command: **" + `${config.prefix}ccdecode`)
+        .addField("**Usage:**", `${config.prefix}ccdecode <decode text> <shift/password>`)
+        .addField("**Example:**", `${config.prefix}ccdecode khoor 3`)
+        .addField("**Expected Result From Example:**", "Your answer is hello")
+    if (!string && !shift) return message.channel.send({ embed: embed })
+    if (!string) return message.reply("You need to fill in a string")
     if (!shift) return message.reply("You need to fill in a shift")
     //var array = temparray[0].split()
     var res = ""

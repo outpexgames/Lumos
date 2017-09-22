@@ -8,6 +8,15 @@ function getNthPrime(n) {
     return primes[n - 1];
 }
 
-exports.run = function (client, message, args, args2, cmd, config) {
+exports.run = function (client, message, args, args2, cmd) {
+    const Discord = require('discord.js');
+    const config = require("./config.json");
+    const embed19 = new Discord.RichEmbed()
+        .setColor("#f0ffff")
+        .setDescription("**Command: **" + `${config.prefix}prime`)
+        .addField("**Usage:**", `${config.prefix}prime <nth Number>`)
+        .addField("**Example:**", `${config.prefix}prime 100`)
+        .addField("**Expected Result From Example:**", "541")
+    if (args.join(' ') == "") return message.channel.send({ embed: embed19 })
     message.channel.send(getNthPrime(args.join(' ')))
 }

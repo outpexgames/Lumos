@@ -1,8 +1,18 @@
 const ms = require('ms');
 
-exports.run = function (client, message, args, args2, cmd, config) {
+exports.run = function (client, message, args, args2, cmd) {
     const Discord = require('discord.js');
     let modlog = client.channels.find("name", "modlog")
+    let member = message.author;
+   const config = require("./config.json");
+    const embed1 = new Discord.RichEmbed()
+        .setColor("#f0ffff")
+        .setDescription("**Command: **"+ `${config.prefix}lockdown`)
+        .addField("**Usage:**", `${config.prefix}lockdown <time for ex: 1m, 1h etc>`)
+        .addField("**Example:**", `${config.prefix}lockdown 1m`)
+        .addField("**Expected Result From Example:**", "All Channels should enter a lockdown mode, all moderators and above should not be affected.")
+    if (args.join(' ') == "") return message.channel.send({embed: embed1})
+    let guild = member.guild
     if (!message.guild.member(message.author).hasPermission('MANAGE_CHANNELS')) return message.reply('Insufficant Permissions').catch(console.error)
     if (!client.lockit) client.lockit = [];
     let time = args.join(' ');
@@ -16,8 +26,8 @@ exports.run = function (client, message, args, args2, cmd, config) {
         .addField('Duration/Time:', time)
         .addField("Moderator:", message.author.username + "#" + message.author.discriminator)
 
-    client.channels.get(modlog.id).send({embed: embed})
-    
+    client.channels.get(modlog.id).send({ embed: embed })
+
     if (validUnlocks.includes(time)) {
         message.channel.overwritePermissions(message.guild.id, {
             SEND_MESSAGES: null

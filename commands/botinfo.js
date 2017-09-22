@@ -32,8 +32,9 @@ exports.run = function (client, message, args, args2, cmd) {
         // .addField('💾 Last Commit', jsonBody[0].commit.message, true)
         .addField('🐏 RAM Usage', `${((process.memoryUsage().heapUsed / 1024) / 1024).toFixed(2)} MB`, true)
         .addField('🏓 Ping', `${(client.ping).toFixed(0)} ms`, true)
-        .addField(`:control_knobs: Discord JS`, ` v${Discord.version}`, true)
+        .addField(`:control_knobs: Library`, `Discord JS v${Discord.version}`, true)
         .addField(`:computer: Node `, `${process.version}`)
+        .addField(`:construction_worker: Creator`,`AirFusion#1243`)
     //    .addField(`:electric_plug: CPU Usage:`,);
     message.channel.send({ embed: embed })
 };

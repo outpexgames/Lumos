@@ -1,10 +1,20 @@
-exports.run = function (client, message, args, args2, cmd, config) {
+exports.run = function (client, message, args, args2, cmd) {
     if (!message.guild.member(message.author).hasPermission('MANAGE_ROLES_OR_PERMISSIONS')) return message.reply('Insufficant Permissions').catch(console.error)
     const Discord = require('discord.js');
+    const config = require("./config.json");
     let reason = args.slice(1).join(' ')
     let user = message.mentions.users.first()
+    let member = message.guild.member(user)
+    const embed19 = new Discord.RichEmbed()
+        .setColor("#f0ffff")
+        .setDescription("**Command: **" + `${config.prefix}mute`)
+        .addField("**Usage:**", `${config.prefix}mute <@username> <reason>`)
+        .addField("**Example:**", `${config.prefix}mute @AirFusion STAP SPAMMING >.<`)
+        .addField("**Expected Result From Example:**", "Mentioned User Muted with Mute Role")
+    if (args.join(' ') == "") return message.channel.send({ embed: embed19 })
+    let guild = member.guild;
     let muteRole = client.guilds.get(message.guild.id).roles.find('name', 'Mute')
-    let modlog = client.channels.find("name", "modlog")
+    let modlog = guild.channels.find("name", "modlog")
     if (!modlog) return message.reply("mod-log required")
     if (!muteRole) return message.reply("Mute Role required")
     if (message.mentions.users.size < 1) return message.reply("You must mention someone to mute them.").catch(console.error)
@@ -22,7 +32,7 @@ exports.run = function (client, message, args, args2, cmd, config) {
         .addField("User ID:", user.id)
         .addField("Moderator:", message.author.username + "#" + message.author.discriminator)
         .addField("Reason:", reason)
-    client.channels.get(modlog.id).send({embed: embed})
+    client.channels.get(modlog.id).send({ embed: embed })
 
     const embed1 = new Discord.RichEmbed()
         .setColor('#ff2800') //change the color!!!
@@ -33,8 +43,8 @@ exports.run = function (client, message, args, args2, cmd, config) {
         .addField("User ID:", user.id)
         .addField("Moderator:", message.author.username + "#" + message.author.discriminator)
         .addField("Reason:", reason)
-    message.channel.send({embed: embed1})
-  
+    message.channel.send({ embed: embed1 })
+
 
 
 };

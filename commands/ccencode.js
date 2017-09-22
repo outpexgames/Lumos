@@ -33,11 +33,20 @@ function encode(ch, shift) { //hi returns QR first if has a problem
     }
 }
 
-exports.run = function (client, message, args, args2, cmd, config) {
+exports.run = function (client, message, args, args2, cmd) {
 
     var string = args.join(' ') //problem with slice
     var shift = parseInt(args2.join(' '))
     var array = string
+    const Discord = require('discord.js')
+    const config = require("./config.json");
+    const embed = new Discord.RichEmbed()
+        .setColor("#f0ffff")
+        .setDescription("**Command: **" + `${config.prefix}ccencode`)
+        .addField("**Usage:**", `${config.prefix}ccencode <decode text> <shift/password>`)
+        .addField("**Example:**", `${config.prefix}ccencode hello 3`)
+        .addField("**Expected Result From Example:**", "Your answer is khoor")
+    if (!string && !shift) return message.channel.send({ embed: embed })
     if (!string) return message.reply("You need to fill in a string")
     if (!shift) return message.reply("You need to fill in a shift")
 

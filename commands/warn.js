@@ -1,9 +1,19 @@
-exports.run = function (client, message, args, args2, cmd, config) {
+exports.run = function (client, message, args, args2, cmd) {
     if (!message.guild.member(message.author).hasPermission('MANAGE_ROLES_OR_PERMISSIONS')) return message.reply('Insufficant Permissions').catch(console.error)
     const Discord = require('discord.js');
+    const config = require("./config.json");
     let reason = args.slice(1).join(' ')
     let user = message.mentions.users.first()
-    let modlog = client.channels.find("name", "modlog")
+    let member = message.guild.member(user)
+    const embed19 = new Discord.RichEmbed()
+        .setColor("#f0ffff")
+        .setDescription("**Command: **" + `${config.prefix}warn`)
+        .addField("**Usage:**", `${config.prefix}warn <@username> <reason>`)
+        .addField("**Example:**", `${config.prefix}warn @AirFusion STAP!`)
+        .addField("**Expected Result From Example:**", "Mentioned user should be warned.")
+    if (args.join(' ') == "" && args2.join(" ") == "") return message.channel.send({ embed: embed19 })
+    let guild = member.guild;
+    let modlog = guild.channels.find("name", "modlog")
     if (!modlog) return message.reply("mod-log required")
     if (reason.length < 1) return message.reply("Reason Required")
     if (message.mentions.users.size < 1) return message.reply("You must mention someone to warn them.").catch(console.error)
@@ -17,7 +27,7 @@ exports.run = function (client, message, args, args2, cmd, config) {
         .addField("User ID:", user.id)
         .addField("Moderator:", message.author.username + "#" + message.author.discriminator)
         .addField("Reason:", reason)
-    client.channels.get(modlog.id).send({embed: embed})
+    client.channels.get(modlog.id).send({ embed: embed })
     const embed1 = new Discord.RichEmbed()
         .setColor('#66ff00') //change the color!!!
         .setTimestamp()
@@ -27,5 +37,5 @@ exports.run = function (client, message, args, args2, cmd, config) {
         .addField("User ID:", user.id)
         .addField("Moderator:", message.author.username + "#" + message.author.discriminator)
         .addField("Reason:", reason)
-    message.channel.send({embed: embed1})
+    message.channel.send({ embed: embed1 })
 };

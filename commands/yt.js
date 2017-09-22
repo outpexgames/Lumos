@@ -3,9 +3,17 @@ var YouTube = require('youtube-node');
 var youTube = new YouTube();
 const youtubeKey = config.yt;
 youTube.setKey(youtubeKey)
-exports.run = function (client, message, args, args2, cmd, config) {
-    if (!args.join(' ')) {      
-        return message.channel.send(":question: What should I search for?")
+exports.run = function (client, message, args, args2, cmd) {
+    const Discord = require('discord.js');
+    const config = require("./config.json");
+    const embed19 = new Discord.RichEmbed()
+        .setColor("#f0ffff")
+        .setDescription("**Command: **" + `${config.prefix}yt`)
+        .addField("**Usage:**", `${config.prefix}yt <Search query>`)
+        .addField("**Example:**", `${config.prefix}yt discord`)
+        .addField("**Expected Result From Example:**", "A YouTube video/YouTube playlist/YouTube channel should be returned.")
+    if (!args.join(' ')) {
+        return message.channel.send({ embed: embed19 })
     }
     message.channel.send("Finding " + args.join(' '))
     youTube.search(args.join(' '), 1, function (error, result) {
@@ -14,7 +22,7 @@ exports.run = function (client, message, args, args2, cmd, config) {
         } else {
             localStorage.setItem('Youtube-Search-Feedback.json', JSON.stringify(result, null, 2));
             message.channel.send({ files: ['Youtube-Search-Feedback.json'] });
-           // console.log(JSON.stringify(result, null, 2))
+            // console.log(JSON.stringify(result, null, 2))
             let beforeid = "nothing"
             let id = "nothing"
             if (result.items[0].id.kind === "youtube#video") {
