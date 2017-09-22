@@ -32,6 +32,25 @@ function getRandomIntInclusive(min, max) {
 ////https://youtu.be/qEDhVKFWoVg?t=18m21s
 //https://youtu.be/1AjBVocSQhM?t=24m58s
 
+// const getDefaultChannel = async (guild) => {
+//     // get "original" default channel
+//     if(guild.channel.has(guild.id))
+//       return guild.channels.get(guild.id)
+  
+//     // Check for a "general" channel, which is often default chat
+//     if(guild.channels.exists("name", "general"))
+//       return guild.channels.find("name", "general");
+  
+//     // Now we get into the heavy stuff: first channel in order where the bot can speak
+//     // hold on to your hats!
+//     return guild.channels
+//       .filter(c => c.type === "text" &&
+//        c.permissionsFor(guild.client.user).has("SEND_MESSAGES"))
+//      .sort((a, b) => a.position - b.position || 
+//        Long.fromString(a.id).sub(Long.fromString(b.id)).toNumber())
+//      .first();
+//   }
+  
 var reload = (message, cmd) => {
     delete require.cache[require.resolve('./commands/' + cmd)];
     try {
@@ -58,17 +77,17 @@ client.on("message", message => {  //message handler starts here!
     let cmd2 = args2.join(' ');
     var res = cmd.slice(0, 1)
 
-    if (command === "outer-reload") {
-        if (message.author.id === config.owner) {
-            if (!args || args.size < 1) return message.reply("Must provide a command name to reload.");
-            // the path is relative to the *current folder*, so just ./filename.js
-            delete require.cache[require.resolve(`./${args[0]}.js`)];
-            message.reply(`:white_check_mark: The command ${args[0]} has been reloaded`);
-        }
-        else {
-            message.reply(":x: Insufficant Permissions!")
-        }
-    }
+    // if (command === "outer-reload") {
+    //     if (message.author.id === config.owner) {
+    //         if (!args || args.size < 1) return message.reply("Must provide a command name to reload.");
+    //         // the path is relative to the *current folder*, so just ./filename.js
+    //         delete require.cache[require.resolve(`./${args[0]}.js`)];
+    //         message.reply(`:white_check_mark: The command ${args[0]} has been reloaded`);
+    //     }
+    //     else {
+    //         message.reply(":x: Insufficant Permissions!")
+    //     }
+    // }
 
     if (command === "wolfram") { //WIP
         wolfram.query(args.join(' '), function (err, result) {
@@ -79,6 +98,10 @@ client.on("message", message => {  //message handler starts here!
             console.log(result)
         })
     }
+    if (command === "iduser") {
+        let user = message.mentions.users.first()
+        message.channel.send(user.id)
+    }
 
     function getRandomIntInclusive(min, max) {
         min = Math.ceil(min);
@@ -86,29 +109,7 @@ client.on("message", message => {  //message handler starts here!
         return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive
     }
 
-    if (command === 'serverinfo') {
-        const embed = new Discord.RichEmbed()
-            .setColor('#7d5bbe')
-            .setTitle(message.guild.name + ` Server Stats`)
-            .addField('📄 Channels', message.guild.channels.size, true)
-            .addField('🏠 Default Channel', message.guild.defaultChannel, true)
-            .addField(':man: Users', message.guild.memberCount, true)
-            .addField(':date: Guild Created At', message.guild.createdAt, true)
-            .addField(":globe_with_meridians: Server Region", message.guild.region, true)
-            .addField(`:keyboard: AFK Channel ID `, message.guild.afkChannelID, true)
-            .addField(`:keyboard: AFK Channel Timeout`, message.guild.afkTimeout + " seconds", true)
-            .addField(`:frame_photo: Server Icon`, message.guild.iconURL, true)
-            .addField(`:id: Guild ID`, message.guild.id, true)
-            .addField(`:man_in_tuxedo: Server Owner`, message.guild.owner, true)
-            .addField(`:man_in_tuxedo: Server Owner ID`, message.guild.ownerID, true)
-            .addField(`:closed_lock_with_key: Server Verification Level`, message.guild.verificationLevel, true)
-            .addField(`:joystick: Roles Size`, message.guild.roles.size, true)
 
-
-        message.channel.send({ embed: embed })
-        // Enable this if you want server roles to be printed message.channel.send("Roles List:\n" + message.guild.roles.map(e => e.toString()).join(" "), { code: 'js' })
-        message.guild.defaultChannel.createInvite({ maxAge: 300 }).then(inv => message.channel.send(inv.url ? inv.url : "discord.gg/" + inv.code))
-    }
 
     if (command === "killall") {
         if (message.author.id === config.owner) {
@@ -119,14 +120,18 @@ client.on("message", message => {  //message handler starts here!
                 message.author.send("Then remove any equal signs(=) from the result!")
             }
             else if (args.join(' ') === check) {
-                message.channel.send("Success! PowerBot shutting down...")
+                message.channel.send("Success! View host console for more information. PowerBot shutting down...")
+                console.log(chalk.green("PowerBot has been shutdown via Discord Chatbox."))
+                console.log(chalk.green("Here are some Information:"))
+                console.log(chalk.green(`Auth: ${message.author.username}#${message.author.discriminator} ID: ${message.author.id}`))
+                console.log(chalk.green(`Timestamp: ${Date()}`))
                 setTimeout(function () {
                     process.abort();
                 }, 3000);
             }
             else {
                 console.log(check)
-                message.channel.send("you said no")
+                message.channel.send("Incorrect Password")
             }
         } else {
             message.channel.send("Insufficant Permissions")

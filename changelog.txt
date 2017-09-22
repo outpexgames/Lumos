@@ -110,3 +110,19 @@ Version 2.6.5
     updated commands command
     updated kick; minor feedback changes
     updated ban; minor feedback changes
+
+Version 2.7.0
+    Fix killall command in commands command (that was a lot of commands :P)
+    Edited removerole command permissions
+    updated clean cmd name to emotclean to avoid confusion
+    fix cross sending in the embed in kick, ban, lockdown, mute, unmute & warn
+    Fixed/updated guildMemberRemove & guildMemberAdd for the deletable default channel update.
+    fixed killall cmd help in commands cmd missing  ">"
+    removed startup due to no use
+    little edits and beautifying in all commands
+    updated DM command
+    removed cc.js due to no use
+    added get mentioned user id in index.js
+    fixed reload command
+    !!! Added a more user friendly help to each non owner command !!! 
+    moved serverinfo to a separate js file
