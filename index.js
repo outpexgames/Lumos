@@ -9,6 +9,8 @@ var YouTube = require('youtube-node');
 var google = require('google')
 var rand = getRandomIntInclusive(1, 100);
 var base64url = require('base64-url');
+var tcom = require('thesaurus-com');
+const randomWord = require('random-word');
 var youTube = new YouTube();
 const youtubeKey = config.yt;
 youTube.setKey(youtubeKey)
@@ -36,11 +38,11 @@ function getRandomIntInclusive(min, max) {
 //     // get "original" default channel
 //     if(guild.channel.has(guild.id))
 //       return guild.channels.get(guild.id)
-  
+
 //     // Check for a "general" channel, which is often default chat
 //     if(guild.channels.exists("name", "general"))
 //       return guild.channels.find("name", "general");
-  
+
 //     // Now we get into the heavy stuff: first channel in order where the bot can speak
 //     // hold on to your hats!
 //     return guild.channels
@@ -50,7 +52,7 @@ function getRandomIntInclusive(min, max) {
 //        Long.fromString(a.id).sub(Long.fromString(b.id)).toNumber())
 //      .first();
 //   }
-  
+
 var reload = (message, cmd) => {
     delete require.cache[require.resolve('./commands/' + cmd)];
     try {
@@ -109,7 +111,19 @@ client.on("message", message => {  //message handler starts here!
         return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive
     }
 
+    if (command === "stuff") {
+        const embed1010 = new Discord.RichEmbed()
+            .setColor("#f0ffff")
+            .addField("Synonyms: ", tcom.search(args.join(' ')).synonyms)
+        console.log(tcom.search(args.join(' ')));
+        message.channel.send({ embed: embed1010 })
+        message.channel.send(tcom.search(args.join(' ')).antonyms);
 
+    }
+
+    if (command === "randword") {
+        message.channel.send(randomWord())
+    }
 
     if (command === "killall") {
         if (message.author.id === config.owner) {
@@ -145,7 +159,7 @@ client.on("message", message => {  //message handler starts here!
                 var jvs = args.join(" ");
                 var done = eval(jvs);
                 if (typeof done !== "string")
-                done = require("util").inspect(done);
+                    done = require("util").inspect(done);
                 message.channel.send(":white_check_mark: **Output:**\n" + "```" + `${clean(done)}` + "```");
                 localStorage.setItem('Eval-Results.json', clean(done));
                 message.channel.send({ files: ['Eval-Results.json'] });
