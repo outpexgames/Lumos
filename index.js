@@ -28,6 +28,19 @@ function getRandomIntInclusive(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive
 }
 
+client.on("presenceUpdate", (oldMember, newMember) => {
+    let guild = newMember.guild;
+    let playrole = guild.roles.find("name", "Playing Minecraft");
+    if (!playrole) return;
+    
+    if (newMember.user.presence.game && newMember.user.presence.game.name === "Minecraft") {
+        newMember.addRole(playrole);
+    }
+    else if(!newMember.user.presence.game && newMember.roles.has(playrole.id)) {
+        newMember.removeRole(playrole);
+    }
+});
+
 //TODO: https://youtu.be/Znvxk14Tg6A
 //TODO: https://youtu.be/8AiZBdcPKOM?t=29m10s
 //TODO: https://youtu.be/zdQplH3fwbU?t=16m1s
@@ -90,7 +103,7 @@ client.on("message", message => {  //message handler starts here!
     //         message.reply(":x: Insufficant Permissions!")
     //     }
     // }
-
+    
     if (command === "wolfram") { //WIP
         wolfram.query(args.join(' '), function (err, result) {
             if (err) throw err
@@ -100,10 +113,10 @@ client.on("message", message => {  //message handler starts here!
             console.log(result)
         })
     }
-    if (command === "iduser") {
-        let user = message.mentions.users.first()
-        message.channel.send(user.id)
-    }
+    // if (command === "userid") {
+    //     let user = message.mentions.users.first()
+    //     message.channel.send(user.id)
+    // }
 
     function getRandomIntInclusive(min, max) {
         min = Math.ceil(min);
@@ -121,9 +134,9 @@ client.on("message", message => {  //message handler starts here!
 
     }
 
-    if (command === "randword") {
-        message.channel.send(randomWord())
-    }
+    // if (command === "randword") {
+    //     message.channel.send(randomWord())
+    // }
 
     if (command === "killall") {
         if (message.author.id === config.owner) {
@@ -151,7 +164,10 @@ client.on("message", message => {  //message handler starts here!
             message.channel.send("Insufficant Permissions")
         }
     }
-
+    if (command == "game") {
+        let user = message.mentions.users.first();
+       message.channel.send(user.presence.game.name);
+    }
     if (command === "eval") {
         if (message.author.id === config.owner) {
             var x = Date.now();
