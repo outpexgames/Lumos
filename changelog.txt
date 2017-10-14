@@ -126,3 +126,9 @@ Version 2.7.0
     fixed reload command
     !!! Added a more user friendly help to each non owner command !!! 
     moved serverinfo to a separate js file
+
+Version 2.7.2
+    Added userid to find user's id (from last version, name changed) moved to separate js file
+    added random word cmd & moved to separate js file
+    added game presence update
+    added game command to find @user's playing game
