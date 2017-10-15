@@ -11,6 +11,7 @@ var rand = getRandomIntInclusive(1, 100);
 var base64url = require('base64-url');
 var tcom = require('thesaurus-com');
 const randomWord = require('random-word');
+const ipInfo = require("ipinfo");
 var youTube = new YouTube();
 const youtubeKey = config.yt;
 youTube.setKey(youtubeKey)
@@ -33,26 +34,59 @@ client.on("presenceUpdate", (oldMember, newMember) => {
     let minecraft = guild.roles.find("name", "Playing Minecraft");
     let csgo = guild.roles.find("name", "Playing CS:GO");
     let garryMod = guild.roles.find("name", "Playing Garry's Mod");
+    let gta = guild.roles.find("name", "Playing GTA");
+    let rainbow6 = guild.roles.find("name", "Playing Rainbow Six Siege");
+    let halflife = guild.roles.find("name", "Playing Half-Life");
+    let dnd = guild.roles.find("name", "DND/Do Not Disturb");
     if (!minecraft) return;
     if (!csgo) return;
-    
+    if (!garryMod) return;
+    if (!gta) return;
+    if (!halflife) return;
+    if (!dnd) return;
+
+    if (newMember.user.presence.status === "dnd") {
+        newMember.addRole(dnd);
+    }
+    if (newMember.user.presence.status != "dnd" && newMember.roles.has(dnd.id)) {
+        newMember.removeRole(dnd);
+    }
+
     if (newMember.user.presence.game && newMember.user.presence.game.name === "Minecraft") {
         newMember.addRole(minecraft);
     }
-    else if(!newMember.user.presence.game && newMember.roles.has(minecraft.id)) {
+    else if (!newMember.user.presence.game && newMember.roles.has(minecraft.id)) {
         newMember.removeRole(minecraft);
     }
-    else if (newMember.user.presence.game && newMember.user.presence.game.name === "Counter-Strike: Global Offensive") {
+    if (newMember.user.presence.game && newMember.user.presence.game.name === "Counter-Strike: Global Offensive") {
         newMember.addRole(csgo);
     }
     else if (!newMember.user.presence.game && newMember.roles.has(csgo.id)) {
         newMember.removeRole(csgo);
     }
-    else if (newMember.user.presence.game && newMember.user.presence.game.name == "Garry's Mod") {
+    if (newMember.user.presence.game && newMember.user.presence.game.name === "Garry's Mod") {
         newMember.addRole(garryMod);
     }
     else if (!newMember.user.presence.game && newMember.roles.has(garryMod.id)) {
         newMember.removeRole(garryMod);
+    }
+    if (newMember.user.presence.game && newMember.user.presence.game.name === "Grand Theft Auto San Andreas") {
+        newMember.addRole(gta);
+    }
+    else if (!newMember.user.presence.game && newMember.roles.has(gta.id)) {
+        newMember.removeRole(gta);
+    }
+    if (newMember.user.presence.game && newMember.user.presence.game.name === "Tom Clancy's Rainbow Six Siege") {
+        newMember.addRole(rainbow6);
+    }
+    else if (!newMember.user.presence.game && newMember.roles.has(rainbow6.id)) {
+        newMember.removeRole(rainbow6);
+    }
+    if (newMember.user.presence.game && newMember.user.presence.game.name === "Half-Life") {
+        newMember.addRole(halflife);
+    }
+    else if (!newMember.user.presence.game && newMember.roles.has(halflife.id)) {
+        newMember.removeRole(halflife);
     }
 });
 
@@ -118,7 +152,7 @@ client.on("message", message => {  //message handler starts here!
     //         message.reply(":x: Insufficant Permissions!")
     //     }
     // }
-    
+
     if (command === "wolfram") { //WIP
         wolfram.query(args.join(' '), function (err, result) {
             if (err) throw err
@@ -127,6 +161,18 @@ client.on("message", message => {  //message handler starts here!
             message.channel.send("**Solution: **" + result)
             console.log(result)
         })
+    }
+
+    if (command === "getip") {
+        ipInfo((err, cLoc) => {
+            console.log(err || cLoc);
+        })
+    }
+
+    if (command === "iplookup") {
+        ipInfo(args.join(' '), (err, cLoc) => {
+            message.channel.send(err || cLoc);
+        });
     }
     // if (command === "userid") {
     //     let user = message.mentions.users.first()
@@ -181,7 +227,7 @@ client.on("message", message => {  //message handler starts here!
     }
     if (command == "game") {
         let user = message.mentions.users.first();
-       message.channel.send(user.presence.game.name);
+        message.channel.send(user.presence.game.name);
     }
     if (command === "eval") {
         if (message.author.id === config.owner) {
