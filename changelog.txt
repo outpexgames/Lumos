@@ -134,3 +134,8 @@ Version 2.7.2
     added game command to find @user's playing game & more information
     renamed stuff command to synant (synonyms & antonyms) & moved to separate js file
     fixed API init/declaring in randword.js
+    fixed masspurge alawys showing help even with a value
+    added getip command (WIP)
+    added iplookup command (WIP)
+    added DND role placing to presence update 
+    
