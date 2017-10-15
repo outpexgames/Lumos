@@ -30,14 +30,29 @@ function getRandomIntInclusive(min, max) {
 
 client.on("presenceUpdate", (oldMember, newMember) => {
     let guild = newMember.guild;
-    let playrole = guild.roles.find("name", "Playing Minecraft");
-    if (!playrole) return;
+    let minecraft = guild.roles.find("name", "Playing Minecraft");
+    let csgo = guild.roles.find("name", "Playing CS:GO");
+    let garryMod = guild.roles.find("name", "Playing Garry's Mod");
+    if (!minecraft) return;
+    if (!csgo) return;
     
     if (newMember.user.presence.game && newMember.user.presence.game.name === "Minecraft") {
-        newMember.addRole(playrole);
+        newMember.addRole(minecraft);
     }
-    else if(!newMember.user.presence.game && newMember.roles.has(playrole.id)) {
-        newMember.removeRole(playrole);
+    else if(!newMember.user.presence.game && newMember.roles.has(minecraft.id)) {
+        newMember.removeRole(minecraft);
+    }
+    else if (newMember.user.presence.game && newMember.user.presence.game.name === "Counter-Strike: Global Offensive") {
+        newMember.addRole(csgo);
+    }
+    else if (!newMember.user.presence.game && newMember.roles.has(csgo.id)) {
+        newMember.removeRole(csgo);
+    }
+    else if (newMember.user.presence.game && newMember.user.presence.game.name == "Garry's Mod") {
+        newMember.addRole(garryMod);
+    }
+    else if (!newMember.user.presence.game && newMember.roles.has(garryMod.id)) {
+        newMember.removeRole(garryMod);
     }
 });
 
@@ -124,15 +139,15 @@ client.on("message", message => {  //message handler starts here!
         return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive
     }
 
-    if (command === "stuff") {
-        const embed1010 = new Discord.RichEmbed()
-            .setColor("#f0ffff")
-            .addField("Synonyms: ", tcom.search(args.join(' ')).synonyms)
-        console.log(tcom.search(args.join(' ')));
-        message.channel.send({ embed: embed1010 })
-        message.channel.send(tcom.search(args.join(' ')).antonyms);
+    // if (command === "stuff") {
+    //     const embed1010 = new Discord.RichEmbed()
+    //         .setColor("#f0ffff")
+    //         .addField("Synonyms: ", tcom.search(args.join(' ')).synonyms)
+    //     console.log(tcom.search(args.join(' ')));
+    //     message.channel.send({ embed: embed1010 })
+    //     message.channel.send(tcom.search(args.join(' ')).antonyms);
 
-    }
+    // }
 
     // if (command === "randword") {
     //     message.channel.send(randomWord())

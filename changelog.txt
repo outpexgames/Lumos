@@ -131,4 +131,6 @@ Version 2.7.2
     Added userid to find user's id (from last version, name changed) moved to separate js file
     added random word cmd & moved to separate js file
     added game presence update
-    added game command to find @user's playing game
+    added game command to find @user's playing game & more information
+    renamed stuff command to synant (synonyms & antonyms) & moved to separate js file
+    fixed API init/declaring in randword.js
