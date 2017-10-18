@@ -38,18 +38,26 @@ client.on("presenceUpdate", (oldMember, newMember) => {
     let rainbow6 = guild.roles.find("name", "Playing Rainbow Six Siege");
     let halflife = guild.roles.find("name", "Playing Half-Life");
     let dnd = guild.roles.find("name", "DND/Do Not Disturb");
+    let idle = guild.roles.find("name", "Idle");
     if (!minecraft) return;
     if (!csgo) return;
     if (!garryMod) return;
     if (!gta) return;
     if (!halflife) return;
     if (!dnd) return;
+    if (!idle) return;
 
     if (newMember.user.presence.status === "dnd") {
         newMember.addRole(dnd);
     }
     if (newMember.user.presence.status != "dnd" && newMember.roles.has(dnd.id)) {
         newMember.removeRole(dnd);
+    }
+    if (newMember.user.presence.status === "idle") {
+        newMember.addRole(idle)
+    }
+    if (newMember.user.presence.status !== "idle" && newMember.roles.has(idle.id)) {
+        newMember.removeRole(idle);
     }
 
     if (newMember.user.presence.game && newMember.user.presence.game.name === "Minecraft") {

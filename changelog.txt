@@ -137,5 +137,5 @@ Version 2.7.2
     fixed masspurge alawys showing help even with a value
     added getip command (WIP)
     added iplookup command (WIP)
-    added DND role placing to presence update 
+    added DND role placing to presence update
     
