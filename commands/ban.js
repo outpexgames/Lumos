@@ -39,15 +39,12 @@ exports.run = function (client, message, args, args2, cmd) {
             .addField("Moderator:", message.author.username + "#" + message.author.discriminator)
             .addField("Reason:", reason)
         //  .addField('Kicked User ID: ', `${message.mentions.users.first().id}`)
-
-
-        guild.channels.find("name", "modlog").send({ embed: okgoogle })
         //message.channel.send("\n\n")
         setTimeout(function () {
             message.guild.ban(user)
         }, 1000);
 
-
+        guild.channels.find("name", "modlog").send({ embed: okgoogle })
 
     }
     else {

@@ -138,4 +138,5 @@ Version 2.7.2
     added getip command (WIP)
     added iplookup command (WIP)
     added DND role placing to presence update
+    fixed ban cmd so that bans member first then sends log to modlog (Reported by Chroish via discord)
     

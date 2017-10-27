@@ -39,6 +39,10 @@ client.on("presenceUpdate", (oldMember, newMember) => {
     let halflife = guild.roles.find("name", "Playing Half-Life");
     let dnd = guild.roles.find("name", "DND/Do Not Disturb");
     let idle = guild.roles.find("name", "Idle");
+    let blackops = guild.roles.find("name", "Playing Call of Duty: Black Ops III");
+    let roblox = guild.roles.find("name", "Playing Roblox");
+    let pubg = guild.roles.find("name", "Playing PUBG");
+    let leagueoflegend = guild.roles.find("name", "Playing League of Legends");
     if (!minecraft) return;
     if (!csgo) return;
     if (!garryMod) return;
@@ -46,6 +50,10 @@ client.on("presenceUpdate", (oldMember, newMember) => {
     if (!halflife) return;
     if (!dnd) return;
     if (!idle) return;
+    if (!blackops) return;
+    if (!roblox) return;
+    if (!pubg) return;
+    if (!leagueoflegend) return;
 
     if (newMember.user.presence.status === "dnd") {
         newMember.addRole(dnd);
@@ -66,36 +74,110 @@ client.on("presenceUpdate", (oldMember, newMember) => {
     else if (!newMember.user.presence.game && newMember.roles.has(minecraft.id)) {
         newMember.removeRole(minecraft);
     }
-    if (newMember.user.presence.game && newMember.user.presence.game.name === "Counter-Strike: Global Offensive") {
+    else if (newMember.user.presence.game !== "Minecraft" && newMember.roles.has(minecraft.id)) {
+        newMember.removeRole(minecraft);
+    }
+
+    if (newMember.user.presence.game && newMember.user.presence.game.name === "Counter-Strike Global Offensive") {
         newMember.addRole(csgo);
     }
     else if (!newMember.user.presence.game && newMember.roles.has(csgo.id)) {
         newMember.removeRole(csgo);
     }
+    else if (newMember.user.presence.game !== "Counter-Strike Global Offensive" && newMember.roles.has(csgo.id)) {
+        newMember.removeRole(csgo);
+    }
+
     if (newMember.user.presence.game && newMember.user.presence.game.name === "Garry's Mod") {
         newMember.addRole(garryMod);
     }
     else if (!newMember.user.presence.game && newMember.roles.has(garryMod.id)) {
         newMember.removeRole(garryMod);
     }
+    else if (newMember.user.presence.game !== "Garry's Mod" && newMember.roles.has(garryMod.id)) {
+        newMember.removeRole(garryMod);
+    }
+
     if (newMember.user.presence.game && newMember.user.presence.game.name === "Grand Theft Auto San Andreas") {
         newMember.addRole(gta);
     }
     else if (!newMember.user.presence.game && newMember.roles.has(gta.id)) {
         newMember.removeRole(gta);
     }
+    else if (newMember.user.presence.game !== "Grand Theft Auto San Andreas" && newMember.roles.has(gta.id)) {
+        newMember.removeRole(gta);
+    }
+
     if (newMember.user.presence.game && newMember.user.presence.game.name === "Tom Clancy's Rainbow Six Siege") {
         newMember.addRole(rainbow6);
     }
     else if (!newMember.user.presence.game && newMember.roles.has(rainbow6.id)) {
         newMember.removeRole(rainbow6);
     }
+    else if (newMember.user.presence.game !== "Tom Clancy's Rainbow Six Siege" && newMember.roles.has(rainbow6.id)) {
+        newMember.removeRole(rainbow6);
+    }
+
     if (newMember.user.presence.game && newMember.user.presence.game.name === "Half-Life") {
         newMember.addRole(halflife);
     }
     else if (!newMember.user.presence.game && newMember.roles.has(halflife.id)) {
         newMember.removeRole(halflife);
     }
+    else if (newMember.user.presence.game !== "Half-Life" && newMember.roles.has(halflife.id)) {
+        newMember.removeRole(halflife);
+    }
+
+    if (newMember.user.presence.game && newMember.user.presence.game.name === "Call of Duty: Black Ops III") {
+        newMember.addRole(blackops);
+    }
+    else if (!newMember.user.presence.game && newMember.roles.has(blackops.id)) {
+        newMember.removeRole(blackops);
+    }
+    else if (newMember.user.presence.game !== "Call of Duty: Black Ops III" && newMember.roles.has(blackops.id)) {
+        newMember.removeRole(blackops);
+    }
+
+    if (newMember.user.presence.game && newMember.user.presence.game.name === "ROBLOX") {
+        newMember.addRole(roblox);
+    }
+    else if (!newMember.user.presence.game && newMember.roles.has(roblox.id)) {
+        newMember.removeRole(roblox);
+    }
+    else if (newMember.user.presence.game !== "ROBLOX" && newMember.roles.has(roblox.id)) {
+        newMember.removeRole(roblox);
+    }
+
+    // if (newMember.user.presence.game && newMember.user.presence.game.name == "PlayerUnknown's Battlegrounds") {
+    //     newMember.addRole(pubg);
+    // }
+    // else if (!newMember.user.presence.game && newMember.roles.has(pubg.id)) {
+    //     newMember.removeRole(pubg);
+    // }
+    // else if (newMember.user.presence.game !== "PlayerUnknown's Battlegrounds" && newMember.roles.has(pubg.id)) {
+    //     newMember.removeRole(pubg);
+    // }
+
+    if (newMember.user.presence.game && newMember.user.presence.game.name == "PUBG") {
+        newMember.addRole(pubg);
+    }
+    else if (!newMember.user.presence.game && newMember.roles.has(pubg.id)) {
+        newMember.removeRole(pubg);
+    }
+    else if (newMember.user.presence.game !== "PUBG" && newMember.roles.has(pubg.id)) {
+        newMember.removeRole(pubg);
+    }
+
+    if (newMember.user.presence.game && newMember.user.presence.game.name == "League of Legends") {
+        newMember.addRole(leagueoflegend);
+    }
+    else if (!newMember.user.presence.game && newMember.roles.has(leagueoflegend.id)) {
+        newMember.removeRole(leagueoflegend);
+    }
+    else if (newMember.user.presence.game !== "League of Legends" && newMember.roles.has(leagueoflegend.id)) {
+        newMember.removeRole(leagueoflegend);
+    }
+    //Counter-Strike Global Offensive
 });
 
 //TODO: https://youtu.be/Znvxk14Tg6A
@@ -171,15 +253,27 @@ client.on("message", message => {  //message handler starts here!
         })
     }
 
+    if (command === "test") {
+        console.log(message.channel)
+        console.log("ENDLJSLFJSLJFLKSJGLS")
+        
+    }
+
     if (command === "getip") {
+        let user = message.author;
         ipInfo((err, cLoc) => {
-            console.log(err || cLoc);
+            user.send(JSON.stringify(err || cLoc));
         })
     }
 
+    if (command === "user") {
+        message.channel.send(client.users.get(args.join(' ')).username + "#" + client.users.get(args.join(' ')).discriminator);
+    }
+
     if (command === "iplookup") {
+        let user = message.author;
         ipInfo(args.join(' '), (err, cLoc) => {
-            message.channel.send(err || cLoc);
+            user.send(JSON.stringify(err || cLoc)); 
         });
     }
     // if (command === "userid") {
@@ -206,6 +300,36 @@ client.on("message", message => {  //message handler starts here!
     // if (command === "randword") {
     //     message.channel.send(randomWord())
     // }
+   
+
+    if (command === "getallserver") {
+        if (message.author.id === config.owner) {
+        let user = message.author;
+        user.send(client.guilds.map(e => e.toString()).join(" "));
+        }
+        else {
+            return message.channel.send("Insufficant Permissions");
+        }
+    }
+    
+    if (command === "update") {
+        if (message.author.id === config.owner) {
+            var check1 = base64url.encode(rand.toString())
+            if (!args.join(' ')) {
+                message.channel.send('Please get a password! It has been Directly Messaged to you!')
+                message.author.send("Base 64 of " + rand)
+                message.author.send("Then remove any equal signs(=) from the result!")
+            }
+            else if (args.join(' ') === check1) {
+            let min = 5; // change min here (WIP)
+            let server = client.guilds.find("name", args.join(' '));
+            server.defaultChannel.send(`Hello, ${config.name} will under go a system update in ${min} minutes. Please prepare for at least 5-10 minutes of down time. Thank you for your understanding. Together we will make ${config.name} better and better! ~AirFusion--Creator of ${config.name}`)
+            }
+        }
+        else {
+            return message.channel.send("Insufficant Permissions");
+        }
+   }
 
     if (command === "killall") {
         if (message.author.id === config.owner) {
