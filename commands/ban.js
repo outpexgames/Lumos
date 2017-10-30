@@ -20,9 +20,9 @@ exports.run = function (client, message, args, args2, cmd) {
     if (user === message.author) return message.reply("You cannot ban yourself")
     if (message.guild.member(user).bannable) { //message.guild.member(member) && member.bannable
         const channelsendlol = new Discord.RichEmbed()
-            .setColor('#003366') //change the color!!!
+            .setColor('#ff0000') //change the color!!!
             .setTimestamp()
-            .setThumbnail(message.author.avatarURL)
+            .setThumbnail(message.mentions.users.first().avatarURL)
             .addField('Action:', "Ban")
             .addField('User:', user.username + '#' + user.discriminator)
             .addField("User ID:", user.id)
@@ -30,9 +30,9 @@ exports.run = function (client, message, args, args2, cmd) {
             .addField("Reason:", reason)
         message.channel.send({ embed: channelsendlol });
         const okgoogle = new Discord.RichEmbed()
-            .setColor('#003366') //change the color!!!
+            .setColor('#ff0000') //change the color!!!
             .setTimestamp()
-            .setThumbnail(message.author.avatarURL)
+            .setThumbnail(message.mentions.users.first().avatar)
             .addField('Action:', "Ban")
             .addField('User:', user.username + '#' + user.discriminator)
             .addField("User ID:", user.id)
@@ -44,7 +44,9 @@ exports.run = function (client, message, args, args2, cmd) {
             message.guild.ban(user)
         }, 1000);
 
-        guild.channels.find("name", "modlog").send({ embed: okgoogle })
+        guild.channels.find("name", "modlog").send({ embed: okgoogle }).catch(e);
+           
+        
 
     }
     else {

@@ -14,8 +14,8 @@ exports.run = function (client, message, args, args2, cmd) {
     if (args.join(' ') == "") return message.channel.send({ embed: embed19 })
     let guild = member.guild;
     let muteRole = client.guilds.get(message.guild.id).roles.find('name', 'Mute')
-    let modlog = guild.channels.find("name", "modlog")
-    if (!modlog) return message.reply("mod-log required")
+   // let modlog = guild.channels.find("name", "modlog")
+  //  if (!modlog) return message.reply("mod-log required")
     if (!muteRole) return message.reply("Mute Role required")
     if (message.mentions.users.size < 1) return message.reply("You must mention someone to mute them.").catch(console.error)
     if (reason.length < 1) return message.reply("Reason Required")
@@ -24,7 +24,7 @@ exports.run = function (client, message, args, args2, cmd) {
     message.guild.member(user).addRole(muteRole);
 
     const embed = new Discord.RichEmbed()
-        .setColor('#ff2800') //change the color!!!
+        .setColor('#ffbf00') //change the color!!!
         .setTimestamp()
         .setThumbnail(message.author.avatarURL)
         .addField('Action:', "Mute")
@@ -32,10 +32,10 @@ exports.run = function (client, message, args, args2, cmd) {
         .addField("User ID:", user.id)
         .addField("Moderator:", message.author.username + "#" + message.author.discriminator)
         .addField("Reason:", reason)
-    client.channels.get(modlog.id).send({ embed: embed })
+        guild.channels.find("name", "modlog").send({ embed: embed }).catch(e);
 
     const embed1 = new Discord.RichEmbed()
-        .setColor('#ff2800') //change the color!!!
+        .setColor('#ffbf00') //change the color!!!
         .setTimestamp()
         .setThumbnail(message.author.avatarURL)
         .addField('Action:', "Mute")

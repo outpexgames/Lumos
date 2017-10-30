@@ -13,13 +13,13 @@ exports.run = function (client, message, args, args2, cmd) {
         .addField("**Expected Result From Example:**", "Mentioned user should be warned.")
     if (args.join(' ') == "" && args2.join(" ") == "") return message.channel.send({ embed: embed19 })
     let guild = member.guild;
-    let modlog = guild.channels.find("name", "modlog")
-    if (!modlog) return message.reply("mod-log required")
+    // let modlog = guild.channels.find("name", "modlog")
+    // if (!modlog) return message.reply("mod-log required")
     if (reason.length < 1) return message.reply("Reason Required")
     if (message.mentions.users.size < 1) return message.reply("You must mention someone to warn them.").catch(console.error)
     if (user === message.author) return message.reply("You cannot warn yourself")
     const embed = new Discord.RichEmbed()
-        .setColor('#66ff00') //change the color!!!
+        .setColor('#ff9966') //change the color!!!
         .setTimestamp()
         .setThumbnail(message.author.avatarURL)
         .addField('Action:', "Warning")
@@ -27,9 +27,9 @@ exports.run = function (client, message, args, args2, cmd) {
         .addField("User ID:", user.id)
         .addField("Moderator:", message.author.username + "#" + message.author.discriminator)
         .addField("Reason:", reason)
-    client.channels.get(modlog.id).send({ embed: embed })
+        guild.channels.find("name", "modlog").send({ embed: embed }).catch(e);
     const embed1 = new Discord.RichEmbed()
-        .setColor('#66ff00') //change the color!!!
+        .setColor('#ff9966') //change the color!!!
         .setTimestamp()
         .setThumbnail(message.author.avatarURL)
         .addField('Action:', "Warning")

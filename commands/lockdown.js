@@ -2,7 +2,7 @@ const ms = require('ms');
 
 exports.run = function (client, message, args, args2, cmd) {
     const Discord = require('discord.js');
-    let modlog = client.channels.find("name", "modlog")
+    // let modlog = client.channels.find("name", "modlog")
     let member = message.author;
    const config = require("./config.json");
     const embed1 = new Discord.RichEmbed()
@@ -19,14 +19,14 @@ exports.run = function (client, message, args, args2, cmd) {
     let validUnlocks = ['release', 'unlock'];
     if (!time) return message.reply('You must set a duration for the lockdown in either hours, minutes or seconds');
     const embed = new Discord.RichEmbed()
-        .setColor('#00ff00') //change the color!!!
+        .setColor('##cb4154') //change the color!!!
         .setTimestamp()
         .setThumbnail(message.author.avatarURL)
         .addField('Action:', "Lockdown")
         .addField('Duration/Time:', time)
         .addField("Moderator:", message.author.username + "#" + message.author.discriminator)
 
-    client.channels.get(modlog.id).send({ embed: embed })
+        guild.channels.find("name", "modlog").send({ embed: embed }).catch(e);
 
     if (validUnlocks.includes(time)) {
         message.channel.overwritePermissions(message.guild.id, {
