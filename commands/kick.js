@@ -20,7 +20,7 @@ exports.run = function (client, message, args, args2, cmd) {
     if (user === message.author) return message.reply("You cannot kick yourself")
     if (message.guild.member(member) && member.kickable) {
         const channelsendlol = new Discord.RichEmbed()
-            .setColor('#2D7FFF') //change the color!!!
+            .setColor('#ff8c00') //change the color!!!
             .setTimestamp()
             .setThumbnail(message.author.avatarURL)
             .addField('Action:', "Kick")
@@ -34,7 +34,7 @@ exports.run = function (client, message, args, args2, cmd) {
 
         // user.send('You have been kicked');
         const okgoogle = new Discord.RichEmbed()
-            .setColor('#2D7FFF') //change the color!!!
+            .setColor('#ff8c00') //change the color!!!
             .setTimestamp()
             .setThumbnail(message.author.avatarURL)
             .addField('Action:', "Kick")
@@ -45,7 +45,7 @@ exports.run = function (client, message, args, args2, cmd) {
         //  .addField('Kicked User ID: ', `${message.mentions.users.first().id}`)
 
         console.log(okgoogle)
-        guild.channels.find("name", "modlog").send({ embed: okgoogle }) //changethis!!!!
+        guild.channels.find("name", "modlog").send({ embed: okgoogle }).catch(e);//changethis!!!!
         //message.channel.send("\n\n")
         setTimeout(function () {
             message.guild.member(user).kick();

@@ -139,4 +139,7 @@ Version 2.7.2
     added iplookup command (WIP)
     added DND role placing to presence update
     fixed ban cmd so that bans member first then sends log to modlog (Reported by Chroish via discord)
+    changed mod(kick, ban, warn, etc) cmd sto have better Discord.RichEmbed colors to suit the action
+    fixed all mod(kick, ban, warn, etc) cmds to do their action first before sending to modlog
+    fixed command cmd with latest cmds
     

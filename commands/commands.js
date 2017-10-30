@@ -81,6 +81,11 @@ exports.run = function (client, message, args, args2, cmd) {
             .addField('clean|Cleans reaction on messages by PowerBot', `\`clean <number of messages (atleast 2; which is one message)>\``)
             .addField('killall|A kill switch for PowerBot', `\`killall <password with no equal signs>\``)
             .addField('serverinv|Generates a invite for the current server', `\`serverinv\``)
+            .addField('getip|Get your ip', `\`getip\``)
+            .addField('iplookup|Get information about a ip address', `\`iplookup <ip>\``)
+            .addField('serverinfo|Get information about the current server', `\`serverinfo\``)
+            .addField('userid|Get a mentioned users id from a mention', `\`userid <@user?\``)
+            .addField("iduser|Get users username and discrim from a id",`\`iduser <id>\``)
         message.channel.send({ embed: embed2 })
     }
     if (select === 2) {
@@ -155,6 +160,11 @@ exports.run = function (client, message, args, args2, cmd) {
             .addField('clean|Cleans reaction on messages by PowerBot', `\`clean <number of messages (atleast 2; which is one message)>\``)
             .addField('killall|A kill switch for PowerBot', `\`killall <password with no equal signs>\``)
             .addField('serverinv|Generates a invite for the current server', `\`serverinv\``)
+            .addField('getip|Get your ip', `\`getip\``)
+            .addField('iplookup|Get information about a ip address', `\`iplookup <ip>\``)
+            .addField('serverinfo|Get information about the current server', `\`serverinfo\``)
+            .addField('userid|Get a mentioned users id from a mention', `\`userid <@user?\``)
+            .addField("iduser|Get users username and discrim from a id",`\`iduser <id>\``)
         message.channel.send({ embed: embed2 })
     }
     if (select === 3) {
@@ -229,6 +239,11 @@ exports.run = function (client, message, args, args2, cmd) {
             .addField('clean|Cleans reaction on messages by PowerBot', `\`clean <number of messages (atleast 2; which is one message)>\``)
             .addField('killall|A kill switch for PowerBot', `\`killall <password with no equal signs>\``)
             .addField('serverinv|Generates a invite for the current server', `\`serverinv\``)
+            .addField('getip|Get your ip', `\`getip\``)
+            .addField('iplookup|Get information about a ip address', `\`iplookup <ip>\``)
+            .addField('serverinfo|Get information about the current server', `\`serverinfo\``)
+            .addField('userid|Get a mentioned users id from a mention', `\`userid <@user?\``)
+            .addField("iduser|Get users username and discrim from a id",`\`iduser <id>\``)
         message.channel.send({ embed: embed2 })
     }
 };

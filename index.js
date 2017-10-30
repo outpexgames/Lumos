@@ -259,23 +259,25 @@ client.on("message", message => {  //message handler starts here!
         
     }
 
-    if (command === "getip") {
-        let user = message.author;
-        ipInfo((err, cLoc) => {
-            user.send(JSON.stringify(err || cLoc));
-        })
-    }
+    // if (command === "getip") {
+    //     let user = message.author;
+    //     ipInfo((err, cLoc) => {
+    //         user.send(JSON.stringify(err || cLoc));
+    //     })
+    // }
 
-    if (command === "user") {
-        message.channel.send(client.users.get(args.join(' ')).username + "#" + client.users.get(args.join(' ')).discriminator);
-    }
+    // if (command === "iduser") {
+    //     message.channel.send(client.users.get(args.join(' ')).username + "#" + client.users.get(args.join(' ')).discriminator);
+    // }
 
-    if (command === "iplookup") {
-        let user = message.author;
-        ipInfo(args.join(' '), (err, cLoc) => {
-            user.send(JSON.stringify(err || cLoc)); 
-        });
-    }
+    // if (command === "iplookup") {
+    //     let user = message.author;
+    //     ipInfo(args.join(' '), (err, cLoc) => {
+    //         user.send(JSON.stringify(err || cLoc)); 
+    //     });
+    // }
+
+    
     // if (command === "userid") {
     //     let user = message.mentions.users.first()
     //     message.channel.send(user.id)
@@ -314,17 +316,17 @@ client.on("message", message => {  //message handler starts here!
     
     if (command === "update") {
         if (message.author.id === config.owner) {
-            var check1 = base64url.encode(rand.toString())
-            if (!args.join(' ')) {
-                message.channel.send('Please get a password! It has been Directly Messaged to you!')
-                message.author.send("Base 64 of " + rand)
-                message.author.send("Then remove any equal signs(=) from the result!")
-            }
-            else if (args.join(' ') === check1) {
+            // var check1 = base64url.encode(rand.toString())
+            // if (!args.join(' ')) {
+            //     message.channel.send('Please get a password! It has been Directly Messaged to you!')
+            //     message.author.send("Base 64 of " + rand)
+            //     message.author.send("Then remove any equal signs(=) from the result!")
+            // }
+            // else if (args.join(' ') === check1) {
             let min = 5; // change min here (WIP)
             let server = client.guilds.find("name", args.join(' '));
             server.defaultChannel.send(`Hello, ${config.name} will under go a system update in ${min} minutes. Please prepare for at least 5-10 minutes of down time. Thank you for your understanding. Together we will make ${config.name} better and better! ~AirFusion--Creator of ${config.name}`)
-            }
+            // }
         }
         else {
             return message.channel.send("Insufficant Permissions");
