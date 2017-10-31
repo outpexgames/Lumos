@@ -1,5 +1,5 @@
 command use log (logs timestamp & user & what command was used)
-
+Add message.delete to -say cmd
 
 Links: 
 https://github.com/perhion/aru/blob/master/commands/ping.js
