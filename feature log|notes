@@ -3,6 +3,9 @@ Add message.delete to -say cmd
 GuildCreate action
 GuildDelete action
 Add #of user count & # of bot count to serverinfo
+Mod log reminder to owners who don't gave modlog setup
+Voice channels to text channels ratio in serverinfo
+
 
 Links: 
 https://github.com/perhion/aru/blob/master/commands/ping.js
