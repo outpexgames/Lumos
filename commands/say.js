@@ -9,4 +9,5 @@ exports.run = function (client, message, args, args2, cmd) {
         .addField("**Expected Result From Example:**", "hello!")
     if (args.join(' ') == "") return message.channel.send({ embed: embed19 })
     message.channel.send(args.join(' '));
+    message.delete();
 };
