@@ -28,7 +28,12 @@ function getRandomIntInclusive(min, max) {
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive
 }
-
+client.on('guildCreate', (guild) => {
+    console.log(chalk.white(`Joined guild ${guild.name} ID: ${guild.id}  Owner ID: ${guild.ownerID}`)) //Owner: ${guild.owner.user.tag}
+})
+client.on('guildDelete', (guild) => {
+    console.log(chalk.white(`Left/Kicked from guild ${guild.name} ID: ${guild.id}  Owner ID: ${guild.ownerID}`))
+});
 client.on("presenceUpdate", (oldMember, newMember) => {
     let guild = newMember.guild;
     let minecraft = guild.roles.find("name", "Playing Minecraft");
@@ -256,7 +261,7 @@ client.on("message", message => {  //message handler starts here!
     if (command === "test") {
         console.log(message.channel)
         console.log("ENDLJSLFJSLJFLKSJGLS")
-        
+
     }
 
     // if (command === "getip") {
@@ -277,7 +282,7 @@ client.on("message", message => {  //message handler starts here!
     //     });
     // }
 
-    
+
     // if (command === "userid") {
     //     let user = message.mentions.users.first()
     //     message.channel.send(user.id)
@@ -302,18 +307,18 @@ client.on("message", message => {  //message handler starts here!
     // if (command === "randword") {
     //     message.channel.send(randomWord())
     // }
-   
+
 
     if (command === "getallserver") {
         if (message.author.id === config.owner) {
-        let user = message.author;
-        user.send(client.guilds.map(e => e.toString()).join(" "));
+            let user = message.author;
+            user.send(client.guilds.map(e => e.toString()).join(" "));
         }
         else {
             return message.channel.send("Insufficant Permissions");
         }
     }
-    
+
     if (command === "update") {
         if (message.author.id === config.owner) {
             // var check1 = base64url.encode(rand.toString())
@@ -331,7 +336,7 @@ client.on("message", message => {  //message handler starts here!
         else {
             return message.channel.send("Insufficant Permissions");
         }
-   }
+    }
 
     if (command === "killall") {
         if (message.author.id === config.owner) {
