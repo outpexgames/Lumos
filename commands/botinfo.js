@@ -18,6 +18,13 @@ function timeCon(time) {
     seconds = seconds > 9 ? seconds : "" + seconds
     return (parseInt(days) > 0 ? days + " days " : " ") + (parseInt(hours) === 0 && parseInt(days) === 0 ? "" : hours + " hours ") + minutes + " minutes " + seconds + " seconds."
 }
+const winston = require('winston')
+var logger = new (winston.Logger)({
+    transports: [
+        new winston.transports.Console(),
+        new winston.transports.File({ filename: './log.txt' })
+    ]
+})
 
 exports.run = function (client, message, args, args2, cmd) {
     const Discord = require('discord.js');
@@ -37,4 +44,5 @@ exports.run = function (client, message, args, args2, cmd) {
         .addField(`:construction_worker: Creator`,`AirFusion#1243`)
     //    .addField(`:electric_plug: CPU Usage:`,);
     message.channel.send({ embed: embed })
+    logger.log('info', `Botinfo command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()}`)    
 };

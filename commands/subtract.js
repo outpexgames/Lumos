@@ -1,3 +1,9 @@
+var logger = new (winston.Logger)({
+    transports: [
+        new winston.transports.Console(),
+        new winston.transports.File({ filename: './log.txt' })
+    ]
+})
 exports.run = function (client, message, args, args2, cmd) {
     const Discord = require('discord.js');
     const config = require("./config.json");
@@ -11,4 +17,6 @@ exports.run = function (client, message, args, args2, cmd) {
     let numArray = args.map(n => parseInt(n));
     let total = numArray.reduce((p, c) => p - c);
     message.channel.send(total);
+    logger.log('info', `Subtract command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()}`)    
+    
 };

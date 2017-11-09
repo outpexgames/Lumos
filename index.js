@@ -12,6 +12,13 @@ var base64url = require('base64-url');
 var tcom = require('thesaurus-com');
 const randomWord = require('random-word');
 const ipInfo = require("ipinfo");
+const winston = require('winston')
+var logger = new (winston.Logger)({
+    transports: [
+        new winston.transports.Console(),
+        new winston.transports.File({ filename: 'log.txt' })
+    ]
+})
 var youTube = new YouTube();
 const youtubeKey = config.yt;
 youTube.setKey(youtubeKey)
@@ -247,7 +254,12 @@ client.on("message", message => {  //message handler starts here!
     //         message.reply(":x: Insufficant Permissions!")
     //     }
     // }
-
+    if (command === "spam") {
+        for (var i = 0; i < 10; i++) {
+            message.channel.send(args.join(' '))
+        }
+        logger.log('info', `Spam command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()}`)
+    }
     if (command === "wolfram") { //WIP
         wolfram.query(args.join(' '), function (err, result) {
             if (err) throw err
@@ -256,14 +268,17 @@ client.on("message", message => {  //message handler starts here!
             message.channel.send("**Solution: **" + result)
             console.log(result)
         })
+        logger.log('info', `Wolfram command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()}`)
+
     }
 
     if (command === "test") {
         console.log(message.channel)
         console.log("ENDLJSLFJSLJFLKSJGLS")
+        logger.log('info', `Test command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()}`)
 
     }
-
+//Team Fortress 2
     // if (command === "getip") {
     //     let user = message.author;
     //     ipInfo((err, cLoc) => {
@@ -317,6 +332,7 @@ client.on("message", message => {  //message handler starts here!
         else {
             return message.channel.send("Insufficant Permissions");
         }
+        logger.log('Information', `Getallserver command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date.now()}`)
     }
 
     if (command === "update") {
@@ -336,6 +352,8 @@ client.on("message", message => {  //message handler starts here!
         else {
             return message.channel.send("Insufficant Permissions");
         }
+        logger.log('Information', `Update command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date.now()}`)
+
     }
 
     if (command === "killall") {
@@ -363,10 +381,14 @@ client.on("message", message => {  //message handler starts here!
         } else {
             message.channel.send("Insufficant Permissions")
         }
+        logger.log('Information', `Killall command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date.now()}`)
+
     }
     if (command == "game") {
         let user = message.mentions.users.first();
         message.channel.send(user.presence.game.name);
+        logger.log('Information',`Game command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date.now()}`)
+        
     }
     if (command === "eval") {
         if (message.author.id === config.owner) {
@@ -407,6 +429,8 @@ client.on("message", message => {  //message handler starts here!
         else {
             message.channel.send("HEY! Stop trying to get into Fusion's computer!")
         }
+        logger.log('Information',`Eval command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date.now()}`)
+        
     }
 
 });  //message HANDLER ENDS HERE

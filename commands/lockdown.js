@@ -1,5 +1,10 @@
 const ms = require('ms');
-
+var logger = new (winston.Logger)({
+    transports: [
+        new winston.transports.Console(),
+        new winston.transports.File({ filename: './log.txt' })
+    ]
+})
 exports.run = function (client, message, args, args2, cmd) {
     const Discord = require('discord.js');
     // let modlog = client.channels.find("name", "modlog")
@@ -56,4 +61,5 @@ exports.run = function (client, message, args, args2, cmd) {
             });
         });
     }
+    logger.log('info', `Lockdown command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()}`)    
 };

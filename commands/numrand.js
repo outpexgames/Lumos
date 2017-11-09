@@ -3,6 +3,12 @@ function getRandomIntInclusive(min, max) {
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive
 }
+var logger = new (winston.Logger)({
+    transports: [
+        new winston.transports.Console(),
+        new winston.transports.File({ filename: './log.txt' })
+    ]
+})
 exports.run = function (client, message, args, args2, cmd) {
     const Discord = require('discord.js');
     const config = require("./config.json");
@@ -18,4 +24,6 @@ exports.run = function (client, message, args, args2, cmd) {
     if (!low) return message.reply("You need a low range number");
     if (!args2.join(' ')) return message.reply("You need a high range number");
     message.channel.send(ans)
+    logger.log('info', `Numrand command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()}`)    
+    
 }

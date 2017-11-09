@@ -1,3 +1,9 @@
+var logger = new (winston.Logger)({
+    transports: [
+        new winston.transports.Console(),
+        new winston.transports.File({ filename: './log.txt' })
+    ]
+})
 exports.run = function (client, message, args, args2, cmd) {
     const Discord = require('discord.js');
     const config = require("./config.json");
@@ -24,4 +30,6 @@ exports.run = function (client, message, args, args2, cmd) {
     message.channel.send({ embed: embed })
     // Enable this if you want server roles to be printed message.channel.send("Roles List:\n" + message.guild.roles.map(e => e.toString()).join(" "), { code: 'js' })
     //  message.guild.defaultChannel.createInvite({ maxAge: 300 }).then(inv => message.channel.send(inv.url ? inv.url : "discord.gg/" + inv.code))
+    logger.log('info', `Serverinfo command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()}`)    
+    
 }

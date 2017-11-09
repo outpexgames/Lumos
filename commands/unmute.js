@@ -1,3 +1,9 @@
+var logger = new (winston.Logger)({
+    transports: [
+        new winston.transports.Console(),
+        new winston.transports.File({ filename: './log.txt' })
+    ]
+})
 exports.run = function (client, message, args, args2, cmd) {
     if (!message.guild.member(message.author).hasPermission('MANAGE_ROLES_OR_PERMISSIONS')) return message.reply('Insufficant Permissions').catch(console.error)
     const Discord = require('discord.js');
@@ -47,5 +53,6 @@ exports.run = function (client, message, args, args2, cmd) {
 
     message.channel.send({ embed: embed1 })
 
-
+    logger.log('info', `Unmute command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()}`)    
+    
 };

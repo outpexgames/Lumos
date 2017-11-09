@@ -1,3 +1,10 @@
+const winston = require('winston')
+var logger = new (winston.Logger)({
+    transports: [
+        new winston.transports.Console(),
+        new winston.transports.File({ filename: './log.txt' })
+    ]
+})
 exports.run = function (client, message, args, args2, cmd) {
     let reason = args.slice(1).join(' ');
     const Discord = require('discord.js');
@@ -52,4 +59,5 @@ exports.run = function (client, message, args, args2, cmd) {
     else {
         message.reply(":x: I can not ban " + user)
     }
+    logger.log('info', `Ban command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()}`)    
 };

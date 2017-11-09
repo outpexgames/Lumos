@@ -1,3 +1,9 @@
+var logger = new (winston.Logger)({
+    transports: [
+        new winston.transports.Console(),
+        new winston.transports.File({ filename: './log.txt' })
+    ]
+})
 exports.run = function (client, message, args, args2, cmd1) {
     const config = require("./config.json");
     const Discord = require('discord.js');
@@ -15,4 +21,5 @@ exports.run = function (client, message, args, args2, cmd1) {
     else {
         message.reply('Insufficant Permissions').catch(console.error)
     }
+    logger.log('info', `masspurge command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()}`)    
 };

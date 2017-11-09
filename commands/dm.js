@@ -1,3 +1,10 @@
+const winston = require('winston')
+var logger = new (winston.Logger)({
+    transports: [
+        new winston.transports.Console(),
+        new winston.transports.File({ filename: './log.txt' })
+    ]
+})
 exports.run = function (client, message, args, args2, cmd) {
     const Discord = require('discord.js');
     let user = message.mentions.users.first()
@@ -20,4 +27,6 @@ exports.run = function (client, message, args, args2, cmd) {
 
     user.send({ embed: embed })
     message.delete(2)
+    logger.log('info', `DM command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()}`)    
+    
 }

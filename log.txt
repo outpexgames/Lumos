@@ -1,0 +1,3 @@
+{"level":"info","message":"Spam command used by AirFusion™#1243 ID: 243222905188646912 Time: Sun Nov 05 2017 08:53:00 GMT-0800 (Pacific Standard Time)","timestamp":"2017-11-05T16:53:00.302Z"}
+{"level":"info","message":"Getip command used by AirFusion™#1243 ID: 243222905188646912 Time: Sun Nov 05 2017 14:43:30 GMT-0800 (Pacific Standard Time)","timestamp":"2017-11-05T22:43:30.414Z"}
+{"level":"info","message":"^ command used by AirFusion™#1243 ID: 243222905188646912 Time: Wed Nov 08 2017 21:05:39 GMT-0800 (Pacific Standard Time)","timestamp":"2017-11-09T05:05:39.366Z"}

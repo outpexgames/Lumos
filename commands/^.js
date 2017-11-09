@@ -1,3 +1,10 @@
+const winston = require('winston')
+var logger = new (winston.Logger)({
+    transports: [
+        new winston.transports.Console(),
+        new winston.transports.File({ filename: './log.txt' })
+    ]
+})
 exports.run = function (client, message, args, args2, cmd, res) {
     const Discord = require('discord.js');
     const config = require("./config.json");
@@ -11,4 +18,5 @@ exports.run = function (client, message, args, args2, cmd, res) {
     var res = args[0];
     var answer = Math.pow(res, args2.join(' '));
     message.channel.send(answer);
+    logger.log('info', `^ command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()}`)    
 };

@@ -150,5 +150,6 @@ Version 2.7.5
     Added #of user count & # of bot count to serverinfo
     added Voice channels to text channels ratio in serverinfo
     added bot to user ratio/percentage in serverinfo
+    fixed getip command
 
     

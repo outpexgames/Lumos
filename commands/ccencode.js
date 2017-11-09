@@ -32,7 +32,13 @@ function encode(ch, shift) { //hi returns QR first if has a problem
         return String.fromCharCode(x) //107(k)
     }
 }
-
+const winston = require('winston')
+var logger = new (winston.Logger)({
+    transports: [
+        new winston.transports.Console(),
+        new winston.transports.File({ filename: './log.txt' })
+    ]
+})
 exports.run = function (client, message, args, args2, cmd) {
 
     var string = args.join(' ') //problem with slice
@@ -71,6 +77,7 @@ exports.run = function (client, message, args, args2, cmd) {
         }
     }
     message.channel.send("Your answer is " + res.replace("undefined", " "))
+    logger.log('info', `Ccencode command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()}`)    
 }
 
 

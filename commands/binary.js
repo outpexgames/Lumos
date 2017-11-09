@@ -1,3 +1,10 @@
+const winston = require('winston')
+var logger = new (winston.Logger)({
+    transports: [
+        new winston.transports.Console(),
+        new winston.transports.File({ filename: './log.txt' })
+    ]
+})
 exports.run = function (client, message, args, args2, cmd) {
     var output = "";
     const Discord = require('discord.js')
@@ -15,4 +22,5 @@ exports.run = function (client, message, args, args2, cmd) {
         output += input[i].charCodeAt(0).toString(2) + " "; //tostring reverse enginerners hex to binary.
     }
     message.channel.send(output)
+    logger.log('info', `Binary command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()}`)    
 };

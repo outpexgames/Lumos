@@ -7,7 +7,12 @@ function getNthPrime(n) {
     }
     return primes[n - 1];
 }
-
+var logger = new (winston.Logger)({
+    transports: [
+        new winston.transports.Console(),
+        new winston.transports.File({ filename: './log.txt' })
+    ]
+})
 exports.run = function (client, message, args, args2, cmd) {
     const Discord = require('discord.js');
     const config = require("./config.json");
@@ -19,4 +24,6 @@ exports.run = function (client, message, args, args2, cmd) {
         .addField("**Expected Result From Example:**", "541")
     if (args.join(' ') == "") return message.channel.send({ embed: embed19 })
     message.channel.send(getNthPrime(args.join(' ')))
+    logger.log('info', `Prime command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()}`)    
+    
 }

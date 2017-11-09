@@ -1,3 +1,10 @@
+const winston = require('winston')
+var logger = new (winston.Logger)({
+    transports: [
+        new winston.transports.Console(),
+        new winston.transports.File({ filename: './log.txt' })
+    ]
+})
 exports.run = function (client, message, args, args2, cmd) {
     var first = args.join(' ');
     const Discord = require('discord.js');
@@ -26,5 +33,6 @@ exports.run = function (client, message, args, args2, cmd) {
     } else {
         message.channel.send("Not Anagram");
     }
-
+    logger.log('info', `Anagram command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()}`)    
+    
 };

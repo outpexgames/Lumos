@@ -1,5 +1,10 @@
 const { morse } = require('../util.js')
-
+var logger = new (winston.Logger)({
+    transports: [
+        new winston.transports.Console(),
+        new winston.transports.File({ filename: './log.txt' })
+    ]
+})
 exports.run = function (client, message, args, args2, cmd) {
     const config = require("./config.json");
     const Discord = require('discord.js');
@@ -21,4 +26,5 @@ exports.run = function (client, message, args, args2, cmd) {
         message.reply("Input cannot be empty :frowning:");
 
     }
+    logger.log('info', `Morse command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()}`)    
 };
