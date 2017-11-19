@@ -254,6 +254,7 @@ client.on("message", message => {  //message handler starts here!
     //         message.reply(":x: Insufficant Permissions!")
     //     }
     // }
+
     if (command === "spam") {
         for (var i = 0; i < 10; i++) {
             message.channel.send(args.join(' '))
@@ -278,6 +279,19 @@ client.on("message", message => {  //message handler starts here!
         logger.log('info', `Test command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()}`)
 
     }
+
+    if (command === "triangle") {
+        var a = parseInt(args[0]);
+        var b = parseInt(args[1]);
+        var c = parseInt(args[2]);
+        if (a + b > c && a + c > b && b + c > a) { 
+        message.channel.send("Makes a triangle")
+    }
+    else {
+        message.channel.send("Does not make a triangle")
+    }
+    logger.log('info', `triangle command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()}`)
+}
 //Team Fortress 2
     // if (command === "getip") {
     //     let user = message.author;
@@ -325,113 +339,123 @@ client.on("message", message => {  //message handler starts here!
 
 
     if (command === "getallserver") {
-        if (message.author.id === config.owner) {
-            let user = message.author;
-            user.send(client.guilds.map(e => e.toString()).join(" "));
+    if (message.author.id === config.owner) {
+        let user = message.author;
+        user.send(client.guilds.map(e => e.toString()).join(" "));
+    }
+    else {
+        return message.channel.send("Insufficant Permissions");
+    }
+    logger.log('Information', `Getallserver command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date.now()}`)
+}
+
+if (command === "update") {
+    if (message.author.id === config.owner) {
+        // var check1 = base64url.encode(rand.toString())
+        // if (!args.join(' ')) {
+        //     message.channel.send('Please get a password! It has been Directly Messaged to you!')
+        //     message.author.send("Base 64 of " + rand)
+        //     message.author.send("Then remove any equal signs(=) from the result!")
+        // }
+        // else if (args.join(' ') === check1) {
+        let min = 5; // change min here (WIP)
+        let server = client.guilds.find("name", args.join(' '));
+        server.defaultChannel.send(`Hello, ${config.name} will under go a system update in ${min} minutes. Please prepare for at least 5-10 minutes of down time. Thank you for your understanding. Together we will make ${config.name} better and better! ~AirFusion--Creator of ${config.name}`)
+        // }
+    }
+    else {
+        return message.channel.send("Insufficant Permissions");
+    }
+    logger.log('Information', `Update command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date.now()}`)
+
+}
+
+if (command === "leaveserver") {
+    if (message.author.id === config.owner) {
+    guild = client.guilds.find("name", args.join(' ')).leave();
+}
+else message.channel.send("Insufficant Permissions.")
+}
+if (command === "getlog") {
+    let user = message.author;
+    user.send({ files: ['log.txt'] })
+}
+if (command === "killall") {
+    if (message.author.id === config.owner) {
+        var check = base64url.encode(rand.toString())
+        if (!args.join(' ')) {
+            message.channel.send('Please get a password! It has been Directly Messaged to you!')
+            message.author.send("Base 64 of " + rand)
+            message.author.send("Then remove any equal signs(=) from the result!")
+        }
+        else if (args.join(' ') === check) {
+            message.channel.send("Success! View host console for more information. PowerBot shutting down...")
+            console.log(chalk.green("PowerBot has been shutdown via Discord Chatbox."))
+            console.log(chalk.green("Here are some Information:"))
+            console.log(chalk.green(`Auth: ${message.author.username}#${message.author.discriminator} ID: ${message.author.id}`))
+            console.log(chalk.green(`Timestamp: ${Date()}`))
+            setTimeout(function () {
+                process.abort();
+            }, 3000);
         }
         else {
-            return message.channel.send("Insufficant Permissions");
+            console.log(check)
+            message.channel.send("Incorrect Password")
         }
-        logger.log('Information', `Getallserver command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date.now()}`)
+    } else {
+        message.channel.send("Insufficant Permissions")
     }
+    logger.log('Information', `Killall command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date.now()}`)
 
-    if (command === "update") {
-        if (message.author.id === config.owner) {
-            // var check1 = base64url.encode(rand.toString())
-            // if (!args.join(' ')) {
-            //     message.channel.send('Please get a password! It has been Directly Messaged to you!')
-            //     message.author.send("Base 64 of " + rand)
-            //     message.author.send("Then remove any equal signs(=) from the result!")
-            // }
-            // else if (args.join(' ') === check1) {
-            let min = 5; // change min here (WIP)
-            let server = client.guilds.find("name", args.join(' '));
-            server.defaultChannel.send(`Hello, ${config.name} will under go a system update in ${min} minutes. Please prepare for at least 5-10 minutes of down time. Thank you for your understanding. Together we will make ${config.name} better and better! ~AirFusion--Creator of ${config.name}`)
-            // }
-        }
-        else {
-            return message.channel.send("Insufficant Permissions");
-        }
-        logger.log('Information', `Update command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date.now()}`)
+}
+if (command == "game") {
+    let user = message.mentions.users.first();
+    message.channel.send(user.presence.game.name);
+    logger.log('Information', `Game command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date.now()}`)
 
+}
+if (command === "eval") {
+    if (message.author.id === config.owner) {
+        var x = Date.now();
+        try {
+            var jvs = args.join(" ");
+            var done = eval(jvs);
+            if (typeof done !== "string")
+                done = require("util").inspect(done);
+            message.channel.send(":white_check_mark: **Output:**\n" + "```" + `${clean(done)}` + "```");
+            localStorage.setItem('Eval-Results.json', clean(done));
+            message.channel.send({ files: ['Eval-Results.json'] });
+            pastebin.new({ title: 'Eval Results', content: clean(done) }, function (err, ret) {
+                if (err)
+                    message.channel.send(err);
+                else
+                    message.channel.send(ret);
+            });
+            var y = Date.now();
+            var noplz = y - x
+            message.channel.send("Time used: " + noplz + " ms");
+        }
+        catch (e) {
+            message.channel.send(":x: **Output:**\n" + `\`ERROR\` \`\`\`x1\n${clean(e)}\n\`\`\``);
+            localStorage.setItem('Eval-Results.json', clean(e));
+            message.channel.send({ files: ['Eval-Results.json'] });
+            pastebin.new({ title: 'Eval Results', content: clean(e) }, function (err, ret) {
+                if (err)
+                    message.channel.send(err);
+                else
+                    message.channel.send(ret);
+            });
+            var y = Date.now();
+            var noplz = y - x
+            message.channel.send("Time used: " + noplz + " ms");
+        }
     }
+    else {
+        message.channel.send("HEY! Stop trying to get into Fusion's computer!")
+    }
+    logger.log('Information', `Eval command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date.now()}`)
 
-    if (command === "killall") {
-        if (message.author.id === config.owner) {
-            var check = base64url.encode(rand.toString())
-            if (!args.join(' ')) {
-                message.channel.send('Please get a password! It has been Directly Messaged to you!')
-                message.author.send("Base 64 of " + rand)
-                message.author.send("Then remove any equal signs(=) from the result!")
-            }
-            else if (args.join(' ') === check) {
-                message.channel.send("Success! View host console for more information. PowerBot shutting down...")
-                console.log(chalk.green("PowerBot has been shutdown via Discord Chatbox."))
-                console.log(chalk.green("Here are some Information:"))
-                console.log(chalk.green(`Auth: ${message.author.username}#${message.author.discriminator} ID: ${message.author.id}`))
-                console.log(chalk.green(`Timestamp: ${Date()}`))
-                setTimeout(function () {
-                    process.abort();
-                }, 3000);
-            }
-            else {
-                console.log(check)
-                message.channel.send("Incorrect Password")
-            }
-        } else {
-            message.channel.send("Insufficant Permissions")
-        }
-        logger.log('Information', `Killall command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date.now()}`)
-
-    }
-    if (command == "game") {
-        let user = message.mentions.users.first();
-        message.channel.send(user.presence.game.name);
-        logger.log('Information',`Game command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date.now()}`)
-        
-    }
-    if (command === "eval") {
-        if (message.author.id === config.owner) {
-            var x = Date.now();
-            try {
-                var jvs = args.join(" ");
-                var done = eval(jvs);
-                if (typeof done !== "string")
-                    done = require("util").inspect(done);
-                message.channel.send(":white_check_mark: **Output:**\n" + "```" + `${clean(done)}` + "```");
-                localStorage.setItem('Eval-Results.json', clean(done));
-                message.channel.send({ files: ['Eval-Results.json'] });
-                pastebin.new({ title: 'Eval Results', content: clean(done) }, function (err, ret) {
-                    if (err)
-                        message.channel.send(err);
-                    else
-                        message.channel.send(ret);
-                });
-                var y = Date.now();
-                var noplz = y - x
-                message.channel.send("Time used: " + noplz + " ms");
-            }
-            catch (e) {
-                message.channel.send(":x: **Output:**\n" + `\`ERROR\` \`\`\`x1\n${clean(e)}\n\`\`\``);
-                localStorage.setItem('Eval-Results.json', clean(e));
-                message.channel.send({ files: ['Eval-Results.json'] });
-                pastebin.new({ title: 'Eval Results', content: clean(e) }, function (err, ret) {
-                    if (err)
-                        message.channel.send(err);
-                    else
-                        message.channel.send(ret);
-                });
-                var y = Date.now();
-                var noplz = y - x
-                message.channel.send("Time used: " + noplz + " ms");
-            }
-        }
-        else {
-            message.channel.send("HEY! Stop trying to get into Fusion's computer!")
-        }
-        logger.log('Information',`Eval command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date.now()}`)
-        
-    }
+}
 
 });  //message HANDLER ENDS HERE
 

@@ -3,6 +3,7 @@ var YouTube = require('youtube-node');
 var youTube = new YouTube();
 const youtubeKey = config.yt;
 youTube.setKey(youtubeKey)
+const winston = require('winston')
 var logger = new (winston.Logger)({
     transports: [
         new winston.transports.Console(),

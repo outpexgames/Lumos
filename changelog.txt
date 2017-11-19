@@ -151,5 +151,10 @@ Version 2.7.5
     added Voice channels to text channels ratio in serverinfo
     added bot to user ratio/percentage in serverinfo
     fixed getip command
+    added logger to every command
+    added triangle command to see if 3 numbers make a triangle
+    fixed all moderation commands so no crash when no modlog
+    added get log command
+    added spam command (HAHA lol)
 
     

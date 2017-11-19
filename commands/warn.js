@@ -1,3 +1,4 @@
+const winston = require('winston')
 var logger = new (winston.Logger)({
     transports: [
         new winston.transports.Console(),
@@ -5,6 +6,7 @@ var logger = new (winston.Logger)({
     ]
 })
 exports.run = function (client, message, args, args2, cmd) {
+    logger.log('info', `Warn command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()}`)  
     if (!message.guild.member(message.author).hasPermission('MANAGE_ROLES_OR_PERMISSIONS')) return message.reply('Insufficant Permissions').catch(console.error)
     const Discord = require('discord.js');
     const config = require("./config.json");
@@ -44,7 +46,7 @@ exports.run = function (client, message, args, args2, cmd) {
         .addField("Moderator:", message.author.username + "#" + message.author.discriminator)
         .addField("Reason:", reason)
     message.channel.send({ embed: embed1 })
+
+     
     guild.channels.find("name", "modlog").send({ embed: embed }).catch(e);
-    logger.log('info', `Warn command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()}`)    
-    
 };
