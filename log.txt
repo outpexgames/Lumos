@@ -1,0 +1,3 @@
+{"level":"info","message":"Ping command used by AirFusion™#1243 ID: 243222905188646912 Time: Fri Dec 01 2017 17:06:58 GMT-0800 (Pacific Standard Time)","timestamp":"2017-12-02T01:06:58.483Z"}
+{"level":"info","message":"dnd (presence update) role given to AirFusion™#1243 ID: 243222905188646912 Time: Fri Dec 01 2017 17:07:37 GMT-0800 (Pacific Standard Time) Guild: Random Chat","timestamp":"2017-12-02T01:07:37.423Z"}
+{"level":"info","message":"dnd (presence update) role given to AirFusion™#1243 ID: 243222905188646912 Time: Fri Dec 01 2017 17:07:37 GMT-0800 (Pacific Standard Time) Guild: Buff Kangaroo Squad","timestamp":"2017-12-02T01:07:37.426Z"}

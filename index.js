@@ -69,72 +69,94 @@ client.on("presenceUpdate", (oldMember, newMember) => {
 
     if (newMember.user.presence.status === "dnd") {
         newMember.addRole(dnd);
+        logger.log('info', `dnd (presence update) role given to ${newMember.user.tag} ID: ${newMember.user.id} Time: ${Date()} Guild: ${guild}`)
     }
     if (newMember.user.presence.status != "dnd" && newMember.roles.has(dnd.id)) {
         newMember.removeRole(dnd);
+        logger.log('info', `dnd (presence update) role removed from ${newMember.user.tag} ID: ${newMember.user.id} Time: ${Date()} Guild: ${guild}`)
     }
     if (newMember.user.presence.status === "idle") {
         newMember.addRole(idle)
+        logger.log('info', `idle (presence update) role given to ${newMember.user.tag} ID: ${newMember.user.id} Time: ${Date()} Guild: ${guild}`)
     }
     if (newMember.user.presence.status !== "idle" && newMember.roles.has(idle.id)) {
         newMember.removeRole(idle);
+        logger.log('info', `idle (presence update) role removed from ${newMember.user.tag} ID: ${newMember.user.id} Time: ${Date()} Guild: ${guild}`)
     }
 
     if (newMember.user.presence.game && newMember.user.presence.game.name === "Minecraft") {
         newMember.addRole(minecraft);
+        logger.log('info', `minecraft (presence update) role added to ${newMember.user.tag} ID: ${newMember.user.id} Time: ${Date()} Guild: ${guild}`)
     }
     else if (!newMember.user.presence.game && newMember.roles.has(minecraft.id)) {
         newMember.removeRole(minecraft);
+        logger.log('info', `minecraft (presence update) role removed from ${newMember.user.tag} ID: ${newMember.user.id} Time: ${Date()} Guild: ${guild}`)
     }
     else if (newMember.user.presence.game !== "Minecraft" && newMember.roles.has(minecraft.id)) {
         newMember.removeRole(minecraft);
+        logger.log('info', `minecraft (presence update) role removed from ${newMember.user.tag} ID: ${newMember.user.id} Time: ${Date()} Guild: ${guild}`)
     }
 
     if (newMember.user.presence.game && newMember.user.presence.game.name === "Counter-Strike Global Offensive") {
         newMember.addRole(csgo);
+        logger.log('info', `Counter-Strike Global Offensive (presence update) role added to ${newMember.user.tag} ID: ${newMember.user.id} Time: ${Date()} Guild: ${guild}`)
     }
     else if (!newMember.user.presence.game && newMember.roles.has(csgo.id)) {
         newMember.removeRole(csgo);
+      logger.log('info', `Counter-Strike Global Offensive (presence update) role removed from ${newMember.user.tag} ID: ${newMember.user.id} Time: ${Date()} Guild: ${guild}`)
     }
     else if (newMember.user.presence.game !== "Counter-Strike Global Offensive" && newMember.roles.has(csgo.id)) {
         newMember.removeRole(csgo);
+        logger.log('info', `Counter-Strike Global Offensive (presence update) role removed from ${newMember.user.tag} ID: ${newMember.user.id} Time: ${Date()} Guild: ${guild}`)
     }
 
     if (newMember.user.presence.game && newMember.user.presence.game.name === "Garry's Mod") {
         newMember.addRole(garryMod);
+        logger.log('info', `Garry's Mod (presence update) role added to ${newMember.user.tag} ID: ${newMember.user.id} Time: ${Date()} Guild: ${guild}`)
     }
     else if (!newMember.user.presence.game && newMember.roles.has(garryMod.id)) {
         newMember.removeRole(garryMod);
+        logger.log('info', `Garry's Mod (presence update) role removed from ${newMember.user.tag} ID: ${newMember.user.id} Time: ${Date()} Guild: ${guild}`)
     }
     else if (newMember.user.presence.game !== "Garry's Mod" && newMember.roles.has(garryMod.id)) {
         newMember.removeRole(garryMod);
+          logger.log('info', `Garry's Mod (presence update) role removed from ${newMember.user.tag} ID: ${newMember.user.id} Time: ${Date()} Guild: ${guild}`)
     }
 
     if (newMember.user.presence.game && newMember.user.presence.game.name === "Grand Theft Auto San Andreas") {
         newMember.addRole(gta);
+        logger.log('info', `Grand Theft Auto San Andreas (presence update) role added to ${newMember.user.tag} ID: ${newMember.user.id} Time: ${Date()} Guild: ${guild}`)
+
     }
     else if (!newMember.user.presence.game && newMember.roles.has(gta.id)) {
         newMember.removeRole(gta);
+        logger.log('info', `Grand Theft Auto San Andreas (presence update) role removed from ${newMember.user.tag} ID: ${newMember.user.id} Time: ${Date()} Guild: ${guild}`)
     }
     else if (newMember.user.presence.game !== "Grand Theft Auto San Andreas" && newMember.roles.has(gta.id)) {
         newMember.removeRole(gta);
+        logger.log('info', `Grand Theft Auto San Andreas (presence update) role removed from ${newMember.user.tag} ID: ${newMember.user.id} Time: ${Date()} Guild: ${guild}`)
     }
 
     if (newMember.user.presence.game && newMember.user.presence.game.name === "Tom Clancy's Rainbow Six Siege") {
         newMember.addRole(rainbow6);
+          logger.log('info', `Tom Clancy's Rainbow Six Siege (presence update) role added to ${newMember.user.tag} ID: ${newMember.user.id} Time: ${Date()} Guild: ${guild}`)
     }
     else if (!newMember.user.presence.game && newMember.roles.has(rainbow6.id)) {
         newMember.removeRole(rainbow6);
+          logger.log('info', `Tom Clancy's Rainbow Six Siege (presence update) role removed from ${newMember.user.tag} ID: ${newMember.user.id} Time: ${Date()} Guild: ${guild}`)
     }
     else if (newMember.user.presence.game !== "Tom Clancy's Rainbow Six Siege" && newMember.roles.has(rainbow6.id)) {
         newMember.removeRole(rainbow6);
+          logger.log('info', `Tom Clancy's Rainbow Six Siege (presence update) role removed from ${newMember.user.tag} ID: ${newMember.user.id} Time: ${Date()} Guild: ${guild}`)
     }
 
     if (newMember.user.presence.game && newMember.user.presence.game.name === "Half-Life") {
         newMember.addRole(halflife);
+          logger.log('info', `Half-Life (presence update) role added to ${newMember.user.tag} ID: ${newMember.user.id} Time: ${Date()} Guild: ${guild}`)
     }
     else if (!newMember.user.presence.game && newMember.roles.has(halflife.id)) {
         newMember.removeRole(halflife);
+        logger.log('info', `Half-Life (presence update) role added to ${newMember.user.tag} ID: ${newMember.user.id} Time: ${Date()} Guild: ${guild}`)
     }
     else if (newMember.user.presence.game !== "Half-Life" && newMember.roles.has(halflife.id)) {
         newMember.removeRole(halflife);
@@ -212,7 +234,7 @@ client.on("presenceUpdate", (oldMember, newMember) => {
 //     return guild.channels
 //       .filter(c => c.type === "text" &&
 //        c.permissionsFor(guild.client.user).has("SEND_MESSAGES"))
-//      .sort((a, b) => a.position - b.position || 
+//      .sort((a, b) => a.position - b.position ||
 //        Long.fromString(a.id).sub(Long.fromString(b.id)).toNumber())
 //      .first();
 //   }
@@ -284,7 +306,7 @@ client.on("message", message => {  //message handler starts here!
         var a = parseInt(args[0]);
         var b = parseInt(args[1]);
         var c = parseInt(args[2]);
-        if (a + b > c && a + c > b && b + c > a) { 
+        if (a + b > c && a + c > b && b + c > a) {
         message.channel.send("Makes a triangle")
     }
     else {
@@ -307,7 +329,7 @@ client.on("message", message => {  //message handler starts here!
     // if (command === "iplookup") {
     //     let user = message.author;
     //     ipInfo(args.join(' '), (err, cLoc) => {
-    //         user.send(JSON.stringify(err || cLoc)); 
+    //         user.send(JSON.stringify(err || cLoc));
     //     });
     // }
 
