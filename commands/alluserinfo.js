@@ -5,8 +5,10 @@ var logger = new (winston.Logger)({
         new winston.transports.File({ filename: './log.txt' })
     ]
 })
-exports.run = function (client, message, args, args2, cmd, config) {
-    if (message.author.id === "243222905188646912") {
+const config = require("./config.json");
+exports.run = function (client, message, args, args2, cmd) {
+    var guild = message.guild;
+    if (message.author.id === config.owner) {
         console.log(client.users)
         localStorage.setItem('All-User-Information.json', client.users.map(e => e.toString()).join(" "));
         message.channel.send({ files: ['All-User-Information.json'] });
@@ -14,5 +16,5 @@ exports.run = function (client, message, args, args2, cmd, config) {
     else {
         message.channel.send("You do not Bot Owner Permissions to Use this Command!")
     }
-    logger.log('info', `Alluserinfo command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()}`)    
+    logger.log('info', `Alluserinfo command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)
 }

@@ -1,35 +1,32 @@
 function decode(ch, shift) {
-    var y = parseInt(ch.charCodeAt(0))
-    var temp = 0
+    var y = parseInt(ch.charCodeAt(0));
+    var temp = 0;
     if (y >= 65 && y <= 90 || y == 32) {
         if (y == 32) {
-            return ' '
+            return " ";
         }
         else if (shift < 65) {
-            temp = shift - (y - 65)
+            temp = shift - (y - 65);
             y = 91 - temp
         }
         else {
-            y = y - shift
+            y = y - shift;
         }
-        return String.fromCharCode(y)
+        return String.fromCharCode(y);
     }
     else if (y >= 97 && y <= 122 || y == 32) {
         if (y == 32) {
-            return ' '
+            return " ";
         }
         else if (y - shift < 97) {
-            temp = shift - (y - 97)
+            temp = shift - (y - 97);
             y = 123 - temp
         }
         else {
             y = y - shift
         }
-        return String.fromCharCode(y)
+        return String.fromCharCode(y);
     }
-    // else {
-    // 	message.channel.send("Invalid Input");
-    // }
 }
 
 const winston = require('winston')
@@ -40,13 +37,14 @@ var logger = new (winston.Logger)({
     ]
 })
 
-exports.run = function (client, message, args, args2, cmd) {
+exports.run = function (client, message, args, args2) {
 
     var string = args.join(' ') //problem with slice
     var shift = parseInt(args2.join(' '))
     var array = string
     const Discord = require('discord.js')
     const config = require("./config.json");
+    var guild = message.guild;
     const embed = new Discord.RichEmbed()
         .setColor("#f0ffff")
         .setDescription("**Command: **" + `${config.prefix}ccdecode`)
@@ -78,5 +76,5 @@ exports.run = function (client, message, args, args2, cmd) {
         }
     }
     message.channel.send("Your answer is " + res.replace("undefined", " "))
-    logger.log('info', `Ccdecode command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()}`)    
+    logger.log('info', `Ccdecode command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)
 }

@@ -6,12 +6,13 @@ var logger = new (winston.Logger)({
     ]
 })
 exports.run = function (client, message, args, args2, cmd) {
-    logger.log('info', `Kick command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()}`)
+    var guild = message.guild;
+    logger.log('info', `Kick command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)
     let reason = args.slice(1).join(' ');
     const Discord = require('discord.js');
     let user = message.mentions.users.first()
     let member = message.guild.member(user)
-
+   
     const config = require("./config.json");
     const embed = new Discord.RichEmbed()
         .setColor("#f0ffff")

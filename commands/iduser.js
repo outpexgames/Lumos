@@ -8,6 +8,7 @@ var logger = new (winston.Logger)({
 exports.run = function (client, message, args, args2, cmd) {
     const Discord = require('discord.js');
     const config = require("./config.json");
+    var guild = message.guild;
     const embed1 = new Discord.RichEmbed()
         .setColor("#f0ffff")
         .setDescription("**Command: **" + `${config.prefix}iduser`)
@@ -17,6 +18,6 @@ exports.run = function (client, message, args, args2, cmd) {
     if (args.join(' ') == "") return message.channel.send({embed: embed1})
 
     message.channel.send(client.users.get(args.join(' ')).username + "#" + client.users.get(args.join(' ')).discriminator);
-    logger.log('info', `Iduser command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()}`)    
+    logger.log('info', `Iduser command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)    
     
 }

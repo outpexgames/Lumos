@@ -9,6 +9,7 @@ exports.run = function (client, message, args, args2, cmd) {
     var output = "";
     const Discord = require('discord.js')
     const config = require("./config.json");
+    var guild = message.guild;
     const embed = new Discord.RichEmbed()
         .setColor("#f0ffff")
         .setDescription("**Command: **" + `${config.prefix}binary`)
@@ -22,5 +23,5 @@ exports.run = function (client, message, args, args2, cmd) {
         output += input[i].charCodeAt(0).toString(2) + " "; //tostring reverse enginerners hex to binary.
     }
     message.channel.send(output)
-    logger.log('info', `Binary command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()}`)    
+    logger.log('info', `Binary command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)    
 };

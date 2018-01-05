@@ -17,6 +17,7 @@ var logger = new (winston.Logger)({
 exports.run = function (client, message, args, args2, cmd) {
     const Discord = require('discord.js');
     const config = require("./config.json");
+    var guild = message.guild;
     const embed19 = new Discord.RichEmbed()
         .setColor("#f0ffff")
         .setDescription("**Command: **" + `${config.prefix}prime`)
@@ -25,6 +26,6 @@ exports.run = function (client, message, args, args2, cmd) {
         .addField("**Expected Result From Example:**", "541")
     if (args.join(' ') == "") return message.channel.send({ embed: embed19 })
     message.channel.send(getNthPrime(args.join(' ')))
-    logger.log('info', `Prime command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()}`)    
+    logger.log('info', `Prime command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)    
     
 }

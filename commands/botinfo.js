@@ -29,6 +29,7 @@ var logger = new (winston.Logger)({
 exports.run = function (client, message, args, args2, cmd) {
     const Discord = require('discord.js');
     const config = require("./config.json");
+    var guild = message.guild;
     const embed = new Discord.RichEmbed()
         .setColor('#7d5bbe')
         .setTitle(client.user.username + " V: " + config.version + ` Stats`)
@@ -41,8 +42,8 @@ exports.run = function (client, message, args, args2, cmd) {
         .addField('🏓 Ping', `${(client.ping).toFixed(0)} ms`, true)
         .addField(`:control_knobs: Library`, `Discord JS v${Discord.version}`, true)
         .addField(`:computer: Node `, `${process.version}`)
-        .addField(`:construction_worker: Creator`,`AirFusion#1243`)
+        .addField(`:construction_worker: Creator`, `AirFusion#1243`)
     //    .addField(`:electric_plug: CPU Usage:`,);
     message.channel.send({ embed: embed })
-    logger.log('info', `Botinfo command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()}`)    
+    logger.log('info', `Botinfo command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)
 };

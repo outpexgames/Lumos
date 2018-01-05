@@ -7,12 +7,14 @@ var logger = new (winston.Logger)({
     ]
 })
 exports.run = function (client, message, args, args2, cmd) {
-    logger.log('info', `Lockdown command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()}`) 
+    let guild = member.guild;
+    logger.log('info', `Lockdown command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`) 
     const Discord = require('discord.js');
     // let modlog = client.channels.find("name", "modlog")
     let member = message.author;
    const config = require("./config.json");
-   let guild = member.guild;
+   
+
     const embed1 = new Discord.RichEmbed()
         .setColor("#f0ffff")
         .setDescription("**Command: **"+ `${config.prefix}lockdown`)

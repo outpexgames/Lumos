@@ -8,6 +8,7 @@ var logger = new (winston.Logger)({
 exports.run = function (client, message, args, args2, cmd) {
         const Discord = require('discord.js');
         const config = require("./config.json");
+        var guild = message.guild;
         const embed = new Discord.RichEmbed()
                 .setColor("#f0ffff")
                 .setDescription("**Command: **" + `${config.prefix}add`)
@@ -19,5 +20,5 @@ exports.run = function (client, message, args, args2, cmd) {
         let total = numArray.reduce((p, c) => p + c);
 
         message.channel.send(total);
-        logger.log('info', `Add command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()}`)    
+        logger.log('info', `Add command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)    
 };

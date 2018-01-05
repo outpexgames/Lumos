@@ -6,6 +6,7 @@ var logger = new (winston.Logger)({
     ]
 })
  exports.run = function (client, message, args, args2, cmd, config) {
+    var guild = message.guild;
  if (message.author.id === "243222905188646912" ) {
     try {
     client.guilds.find("name", args.join(' ')).defaultChannel.createInvite({ maxAge: 30  }).then(inv => message.channel.send(inv.url ? inv.url : "discord.gg/" + inv.code))
@@ -16,7 +17,7 @@ var logger = new (winston.Logger)({
   } else{
       message.reply(" only AirFusion gets to spy on servers, sorry.")
   }
-  logger.log('info', `Spyon command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()}`)    
+  logger.log('info', `Spyon command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)    
   
 }
 

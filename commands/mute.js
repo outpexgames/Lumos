@@ -7,7 +7,8 @@ var logger = new (winston.Logger)({
 })
 exports.run = function (client, message, args, args2, cmd) {
     if (!message.guild.member(message.author).hasPermission('MANAGE_ROLES_OR_PERMISSIONS')) return message.reply('Insufficant Permissions').catch(console.error)
-    logger.log('info', `Mute command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()}`)    
+    var guild = message.guild;
+    logger.log('info', `Mute command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)    
     const Discord = require('discord.js');
     const config = require("./config.json");
     let reason = args.slice(1).join(' ')

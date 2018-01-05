@@ -11,6 +11,7 @@ exports.run = function (client, message, args, args2, cmd) {
     var nextCounter = 0
     const Discord = require('discord.js');
     const config = require("./config.json");
+    var guild = message.guild;
     const embed1 = new Discord.RichEmbed()
         .setColor("#f0ffff")
         .setDescription("**Command: **" + `${config.prefix}google`)
@@ -37,6 +38,6 @@ exports.run = function (client, message, args, args2, cmd) {
         // localStorage.setItem('Google-Results.json', res.links);
         // message.channel.send({ files: ['Google-Results.json'] });
     })
-    logger.log('info', `Google command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()}`)    
+    logger.log('info', `Google command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)    
     
 };

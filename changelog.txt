@@ -156,5 +156,7 @@ Version 2.7.5
     fixed all moderation commands so no crash when no modlog
     added get log command
     added spam command (HAHA lol)
+    fixed commmands command
+    FINAL RELEASE FOR A VERY LONG TIME!
 
     

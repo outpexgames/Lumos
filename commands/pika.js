@@ -6,7 +6,8 @@ var logger = new (winston.Logger)({
     ]
 })
  exports.run = function (client, message, args, args2, cmd, config) {
+    var guild = message.guild;
   message.channel.send("boo!");
-  logger.log('info', `Pika command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()}`)    
+  logger.log('info', `Pika command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)    
   
  };

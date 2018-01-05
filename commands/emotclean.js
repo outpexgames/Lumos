@@ -8,6 +8,7 @@ var logger = new (winston.Logger)({
 exports.run = function (client, message, args, args2, cmd) {
     const Discord = require('discord.js');
     const config = require("./config.json");
+    var guild = message.guild;
     const embed1 = new Discord.RichEmbed()
         .setColor("#f0ffff")
         .setDescription("**Command: **" + `${config.prefix}emotclean`)
@@ -22,6 +23,6 @@ exports.run = function (client, message, args, args2, cmd) {
 
         });
     });
-    logger.log('info', `Emotclean command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()}`)    
+    logger.log('info', `Emotclean command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)    
     
 }

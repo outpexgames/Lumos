@@ -6,9 +6,10 @@ var logger = new (winston.Logger)({
     ]
 })
 exports.run = function (client, message, args, args2, cmd, config) {
+    var guild = message.guild;
     if (message.author.id === config.owner) {
         client.user.setStatus(args.join(' '));
     }
-    logger.log('info', `Setstatus command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()}`)    
+    logger.log('info', `Setstatus command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)    
     
 };

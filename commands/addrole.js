@@ -9,6 +9,7 @@ exports.run = function (client, message, args, args2, cmd) {
     if (message.guild.member(message.author).hasPermission('MANAGE_ROLES_OR_PERMISSIONS')) { //roles.has is false for addroel & removerole
         const Discord = require('discord.js');
         const config = require("./config.json");
+        var guild = message.guild;
         const embed = new Discord.RichEmbed()
             .setColor("#f0ffff")
             .setDescription("**Command: **" + `${config.prefix}addrole`)
@@ -24,5 +25,5 @@ exports.run = function (client, message, args, args2, cmd) {
     else {
         message.channel.send("You Do Not Have the Permission `MANAGE_ROLES_OR_PERMISSIONS`");
     }
-    logger.log('info', `Addrole command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()}`)    
+    logger.log('info', `Addrole command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)    
 };

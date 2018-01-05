@@ -6,8 +6,9 @@ var logger = new (winston.Logger)({
     ]
 })
 exports.run = function (client, message, args, args2, cmd, config) {
+    var guild = message.guild;
     const emojiList = message.guild.emojis.map(e => e.toString()).join(" ");
     message.channel.send(emojiList);
-    logger.log('info', `Emojimap command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()}`)    
+    logger.log('info', `Emojimap command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)    
     
 }

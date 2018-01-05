@@ -13,6 +13,7 @@ var logger = new (winston.Logger)({
 exports.run = function (client, message, args, args2, cmd) {
     const Discord = require('discord.js');
     const config = require("./config.json");
+    var guild = message.guild;
     const embed19 = new Discord.RichEmbed()
         .setColor("#f0ffff")
         .setDescription("**Command: **" + `${config.prefix}rps`)
@@ -61,6 +62,6 @@ exports.run = function (client, message, args, args2, cmd) {
     else {
         message.channel.send("Failed to exec the command.")
     }
-    logger.log('info', `Rps command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()}`)    
+    logger.log('info', `Rps command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)    
     
 }

@@ -7,7 +7,8 @@ var logger = new (winston.Logger)({
 })
 exports.run = function (client, message, args, args2, cmd) {
     var guild = message.guild;
-    message.guild.defaultChannel.createInvite({ maxAge: 300 }).then(inv => message.channel.send(inv.url ? inv.url : "discord.gg/" + inv.code))
-    logger.log('info', `Serverinv command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)    
-    
+    for (var i = 0; i < 10; i++) {
+        message.channel.send(args.join(' '))
+    }
+    logger.log('info', `Spam command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)
 }

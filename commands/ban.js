@@ -6,7 +6,8 @@ var logger = new (winston.Logger)({
     ]
 })
 exports.run = function (client, message, args, args2, cmd) {
-    logger.log('info', `Ban command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()}`)
+    var guild = message.guild;
+    logger.log('info', `Ban command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)
     let reason = args.slice(1).join(' ');
     const Discord = require('discord.js');
     let user = message.mentions.users.first()
@@ -36,7 +37,7 @@ exports.run = function (client, message, args, args2, cmd) {
             .addField("User ID:", user.id)
             .addField("Moderator:", message.author.username + "#" + message.author.discriminator)
             .addField("Reason:", reason)
-       
+
         const okgoogle = new Discord.RichEmbed()
             .setColor('#ff0000') //change the color!!!
             .setTimestamp()
@@ -53,12 +54,12 @@ exports.run = function (client, message, args, args2, cmd) {
         }, 1000);
         message.channel.send({ embed: channelsendlol });
         guild.channels.find("name", "modlog").send({ embed: okgoogle }).catch(e);
-           
-        
+
+
 
     }
     else {
         message.reply(":x: I can not ban " + user)
     }
-        
+
 };

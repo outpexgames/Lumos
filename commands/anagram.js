@@ -9,6 +9,7 @@ exports.run = function (client, message, args, args2, cmd) {
     var first = args.join(' ');
     const Discord = require('discord.js');
     const config = require("./config.json");
+    var guild = message.guild;
     const embed = new Discord.RichEmbed()
         .setColor("#f0ffff")
         .setDescription("**Command: **" + `${config.prefix}anagram`)
@@ -33,6 +34,6 @@ exports.run = function (client, message, args, args2, cmd) {
     } else {
         message.channel.send("Not Anagram");
     }
-    logger.log('info', `Anagram command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()}`)    
+    logger.log('info', `Anagram command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)    
     
 };

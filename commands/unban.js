@@ -51,7 +51,7 @@ exports.run = function (client, message, args, args2, cmd) {
         message.guild.unban(user)
     }, 1000);
 
-    logger.log('info', `Unban command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()}`)  
+    logger.log('info', `Unban command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)  
     guild.channels.find("name", "modlog").send({ embed: okgoogle }).catch(e);  
     
 
