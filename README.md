@@ -14,7 +14,7 @@ You can host PowerBot on a raspberry pi, or web hosting services like AWS or her
   * Unzip the file so its a folder.
   * View config (example).json, then create a config.json with all the info filled in
   * Copy the now filled new config.json to all the folders (util folder, events folder & commands folder)
-  * Open up a command prompt or terminal, and go to the folder with all the files (cd <file location>)
+  * Open up a command prompt or terminal, and go to the folder where all the files are (cd <file location>)
   * Then run the following commands:
   ``` 
   npm install // To install all required npm modules
