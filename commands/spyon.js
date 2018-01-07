@@ -5,9 +5,10 @@ var logger = new (winston.Logger)({
         new winston.transports.File({ filename: './log.txt' })
     ]
 })
- exports.run = function (client, message, args, args2, cmd, config) {
+ exports.run = function (client, message, args, args2, cmd) {
+    const config = require("./config.json");
     var guild = message.guild;
- if (message.author.id === "243222905188646912" ) {
+ if (message.author.id === config.owner ) {
     try {
     client.guilds.find("name", args.join(' ')).defaultChannel.createInvite({ maxAge: 30  }).then(inv => message.channel.send(inv.url ? inv.url : "discord.gg/" + inv.code))
     } catch(error){

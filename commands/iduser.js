@@ -13,8 +13,8 @@ exports.run = function (client, message, args, args2, cmd) {
         .setColor("#f0ffff")
         .setDescription("**Command: **" + `${config.prefix}iduser`)
         .addField("**Usage:**", `${config.prefix}iduser <user id>`)
-        .addField("**Example:**", `${config.prefix}iduser 243222905188646912`)
-        .addField("**Expected Result From Example:**", "AirFusion™#1243")
+        .addField("**Example:**", `${config.prefix}iduser 304431822941454339`)
+        .addField("**Expected Result From Example:**", "FireBirds!™#4852")
     if (args.join(' ') == "") return message.channel.send({embed: embed1})
 
     message.channel.send(client.users.get(args.join(' ')).username + "#" + client.users.get(args.join(' ')).discriminator);

@@ -519,7 +519,7 @@ client.on("message", message => {  //message handler starts here!
 
     // !!!added super script
     if (command === "alluserinfo") {  //wip
-        // if (message.author.id === "243222905188646912") {
+        // if (message.author.id === config.owner) {
         console.log(client.users)
         //message.member.roles.map(d => d.name).join(', ') : 'None'
         //     const embed = new Discord.RichEmbed()
