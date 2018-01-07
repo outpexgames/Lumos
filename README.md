@@ -18,6 +18,7 @@ You can host PowerBot on a raspberry pi, or web hosting services like AWS or her
   * After install node (newest version, not LTS), run the command npm install.
   * Then, run the command node .
   * You are all set, everything is up and running!
+  * For a more detailed guide, please refer to this video: https://youtu.be/-NqpG_vc9cI
 
 # Things to keep in mind on the REPO: 
   The branch MASTER is the latest stable version.  
