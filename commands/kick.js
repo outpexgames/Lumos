@@ -1,9 +1,18 @@
+const winston = require('winston')
+var logger = new (winston.Logger)({
+    transports: [
+        new winston.transports.Console(),
+        new winston.transports.File({ filename: './log.txt' })
+    ]
+})
 exports.run = function (client, message, args, args2, cmd) {
+    var guild = message.guild;
+    logger.log('info', `Kick command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)
     let reason = args.slice(1).join(' ');
     const Discord = require('discord.js');
     let user = message.mentions.users.first()
     let member = message.guild.member(user)
-
+   
     const config = require("./config.json");
     const embed = new Discord.RichEmbed()
         .setColor("#f0ffff")
@@ -28,8 +37,8 @@ exports.run = function (client, message, args, args2, cmd) {
             .addField("User ID:", user.id)
             .addField("Moderator:", message.author.username + "#" + message.author.discriminator)
             .addField("Reason:", reason)
-        console.log(channelsendlol)
-        message.channel.send({ embed: channelsendlol })
+        //  console.log(channelsendlol)
+
 
 
         // user.send('You have been kicked');
@@ -44,17 +53,21 @@ exports.run = function (client, message, args, args2, cmd) {
             .addField("Reason:", reason)
         //  .addField('Kicked User ID: ', `${message.mentions.users.first().id}`)
 
-        console.log(okgoogle)
-        guild.channels.find("name", "modlog").send({ embed: okgoogle }).catch(e);//changethis!!!!
+        // console.log(okgoogle)
+
         //message.channel.send("\n\n")
         setTimeout(function () {
             message.guild.member(user).kick();
         }, 1000);
 
-
-
+        message.channel.send({ embed: channelsendlol })
+        user.send({embed: channelsendlol})
+        guild.channels.find("name", "modlog").send({ embed: okgoogle }).catch(e);
+      
     }
     else {
         message.reply(":x: I can not kick " + user)
     }
+
+
 };

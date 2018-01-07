@@ -1,7 +1,15 @@
+const winston = require('winston')
+var logger = new (winston.Logger)({
+    transports: [
+        new winston.transports.Console(),
+        new winston.transports.File({ filename: './log.txt' })
+    ]
+})
 exports.run = function (client, message, args, args2, cmd, config) {
     if (message.guild.member(message.author).hasPermission('MANAGE_ROLES_OR_PERMISSIONS')) {
         const Discord = require('discord.js');
         const config = require("./config.json");
+        var guild = message.guild;
         const embed19 = new Discord.RichEmbed()
             .setColor("#f0ffff")
             .setDescription("**Command: **" + `${config.prefix}removerole`)
@@ -18,4 +26,6 @@ exports.run = function (client, message, args, args2, cmd, config) {
     else {
         message.channel.send('You do not have the permission MANAGE_ROLES_OR_PERMISSIONS');
     }
+    logger.log('info', `Removerole command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)    
+    
 };

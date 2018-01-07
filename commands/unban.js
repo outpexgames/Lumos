@@ -1,8 +1,16 @@
+const winston = require('winston')
+var logger = new (winston.Logger)({
+    transports: [
+        new winston.transports.Console(),
+        new winston.transports.File({ filename: './log.txt' })
+    ]
+})
 exports.run = function (client, message, args, args2, cmd) {
     //let reason = args.slice(1).join(' ');
     const Discord = require('discord.js');
     let user = args[0]
     let member = message.guild.member(user)
+    let guild = member.guild;
     const config = require("./config.json");
     const embed19 = new Discord.RichEmbed()
         .setColor("#f0ffff")
@@ -37,12 +45,14 @@ exports.run = function (client, message, args, args2, cmd) {
     //  .addField('Kicked User ID: ', `${message.mentions.users.first().id}`)
 
 
-    guild.channels.find("name", "modlog").send({ embed: okgoogle }).catch(e);
+    
     //message.channel.send("\n\n")
     setTimeout(function () {
         message.guild.unban(user)
     }, 1000);
 
-
+    logger.log('info', `Unban command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)  
+    guild.channels.find("name", "modlog").send({ embed: okgoogle }).catch(e);  
+    
 
 };

@@ -1,6 +1,14 @@
+const winston = require('winston')
+var logger = new (winston.Logger)({
+    transports: [
+        new winston.transports.Console(),
+        new winston.transports.File({ filename: './log.txt' })
+    ]
+})
 exports.run = function (client, message, args, args2, cmd) {
     const Discord = require('discord.js');
     const config = require("./config.json");
+    var guild = message.guild;
     const embed19 = new Discord.RichEmbed()
         .setColor("#f0ffff")
         .setDescription("**Command: **" + `${config.prefix}sqrt`)
@@ -11,4 +19,6 @@ exports.run = function (client, message, args, args2, cmd) {
     let inpuit = args;
     let answer = Math.sqrt(inpuit)
     message.channel.send(answer);
+    logger.log('info', `Sqrt command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)    
+    
 };

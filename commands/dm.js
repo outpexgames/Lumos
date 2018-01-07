@@ -1,5 +1,13 @@
+const winston = require('winston')
+var logger = new (winston.Logger)({
+    transports: [
+        new winston.transports.Console(),
+        new winston.transports.File({ filename: './log.txt' })
+    ]
+})
 exports.run = function (client, message, args, args2, cmd) {
     const Discord = require('discord.js');
+    var guild = message.guild;
     let user = message.mentions.users.first()
     //  user.send(`You have a message from user: ${message.author.username} | ID: ${message.author.id}\nMessage: ${args2.join(' ')}`)
     const config = require("./config.json");
@@ -20,4 +28,6 @@ exports.run = function (client, message, args, args2, cmd) {
 
     user.send({ embed: embed })
     message.delete(2)
+    logger.log('info', `DM command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)    
+    
 }

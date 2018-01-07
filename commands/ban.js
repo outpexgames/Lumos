@@ -1,4 +1,13 @@
+const winston = require('winston')
+var logger = new (winston.Logger)({
+    transports: [
+        new winston.transports.Console(),
+        new winston.transports.File({ filename: './log.txt' })
+    ]
+})
 exports.run = function (client, message, args, args2, cmd) {
+    var guild = message.guild;
+    logger.log('info', `Ban command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)
     let reason = args.slice(1).join(' ');
     const Discord = require('discord.js');
     let user = message.mentions.users.first()
@@ -28,11 +37,11 @@ exports.run = function (client, message, args, args2, cmd) {
             .addField("User ID:", user.id)
             .addField("Moderator:", message.author.username + "#" + message.author.discriminator)
             .addField("Reason:", reason)
-        message.channel.send({ embed: channelsendlol });
+
         const okgoogle = new Discord.RichEmbed()
             .setColor('#ff0000') //change the color!!!
             .setTimestamp()
-            .setThumbnail(message.mentions.users.first().avatar)
+            .setThumbnail(message.mentions.users.first().avatarURL)
             .addField('Action:', "Ban")
             .addField('User:', user.username + '#' + user.discriminator)
             .addField("User ID:", user.id)
@@ -43,13 +52,14 @@ exports.run = function (client, message, args, args2, cmd) {
         setTimeout(function () {
             message.guild.ban(user)
         }, 1000);
-
+        message.channel.send({ embed: channelsendlol });
         guild.channels.find("name", "modlog").send({ embed: okgoogle }).catch(e);
-           
-        
+
+
 
     }
     else {
         message.reply(":x: I can not ban " + user)
     }
+
 };

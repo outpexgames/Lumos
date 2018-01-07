@@ -1,10 +1,20 @@
 const ms = require('ms');
-
+const winston = require('winston')
+var logger = new (winston.Logger)({
+    transports: [
+        new winston.transports.Console(),
+        new winston.transports.File({ filename: './log.txt' })
+    ]
+})
 exports.run = function (client, message, args, args2, cmd) {
+    let guild = member.guild;
+    logger.log('info', `Lockdown command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`) 
     const Discord = require('discord.js');
     // let modlog = client.channels.find("name", "modlog")
     let member = message.author;
    const config = require("./config.json");
+   
+
     const embed1 = new Discord.RichEmbed()
         .setColor("#f0ffff")
         .setDescription("**Command: **"+ `${config.prefix}lockdown`)
@@ -12,7 +22,7 @@ exports.run = function (client, message, args, args2, cmd) {
         .addField("**Example:**", `${config.prefix}lockdown 1m`)
         .addField("**Expected Result From Example:**", "All Channels should enter a lockdown mode, all moderators and above should not be affected.")
     if (args.join(' ') == "") return message.channel.send({embed: embed1})
-    let guild = member.guild
+
     if (!message.guild.member(message.author).hasPermission('MANAGE_CHANNELS')) return message.reply('Insufficant Permissions').catch(console.error)
     if (!client.lockit) client.lockit = [];
     let time = args.join(' ');
@@ -25,9 +35,12 @@ exports.run = function (client, message, args, args2, cmd) {
         .addField('Action:', "Lockdown")
         .addField('Duration/Time:', time)
         .addField("Moderator:", message.author.username + "#" + message.author.discriminator)
+//    message.guild.channels.find()
 
-        guild.channels.find("name", "modlog").send({ embed: embed }).catch(e);
+        // member.guild.channels.find("name", "modlog").send({ embed: embed }).catch(e);
 
+        // guild.channels.find("name", "modlog").send({embed: embed}).catch(e);
+        
     if (validUnlocks.includes(time)) {
         message.channel.overwritePermissions(message.guild.id, {
             SEND_MESSAGES: null
@@ -56,4 +69,7 @@ exports.run = function (client, message, args, args2, cmd) {
             });
         });
     }
+
+
+    message.guild.channels.find("name", "modlog").send({embed: embed}).catch(e);   
 };
