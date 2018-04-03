@@ -159,4 +159,12 @@ Version 2.7.5
     fixed commmands command
     FINAL RELEASE FOR A VERY LONG TIME!
 
-    
+Version 2.7.6
+    Added -checklist command
+    fixed -warn command
+    fixed spam command to have loop limits, custom messages & custom loop times 
+    added -purge command
+    fixed -masspurge commmand
+    removed status roles, server object issue
+    fixed setgame & setstatus cmds
+    added reminders to -dm command

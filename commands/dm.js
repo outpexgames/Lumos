@@ -25,9 +25,11 @@ exports.run = function (client, message, args, args2, cmd) {
         .setThumbnail(message.author.avatarURL)
         .setTimestamp()
         .addField("Message:", args2.join(' '))
+        .setFooter("Reply by using the command -dm @<replyUser> <message>")
 
     user.send({ embed: embed })
     message.delete(2)
+    message.reply("Message sent!")
     logger.log('info', `DM command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)    
     
 }

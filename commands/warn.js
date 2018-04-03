@@ -22,7 +22,7 @@ exports.run = function (client, message, args, args2, cmd) {
         .addField("**Example:**", `${config.prefix}warn @AirFusion STAP!`)
         .addField("**Expected Result From Example:**", "Mentioned user should be warned.")
     if (args.join(' ') == "" && args2.join(" ") == "") return message.channel.send({ embed: embed19 })
-    let guild = member.guild;
+    // let guild = member.guild;
     // let modlog = guild.channels.find("name", "modlog")
     // if (!modlog) return message.reply("mod-log required")
     if (reason.length < 1) return message.reply("Reason Required")

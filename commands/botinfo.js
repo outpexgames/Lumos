@@ -29,6 +29,7 @@ var logger = new (winston.Logger)({
 exports.run = function (client, message, args, args2, cmd) {
     const Discord = require('discord.js');
     const config = require("./config.json");
+    const os = require("os")
     var guild = message.guild;
     const embed = new Discord.RichEmbed()
         .setColor('#7d5bbe')
@@ -41,8 +42,10 @@ exports.run = function (client, message, args, args2, cmd) {
         .addField('🐏 RAM Usage', `${((process.memoryUsage().heapUsed / 1024) / 1024).toFixed(2)} MB`, true)
         .addField('🏓 Ping', `${(client.ping).toFixed(0)} ms`, true)
         .addField(`:control_knobs: Library`, `Discord JS v${Discord.version}`, true)
-        .addField(`:computer: Node `, `${process.version}`)
-        .addField(`:construction_worker: Creator`, `AirFusion#1243`)
+        .addField(`:computer: Node `, `${process.version}`, true)
+        .addField(`:regional_indicator_h: :regional_indicator_o: :regional_indicator_s: :regional_indicator_t: Host Name`, `${os.hostname}`, true)
+        .addField(`:white_check_mark: Platform`, `${os.platform}`, true)        
+        .addField(`:construction_worker: Creator`, `AirFusion#1243`, true)
     //    .addField(`:electric_plug: CPU Usage:`,);
     message.channel.send({ embed: embed })
     logger.log('info', `Botinfo command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)
