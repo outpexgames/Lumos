@@ -58,13 +58,13 @@ You can also just add PowerBot to your existing server. PowerBot has been alread
 # License 
 This Project is licensed under MIT License - see the LICENSE.md file for more details. The main points of the MIT License are:
   
-  * Can be used commercially
-  * Can be modified
-  * Can be distributed
-  * Can be used for private use
-  * No Liability
-  * No Warranty
-  * Must give credit to author
+  * This code can be used commercially
+  * This code can be modified
+  * This code can be distributed
+  * This code can be used for private use
+  * This code has no Liability
+  * This code has no Warranty
+  * When using this code, credit must be given to the author
   
 # Credits
 Here are credits for all the code I used that was from other repositories.
