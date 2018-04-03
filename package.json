@@ -1,6 +1,6 @@
 {
   "name": "mydiscordbot",
-  "version": "2.7.5",
+  "version": "2.7.6",
   "description": "discordBot",
   "main": "index.js",
   "dependencies": {
