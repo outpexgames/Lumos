@@ -300,6 +300,28 @@ client.on("message", message => {  //message handler starts here!
     //     logger.log('info', `Spam command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)
     // }
 
+    if (command ===  "checklist") {
+        if (command === "checklist") {
+            logger.log('info', `checklist command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date.now()} Guild: ${guild}`)
+            const embed100 = new Discord.RichEmbed()
+                .setTitle("If a role is true, means you have the role setup correctly, if it is false, then there is something wrong witht the role.")
+                .setColor('#ff0000')
+                .setFooter(config.name + "CheckList")
+           
+    
+            let powerbotperm = client.guilds.get(message.guild.id).roles.find("name", "PowerBot")
+    
+            embed100.addField("PowerBot ADMINISTRATOR Permissions: ", powerbotperm.hasPermission("ADMINISTRATOR"))
+    
+            let muteRole = client.guilds.get(message.guild.id).roles.find("name", "Mute")
+            let mute = true;
+            if (!muteRole) mute = false;
+            embed100.addField("PowerBot Mute Role: ", mute)
+            message.channel.send({ embed: embed100 });
+    
+        }
+    }
+
     if (command === "wolfram") { //WIP
         // wolfram.query(args.join(' '), function (err, result) {
         //     if (err) throw err
@@ -618,9 +640,14 @@ client.on("debug", error => {
 client.on("warn", error => {
     console.log(chalk.yellow(error.replace(token, "HIDDEN")));
 });
-client.on("err", error => {
-    console.log(chalk.red(error.replace(token, "HIDDEN")));
-}); //Broken
-
+// client.on("err", error => {
+//     console.log(chalk.red(error.replace(token, "HIDDEN")));
+// }); //Broken
+client.addListener('error', function (e) {
+    var error = e.error;
+    console.log(chalk.red(error))
+    console.error(error)
+    console.log(error);
+})
 
 client.login(config.token);
