@@ -13,7 +13,9 @@ You can host PowerBot on a raspberry pi, or web hosting services like AWS or her
   * __**Instructions:**__
     * Download the PowerBot code from github in a zip, then delete the node modules folder.
     * Unzip the file so its a folder.
-    * View config (example).json, then create a config.json with all the info filled in
+    * Head over to Discord's Developer Page [here](https://discordapp.com/developers/applications/me) to register a bot. 
+    * After registering a bot, grab the bot's token. This will be used in the next step when the config needs to be filled in. A Discord Bot token should look like this: `<Random Letters & Numbers>.<Random Letters & Numbers>.<Random Letters & Numbers & Characters)`
+    * View config (example).json, then create a config.json with all the missing information filled in.
     * Copy the now filled new config.json to all the folders (util folder, events folder & commands folder)
     * Open up a command prompt or terminal, and go to the folder where all the files are (cd <file location>)
     * Then run the following commands:
@@ -21,8 +23,11 @@ You can host PowerBot on a raspberry pi, or web hosting services like AWS or her
     npm install // To install all required npm modules
     node . // Start the bot
     ```
-    * You are all set, everything is up and running!
-    * For a more detailed guide, please refer to this video [here](https://youtu.be/-NqpG_vc9cI).
+    * For a more detailed installlation guide, please refer to this video [here](https://youtu.be/-NqpG_vc9cI).
+    * Next, use the Discord Permissions Calculator [here](https://discordapi.com/permissions.html#2146958591) to make your bot invite link. The link provided already has the required permissions pre-checked. If you choose not to use the pre-checked link, the bot must have "ADMINISTRATOR" permissions to function. At the bottom of the page, place in your bot's client ID, which is found on your Discord Developers page.
+    * Then, copy the link at the bottom of the page. That is your bot's invite link, anyone who has that link and have "Manage Server" permissions or is the server owner of a server can invite the bot you have just created. 
+    * To invite the bot to a server, paste the link in to your browser, and select the server that you want to add the bot to. Make sure all the required permissions are checked, and click "Authorize".
+    * You are all set, head to your server and check the bot out!
 
 # Adding PowerBot To Your Discord Server
 You can also just add PowerBot to your existing server. PowerBot has been already hosted for you in this option.
@@ -37,6 +42,7 @@ You can also just add PowerBot to your existing server. PowerBot has been alread
     * For general help, the support server & additional notes type `-help`.
     * For the full commands list, type `-commands`.
     * Each command is called using the prefix, in the following form: `-<command>` Where <command> is the command. For example, to call the command ping, you would type `-ping`.
+    * To check if PowerBot has the correct permissions, just type `-checklist`. If `PowerBot ADMINISTRATOR Permissions:` says `true` then PowerBot has the required permissions to function.
     * Feel free to join [this support server](https://discord.gg/KSjW2wB) if additional help is needed!
 
 # Authors
