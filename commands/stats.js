@@ -1,5 +1,13 @@
+const winston = require('winston')
+var logger = new (winston.Logger)({
+    transports: [
+        new winston.transports.Console(),
+        new winston.transports.File({ filename: './log.txt' })
+    ]
+})
 exports.run = function (client, message, args, args2, cmd) {
     const Discord = require('discord.js');
+    var guild = message.guild;
 let game = ''
         if (message.author.presence.game === null) {
             game = 'Nothing'
@@ -20,5 +28,6 @@ let game = ''
             .addField('Roles', message.member.roles.size > 0 ? message.member.roles.map(d => d.name).join(', ') : 'None')
 
         message.channel.send({embed: userInfo})
-    
+        logger.log('info', `Stats command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)    
+        
 };

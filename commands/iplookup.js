@@ -1,8 +1,16 @@
+const winston = require('winston')
+var logger = new (winston.Logger)({
+    transports: [
+        new winston.transports.Console(),
+        new winston.transports.File({ filename: './log.txt' })
+    ]
+})
 const ipInfo = require("ipinfo");
 exports.run = function (client, message, args, args2, cmd) {
     let user = message.author;
     const Discord = require('discord.js')
     const config = require("./config.json");
+    var guild = message.guild;
     const embed = new Discord.RichEmbed()
         .setColor("#f0ffff")
         .setDescription("**Command: **" + `${config.prefix}iplookup`)
@@ -17,4 +25,5 @@ exports.run = function (client, message, args, args2, cmd) {
             user.send(JSON.stringify(err || cLoc));
         });
     }
+    logger.log('info', `Iplookup command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)    
 }

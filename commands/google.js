@@ -1,10 +1,17 @@
 var google = require('google')
-
+const winston = require('winston')
+var logger = new (winston.Logger)({
+    transports: [
+        new winston.transports.Console(),
+        new winston.transports.File({ filename: './log.txt' })
+    ]
+})
 exports.run = function (client, message, args, args2, cmd) {
     google.resultsPerPage = 1
     var nextCounter = 0
     const Discord = require('discord.js');
     const config = require("./config.json");
+    var guild = message.guild;
     const embed1 = new Discord.RichEmbed()
         .setColor("#f0ffff")
         .setDescription("**Command: **" + `${config.prefix}google`)
@@ -31,4 +38,6 @@ exports.run = function (client, message, args, args2, cmd) {
         // localStorage.setItem('Google-Results.json', res.links);
         // message.channel.send({ files: ['Google-Results.json'] });
     })
+    logger.log('info', `Google command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)    
+    
 };

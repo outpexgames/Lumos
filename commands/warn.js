@@ -1,7 +1,17 @@
+const winston = require('winston')
+var logger = new (winston.Logger)({
+    transports: [
+        new winston.transports.Console(),
+        new winston.transports.File({ filename: './log.txt' })
+    ]
+})
 exports.run = function (client, message, args, args2, cmd) {
+    var guild = message.guild;
+    logger.log('info', `Warn command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)  
     if (!message.guild.member(message.author).hasPermission('MANAGE_ROLES_OR_PERMISSIONS')) return message.reply('Insufficant Permissions').catch(console.error)
     const Discord = require('discord.js');
     const config = require("./config.json");
+    var guild = message.guild;
     let reason = args.slice(1).join(' ')
     let user = message.mentions.users.first()
     let member = message.guild.member(user)
@@ -27,7 +37,7 @@ exports.run = function (client, message, args, args2, cmd) {
         .addField("User ID:", user.id)
         .addField("Moderator:", message.author.username + "#" + message.author.discriminator)
         .addField("Reason:", reason)
-        guild.channels.find("name", "modlog").send({ embed: embed }).catch(e);
+       
     const embed1 = new Discord.RichEmbed()
         .setColor('#ff9966') //change the color!!!
         .setTimestamp()
@@ -38,4 +48,7 @@ exports.run = function (client, message, args, args2, cmd) {
         .addField("Moderator:", message.author.username + "#" + message.author.discriminator)
         .addField("Reason:", reason)
     message.channel.send({ embed: embed1 })
+
+     
+    guild.channels.find("name", "modlog").send({ embed: embed }).catch(e);
 };
