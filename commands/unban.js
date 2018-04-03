@@ -1,8 +1,16 @@
+const winston = require('winston')
+var logger = new (winston.Logger)({
+    transports: [
+        new winston.transports.Console(),
+        new winston.transports.File({ filename: './log.txt' })
+    ]
+})
 exports.run = function (client, message, args, args2, cmd) {
     //let reason = args.slice(1).join(' ');
     const Discord = require('discord.js');
     let user = args[0]
     let member = message.guild.member(user)
+    let guild = member.guild;
     const config = require("./config.json");
     const embed19 = new Discord.RichEmbed()
         .setColor("#f0ffff")
@@ -18,7 +26,7 @@ exports.run = function (client, message, args, args2, cmd) {
     if (user === message.author) return message.reply("You cannot unban yourself")
     //  if (message.guild.member(user).bannable) { //message.guild.member(member) && member.bannable
     const channelsendlol = new Discord.RichEmbed()
-        .setColor('#4b0082') //change the color!!!
+        .setColor('#00008b') //change the color!!!   
         .setTimestamp()
         .setThumbnail(message.author.avatarURL)
         .addField('Action:', "Unban")
@@ -27,7 +35,7 @@ exports.run = function (client, message, args, args2, cmd) {
     //.addField("Reason:", reason)
     message.channel.send({ embed: channelsendlol })
     const okgoogle = new Discord.RichEmbed()
-        .setColor('#4b0082') //change the color!!!
+        .setColor('#00008b') //change the color!!!
         .setTimestamp()
         .setThumbnail(message.author.avatarURL)
         .addField('Action:', "Unban")
@@ -37,12 +45,14 @@ exports.run = function (client, message, args, args2, cmd) {
     //  .addField('Kicked User ID: ', `${message.mentions.users.first().id}`)
 
 
-    client.channels.find("name", "modlog").send({ embed: okgoogle })
+    
     //message.channel.send("\n\n")
     setTimeout(function () {
         message.guild.unban(user)
     }, 1000);
 
-
+    logger.log('info', `Unban command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)  
+    guild.channels.find("name", "modlog").send({ embed: okgoogle }).catch(e);  
+    
 
 };

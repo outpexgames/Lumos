@@ -1,0 +1,10 @@
+{
+  "prefix" : "one letter prefix",
+  "token" : "Discord Bot Token (get it @ discord developers website)",
+  "owner" : "Owner ID From discord",
+  "version" : "2.7.5",
+  "yt" : "YT-Token | Get it via google dev console",
+  "pastebin" : "API Key @ pastebin.com, register to get it. (Link: https://pastebin.com/api)",
+  "wolfram" : "Wolfram API Key, get it here: https://products.wolframalpha.com/api/ (need sign up)",
+  "name": "Bot Name"
+}

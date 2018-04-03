@@ -3,11 +3,19 @@ function getRandomIntInclusive(min, max) {
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive
 }
-
+const winston = require('winston')
+var logger = new (winston.Logger)({
+    transports: [
+        new winston.transports.Console(),
+        new winston.transports.File({ filename: './log.txt' })
+    ]
+})
 exports.run = function (client, message, args, args2, cmd) {
     const Discord = require('discord.js');
     const config = require("./config.json");
+    var guild = message.guild;
     var select = getRandomIntInclusive(1, 3);
+    logger.log('info', `Commands command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)
     if (select === 1) {
         const embed = new Discord.RichEmbed()
             .setColor('#ccff00') //change the color!
@@ -67,7 +75,7 @@ exports.run = function (client, message, args, args2, cmd) {
             .addField('yt|Search YouTube for videos, channels & playlists', `\`yt <video name/channel name/playlist name>\``)
             //wolfram WIP
             .addField('google|Search Google for the user input', `\`google <quary>\``)
-          //  .addField('outer-reload|Reloads the specified file in the outer file structure **(Special Permission Required: This Command Is Owner ONLY!)**', `\`outer-reload <reload file name>\``)
+            //  .addField('outer-reload|Reloads the specified file in the outer file structure **(Special Permission Required: This Command Is Owner ONLY!)**', `\`outer-reload <reload file name>\``)
             .addField('reload|Reloads the specified file in the file structure **(Special Permission Required: This Command Is Owner ONLY!)**', `\`reload <module name>\``)
             .addField('embed|Sends a embeded version of a message', `\`embed <your message>\``)
             .addField('prime|Finds the nth prime', `\`prime <n th>\``)
@@ -81,6 +89,17 @@ exports.run = function (client, message, args, args2, cmd) {
             .addField('clean|Cleans reaction on messages by PowerBot', `\`clean <number of messages (atleast 2; which is one message)>\``)
             .addField('killall|A kill switch for PowerBot', `\`killall <password with no equal signs>\``)
             .addField('serverinv|Generates a invite for the current server', `\`serverinv\``)
+            .addField('getip|Get your ip', `\`getip\``)
+            .addField('iplookup|Get information about a ip address', `\`iplookup <ip>\``)
+            .addField('serverinfo|Get information about the current server', `\`serverinfo\``)
+            .addField('userid|Get a mentioned users id from a mention', `\`userid <@user?\``)
+            .addField("iduser|Get users username and discrim from a id", `\`iduser <id>\``)
+
+            .addField("randword|Get a random word", `\`randword\``)
+            .addField("game|Find a user's current game", `\`game <@user>\``)
+            .addField("synant|Find the synonyms & antonyms of a word", `\`synant <word>\``)
+            .addField("triangle|To see if 3 values make a triangle", `\`triangle <1st value> <2nd value> <3rd value>\``)
+            .addField("spam|Spams a certain message 10 times (Use at your own risk, may cause lag)", `\`spam <thing to spam>\``)
         message.channel.send({ embed: embed2 })
     }
     if (select === 2) {
@@ -123,7 +142,7 @@ exports.run = function (client, message, args, args2, cmd) {
             .addField("setstatus|Sets PowerBot's status! Online, Idle, DnD etc... **(Special Permission Required: This Command Is Owner ONLY!)**", `\`setstatus <Online/Idle/DnD/Invisible>\``)
             .addField("spyon|Generate Invites to Servers That PowerBot Is In **(Special Permissions Required: This Command Is Owner ONLY!)**", `\`spyon <ServerName>\``)
             .addField('sqrt|Square Root the User Input Number', `\`sqrt <Square Root Number>\``)
-          //  .addField('startup|Displays Some Startup Information', `\`startup\``)
+            //  .addField('startup|Displays Some Startup Information', `\`startup\``)
             .addField('subtract|Subtracts numbers', `\`subtract <First Number> <Second Number>\``)
             .addField('ban|Bans a mentioned member', `\`ban <@user>\``)
             .addField('unban|Unbans a user by ID **(Special Permission Required: BAN_MEMBERS)**', `\`unban <user ID>\``)
@@ -142,11 +161,11 @@ exports.run = function (client, message, args, args2, cmd) {
             .addField('yt|Search YouTube for videos, channels & playlists', `\`yt <video name/channel name/playlist name>\``)
             //wolfram WIP
             .addField('google|Search Google for the user input', `\`google <quary>\``)
-         //   .addField('outer-reload|Reloads the specified file in the outer file structure **(Special Permission Required: This Command Is Owner ONLY!)**', `\`outer-reload <reload file name>\``)
+            //   .addField('outer-reload|Reloads the specified file in the outer file structure **(Special Permission Required: This Command Is Owner ONLY!)**', `\`outer-reload <reload file name>\``)
             .addField('reload|Reloads the specified file in the file structure **(Special Permission Required: This Command Is Owner ONLY!)**', `\`reload <module name>\``)
             .addField('embed|Sends a embeded version of a message', `\`embed <your message>\``)
             .addField('prime|Finds the nth prime', `\`prime <n th>\``)
-            message.channel.send({ embed: embed1 })
+        message.channel.send({ embed: embed1 })
         const embed2 = new Discord.RichEmbed()
             .setColor('#e32636')
             .addField('numrand|Number randomizer', `\`numrand <min range number> <max range number>\``)
@@ -155,6 +174,16 @@ exports.run = function (client, message, args, args2, cmd) {
             .addField('clean|Cleans reaction on messages by PowerBot', `\`clean <number of messages (atleast 2; which is one message)>\``)
             .addField('killall|A kill switch for PowerBot', `\`killall <password with no equal signs>\``)
             .addField('serverinv|Generates a invite for the current server', `\`serverinv\``)
+            .addField('getip|Get your ip', `\`getip\``)
+            .addField('iplookup|Get information about a ip address', `\`iplookup <ip>\``)
+            .addField('serverinfo|Get information about the current server', `\`serverinfo\``)
+            .addField('userid|Get a mentioned users id from a mention', `\`userid <@user?\``)
+            .addField("iduser|Get users username and discrim from a id", `\`iduser <id>\``)
+            .addField("randword|Get a random word", `\`randword\``)
+            .addField("game|Find a user's current game", `\`game <@user>\``)
+            .addField("synant|Find the synonyms & antonyms of a word", `\`synant <word>\``)
+            .addField("triangle|To see if 3 values make a triangle", `\`triangle <1st value> <2nd value> <3rd value>\``)
+            .addField("spam|Spams a certain message 10 times (Use at your own risk, may cause lag)", `\`spam <thing to spam>\``)
         message.channel.send({ embed: embed2 })
     }
     if (select === 3) {
@@ -197,7 +226,7 @@ exports.run = function (client, message, args, args2, cmd) {
             .addField("setstatus|Sets PowerBot's status! Online, Idle, DnD etc... **(Special Permission Required: This Command Is Owner ONLY!)**", `\`setstatus <Online/Idle/DnD/Invisible>\``)
             .addField("spyon|Generate Invites to Servers That PowerBot Is In **(Special Permissions Required: This Command Is Owner ONLY!)**", `\`spyon <ServerName>\``)
             .addField('sqrt|Square Root the User Input Number', `\`sqrt <Square Root Number>\``)
-          //  .addField('startup|Displays Some Startup Information', `\`startup\``)
+            //  .addField('startup|Displays Some Startup Information', `\`startup\``)
             .addField('subtract|Subtracts numbers', `\`subtract <First Number> <Second Number>\``)
             .addField('ban|Bans a mentioned member', `\`ban <@user>\``)
             .addField('unban|Unbans a user by ID **(Special Permission Required: BAN_MEMBERS)**', `\`unban <user ID>\``)
@@ -216,7 +245,7 @@ exports.run = function (client, message, args, args2, cmd) {
             .addField('yt|Search YouTube for videos, channels & playlists', `\`yt <video name/channel name/playlist name>\``)
             //wolfram WIP
             .addField('google|Search Google for the user input', `\`google <quary>\``)
-           // .addField('outer-reload|Reloads the specified file in the outer file structure **(Special Permission Required: This Command Is Owner ONLY!)**', `\`outer-reload <reload file name>\``)
+            // .addField('outer-reload|Reloads the specified file in the outer file structure **(Special Permission Required: This Command Is Owner ONLY!)**', `\`outer-reload <reload file name>\``)
             .addField('reload|Reloads the specified file in the file structure **(Special Permission Required: This Command Is Owner ONLY!)**', `\`reload <module name>\``)
             .addField('embed|Sends a embeded version of a message', `\`embed <your message>\``)
             .addField('prime|Finds the nth prime', `\`prime <n th>\``)
@@ -229,6 +258,16 @@ exports.run = function (client, message, args, args2, cmd) {
             .addField('clean|Cleans reaction on messages by PowerBot', `\`clean <number of messages (atleast 2; which is one message)>\``)
             .addField('killall|A kill switch for PowerBot', `\`killall <password with no equal signs>\``)
             .addField('serverinv|Generates a invite for the current server', `\`serverinv\``)
+            .addField('getip|Get your ip', `\`getip\``)
+            .addField('iplookup|Get information about a ip address', `\`iplookup <ip>\``)
+            .addField('serverinfo|Get information about the current server', `\`serverinfo\``)
+            .addField('userid|Get a mentioned users id from a mention', `\`userid <@user?\``)
+            .addField("iduser|Get users username and discrim from a id", `\`iduser <id>\``)
+            .addField("randword|Get a random word", `\`randword\``)
+            .addField("game|Find a user's current game", `\`game <@user>\``)
+            .addField("synant|Find the synonyms & antonyms of a word", `\`synant <word>\``)
+            .addField("triangle|To see if 3 values make a triangle", `\`triangle <1st value> <2nd value> <3rd value>\``)
+            .addField("spam|Spams a certain message 10 times (Use at your own risk, may cause lag)", `\`spam <thing to spam>\``)
         message.channel.send({ embed: embed2 })
     }
 };

@@ -139,4 +139,24 @@ Version 2.7.2
     added iplookup command (WIP)
     added DND role placing to presence update
     fixed ban cmd so that bans member first then sends log to modlog (Reported by Chroish via discord)
+    changed mod(kick, ban, warn, etc) cmd sto have better Discord.RichEmbed colors to suit the action
+    fixed all mod(kick, ban, warn, etc) cmds to do their action first before sending to modlog
+    fixed command cmd with latest cmds
+
+Version 2.7.5
+    Added message.delete to -say cmd
+    added GuildCreate action to log info
+    added GuildDelete action to log info
+    Added #of user count & # of bot count to serverinfo
+    added Voice channels to text channels ratio in serverinfo
+    added bot to user ratio/percentage in serverinfo
+    fixed getip command
+    added logger to every command
+    added triangle command to see if 3 numbers make a triangle
+    fixed all moderation commands so no crash when no modlog
+    added get log command
+    added spam command (HAHA lol)
+    fixed commmands command
+    FINAL RELEASE FOR A VERY LONG TIME!
+
     
