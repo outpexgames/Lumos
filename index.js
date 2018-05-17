@@ -281,6 +281,7 @@ client.on("message", message => {  //message handler starts here!
     let cmd2 = args2.join(' ');
     var res = cmd.slice(0, 1)
     var guild = message.guild;
+ 
     // if (command === "outer-reload") {
     //     if (message.author.id === config.owner) {
     //         if (!args || args.size < 1) return message.reply("Must provide a command name to reload.");
@@ -300,7 +301,7 @@ client.on("message", message => {  //message handler starts here!
     //     logger.log('info', `Spam command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)
     // }
 
-    if (command ===  "checklist") {
+
         if (command === "checklist") {
             logger.log('info', `checklist command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date.now()} Guild: ${guild}`)
             const embed100 = new Discord.RichEmbed()
@@ -320,7 +321,7 @@ client.on("message", message => {  //message handler starts here!
             message.channel.send({ embed: embed100 });
     
         }
-    }
+    
 
     if (command === "wolfram") { //WIP
         // wolfram.query(args.join(' '), function (err, result) {
@@ -477,6 +478,11 @@ client.on("message", message => {  //message handler starts here!
     // if (command === "randword") {
     //     message.channel.send(randomWord())
     // }
+    if (command === "party") {
+        let ayy = client.emojis.find("name", ":ditto:")
+// message.channel.send(":congablob: :congablob: :congablob: :congablob: :congablob ::hype: :ditto: :hype: :ditto: :hype: :parrot: :congablob: :congablob: :congablob: :parrot:")
+        message.reply(ayy)
+    }
     if (command === "setgame") {
         const config = require("./config.json");
         var guild = message.guild;
