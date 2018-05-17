@@ -21,7 +21,6 @@ exports.run = function (client, message, args, args2, cmd) {
         .addField("**Example:**", `${config.prefix}ban @AirFusion STAPPP!!!! >.<`)
         .addField("**Expected Result From Example:**", "Specified User Should Be Banned; Ban Log Should Be Sent To Channel #modlog")
     if (message.mentions.users.size < 1 && reason.length < 1) return message.channel.send({ embed: embed })
-    let guild = member.guild;
     if (!message.guild.member(message.author).hasPermission('BAN_MEMBERS')) return message.reply('You must be a moderator to ban people!').catch(console.error)
     if (message.mentions.users.size < 1) return message.reply('Please mention someone to ban!').catch(console.error)
     if (reason.length < 1) return message.reply('Please supply a reason for the ban!').catch(console.error)
@@ -31,17 +30,18 @@ exports.run = function (client, message, args, args2, cmd) {
         const channelsendlol = new Discord.RichEmbed()
             .setColor('#ff0000') //change the color!!!
             .setTimestamp()
-            .setThumbnail(message.mentions.users.first().avatarURL)
+            .setThumbnail(user.avatarURL)
             .addField('Action:', "Ban")
             .addField('User:', user.username + '#' + user.discriminator)
             .addField("User ID:", user.id)
             .addField("Moderator:", message.author.username + "#" + message.author.discriminator)
             .addField("Reason:", reason)
+            .addField("Server:", message.guild)
 
-        const okgoogle = new Discord.RichEmbed()
+        const okgoogle = new Discord.RichEmbed()//modlog
             .setColor('#ff0000') //change the color!!!
             .setTimestamp()
-            .setThumbnail(message.mentions.users.first().avatarURL)
+            .setThumbnail(user.avatarURL)
             .addField('Action:', "Ban")
             .addField('User:', user.username + '#' + user.discriminator)
             .addField("User ID:", user.id)
@@ -52,7 +52,8 @@ exports.run = function (client, message, args, args2, cmd) {
         setTimeout(function () {
             message.guild.ban(user)
         }, 1000);
-        message.channel.send({ embed: channelsendlol });
+        message.channel.send({ embed: okgoogle });
+        user.send({embed: channelsendlol})
         guild.channels.find("name", "modlog").send({ embed: okgoogle }).catch(e);
 
 

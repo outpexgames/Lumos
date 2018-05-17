@@ -18,7 +18,7 @@ exports.run = function (client, message, args, args2, cmd1) {
         if (args.join(' ')=="") return message.channel.send({embed: embed1})
     if (message.guild.member(message.author).hasPermission('MANAGE_MESSAGES')||message.guild.member(message.author).hasPermission('ADMINISTRATOR')) {
         let messagecount = parseInt(args2.join(' '));
-        message.channel.fetchMessages({ limit: messagecount }).then(messages => message.channel.bulkDelete(messages));
+        message.channel.fetchMessages({ limit: messagecount }).then(messages => message.channel.bulkDelete(messages)).catch(err => message.reply("Bots can only purge messages that are less than 14 days old. This error could be caused by DiscordAPI Overload"));
     }
     else {
         message.reply('Insufficant Permissions').catch(console.error)

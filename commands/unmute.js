@@ -8,7 +8,7 @@ var logger = new (winston.Logger)({
 exports.run = function (client, message, args, args2, cmd) {
     if (!message.guild.member(message.author).hasPermission('MANAGE_ROLES_OR_PERMISSIONS')) return message.reply('Insufficant Permissions').catch(console.error)
     var guild = message.guild;
-    logger.log('info', `Unmute command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`) 
+    logger.log('info', `Unmute command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)
     const Discord = require('discord.js');
     const config = require("./config.json");
     //let reason = args.slice(1).join(' ')
@@ -21,7 +21,6 @@ exports.run = function (client, message, args, args2, cmd) {
         .addField("**Example:**", `${config.prefix}unmute @AirFusion`)
         .addField("**Expected Result From Example:**", "Mentioned user should be unmuted.")
     if (args.join(' ') == "") return message.channel.send({ embed: embed19 })
-    let guild = member.guild;
     let muteRole = client.guilds.get(message.guild.id).roles.find('name', 'Mute')
     // let modlog = guild.channels.find("name", "modlog")
     // if (!modlog) return message.reply("mod-log required")
@@ -37,25 +36,24 @@ exports.run = function (client, message, args, args2, cmd) {
     const embed = new Discord.RichEmbed()
         .setColor('#00008b') //change the color!!!
         .setTimestamp()
-        .setThumbnail(message.author.avatarURL)
+        .setThumbnail(user.avatarURL)
         .addField('Action:', "UnMute")
         .addField('User:', user.username + '#' + user.discriminator)
         .addField("User ID:", user.id)
         .addField("Moderator:", message.author.username + "#" + message.author.discriminator)
+        .addField("Server:", message.guild)
 
-        
 
     const embed1 = new Discord.RichEmbed()
         .setColor('#00008b') //change the color!!!
         .setTimestamp()
-        .setThumbnail(message.author.avatarURL)
+        .setThumbnail(user.avatarURL)
         .addField('Action:', "UnMute")
         .addField('User:', user.username + '#' + user.discriminator)
         .addField("User ID:", user.id)
         .addField("Moderator:", message.author.username + "#" + message.author.discriminator)
 
     message.channel.send({ embed: embed1 })
-
-     
-    guild.channels.find("name", "modlog").send({ embed: embed }).catch(e);
+    user.send({embed: embed})
+    guild.channels.find("name", "modlog").send({ embed: embed1 }).catch(err => console.error(err));
 };

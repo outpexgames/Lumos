@@ -281,7 +281,7 @@ client.on("message", message => {  //message handler starts here!
     let cmd2 = args2.join(' ');
     var res = cmd.slice(0, 1)
     var guild = message.guild;
- 
+
     // if (command === "outer-reload") {
     //     if (message.author.id === config.owner) {
     //         if (!args || args.size < 1) return message.reply("Must provide a command name to reload.");
@@ -302,26 +302,26 @@ client.on("message", message => {  //message handler starts here!
     // }
 
 
-        if (command === "checklist") {
-            logger.log('info', `checklist command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date.now()} Guild: ${guild}`)
-            const embed100 = new Discord.RichEmbed()
-                .setTitle("If a role is true, means you have the role setup correctly, if it is false, then there is something wrong witht the role.")
-                .setColor('#ff0000')
-                .setFooter(config.name + "CheckList")
-           
-    
-            let powerbotperm = client.guilds.get(message.guild.id).roles.find("name", "PowerBot")
-    
-            embed100.addField("PowerBot ADMINISTRATOR Permissions: ", powerbotperm.hasPermission("ADMINISTRATOR"))
-    
-            let muteRole = client.guilds.get(message.guild.id).roles.find("name", "Mute")
-            let mute = true;
-            if (!muteRole) mute = false;
-            embed100.addField("PowerBot Mute Role: ", mute)
-            message.channel.send({ embed: embed100 });
-    
-        }
-    
+    if (command === "checklist") {
+        logger.log('info', `checklist command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date.now()} Guild: ${guild}`)
+        const embed100 = new Discord.RichEmbed()
+            .setTitle("If a role is true, means you have the role setup correctly, if it is false, then there is something wrong witht the role.")
+            .setColor('#ff0000')
+            .setFooter(config.name + "CheckList")
+
+
+        let powerbotperm = client.guilds.get(message.guild.id).roles.find("name", "PowerBot")
+
+        embed100.addField("PowerBot ADMINISTRATOR Permissions: ", powerbotperm.hasPermission("ADMINISTRATOR"))
+
+        let muteRole = client.guilds.get(message.guild.id).roles.find("name", "Mute")
+        let mute = true;
+        if (!muteRole) mute = false;
+        embed100.addField("PowerBot Mute Role: ", mute)
+        message.channel.send({ embed: embed100 });
+
+    }
+
 
     if (command === "wolfram") { //WIP
         // wolfram.query(args.join(' '), function (err, result) {
@@ -331,8 +331,14 @@ client.on("message", message => {  //message handler starts here!
         //     message.channel.send("**Solution: **" + result)
         //     console.log(result)
         // })
-
-
+        const embed = new Discord.RichEmbed()
+            .setColor("#f0ffff")
+            .setDescription("**Command: **" + `${config.prefix}wolfram`)
+            .addField("**Usage:**", `${config.prefix}wolfram <query>`)
+            .addField("**Example:**", `${config.prefix}wolfram 1+2`)
+            .addField("**Expected Result From Example:**", "Should return a lot of information about 1+2 - May be quite spammy...")
+        if (!args.join(" ")) return message.channel.send({ embed: embed })
+        
         wolfram = new Wolfram(config.wolfram)
 
         wolfram.query(args.join(' '), function (error, result) {
@@ -480,7 +486,7 @@ client.on("message", message => {  //message handler starts here!
     // }
     if (command === "party") {
         let ayy = client.emojis.find("name", ":ditto:")
-// message.channel.send(":congablob: :congablob: :congablob: :congablob: :congablob ::hype: :ditto: :hype: :ditto: :hype: :parrot: :congablob: :congablob: :congablob: :parrot:")
+        // message.channel.send(":congablob: :congablob: :congablob: :congablob: :congablob ::hype: :ditto: :hype: :ditto: :hype: :parrot: :congablob: :congablob: :congablob: :parrot:")
         message.reply(ayy)
     }
     if (command === "setgame") {

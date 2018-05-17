@@ -7,7 +7,7 @@ var logger = new (winston.Logger)({
     ]
 })
 exports.run = function (client, message, args, args2, cmd) {
-    let guild = member.guild;
+    let guild = message.guild;
     logger.log('info', `Lockdown command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`) 
     const Discord = require('discord.js');
     // let modlog = client.channels.find("name", "modlog")
@@ -71,5 +71,5 @@ exports.run = function (client, message, args, args2, cmd) {
     }
 
 
-    message.guild.channels.find("name", "modlog").send({embed: embed}).catch(e);   
+    message.guild.channels.find("name", "modlog").send({embed: embed}).catch(err => console.error(err));   
 };

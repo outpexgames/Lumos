@@ -168,3 +168,11 @@ Version 2.7.6
     removed status roles, server object issue
     fixed setgame & setstatus cmds
     added reminders to -dm command
+
+Version x
+    Fixed -rps commands with "rocks" "papers" - words w/ "s" input errs
+    Fixed -kick cmd (having two same vars declared) & improved the message dm ed to a user after kick.
+    fixed -masspurge so now it gives a responce when it fails to exec
+    fixed all moderation cmds
+    fixed -addrole & -removerole cmds to catch and stop exec when there is a err
+    fixed -wolfram cmd not having help embed 
