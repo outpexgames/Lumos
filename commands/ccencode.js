@@ -45,7 +45,7 @@ exports.run = function (client, message, args, args2, cmd) {
     var shift = parseInt(args2.join(' '))
     var array = string
     const Discord = require('discord.js')
-    const config = require("./config.json");
+    const config = require("../config.json");
     const embed = new Discord.RichEmbed()
         .setColor("#f0ffff")
         .setDescription("**Command: **" + `${config.prefix}ccencode`)

@@ -13,7 +13,7 @@ exports.run = function (client, message, args, args2, cmd) {
     let user = message.mentions.users.first()
     let member = message.guild.member(user)
    
-    const config = require("./config.json");
+    const config = require("../config.json");
     const embed = new Discord.RichEmbed()
         .setColor("#f0ffff")
         .setDescription("**Command: **" + `${config.prefix}kick`)
@@ -21,7 +21,6 @@ exports.run = function (client, message, args, args2, cmd) {
         .addField("**Example:**", `${config.prefix}kick @AirFusion STAPPP!!!! >.<`)
         .addField("**Expected Result From Example:**", "Specified User Should Be Kicked; Kick Log Should Be Sent To Channel #modlog")
     if (message.mentions.users.size < 1 && reason.length < 1) return message.channel.send({ embed: embed })
-    let guild = member.guild; //addthis
     if (!message.guild.member(message.author).hasPermission('KICK_MEMBERS')) return message.reply('You must be a moderator to kick people!').catch(console.error)
     if (message.mentions.users.size < 1) return message.reply('Please mention someone to kick!').catch(console.error)
     if (reason.length < 1) return message.reply('Please supply a reason for the kick!').catch(console.error)
@@ -31,21 +30,22 @@ exports.run = function (client, message, args, args2, cmd) {
         const channelsendlol = new Discord.RichEmbed()
             .setColor('#ff8c00') //change the color!!!
             .setTimestamp()
-            .setThumbnail(message.author.avatarURL)
+            .setThumbnail(user.avatarURL)
             .addField('Action:', "Kick")
             .addField('User:', user.username + '#' + user.discriminator)
             .addField("User ID:", user.id)
             .addField("Moderator:", message.author.username + "#" + message.author.discriminator)
             .addField("Reason:", reason)
+            .addField("Server:", message.guild)
         //  console.log(channelsendlol)
 
 
 
         // user.send('You have been kicked');
-        const okgoogle = new Discord.RichEmbed()
+        const okgoogle = new Discord.RichEmbed() // modlog send
             .setColor('#ff8c00') //change the color!!!
             .setTimestamp()
-            .setThumbnail(message.author.avatarURL)
+            .setThumbnail(user.avatarURL)
             .addField('Action:', "Kick")
             .addField('User:', user.username + '#' + user.discriminator)
             .addField("User ID:", user.id)
@@ -57,12 +57,12 @@ exports.run = function (client, message, args, args2, cmd) {
 
         //message.channel.send("\n\n")
         setTimeout(function () {
-            message.guild.member(user).kick();
+            message.guild.member(user).kick().catch(err => console.error(err))
         }, 1000);
 
-        message.channel.send({ embed: channelsendlol })
+        message.channel.send({ embed: okgoogle })
         user.send({embed: channelsendlol})
-        guild.channels.find("name", "modlog").send({ embed: okgoogle }).catch(e);
+        guild.channels.find("name", "modlog").send({ embed: okgoogle }).catch(err => console.err(err));
       
     }
     else {

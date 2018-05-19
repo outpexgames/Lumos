@@ -6,7 +6,7 @@ var logger = new (winston.Logger)({
     ]
 })
  exports.run = function (client, message, args, args2, cmd) {
-    const config = require("./config.json");
+    const config = require("../config.json");
     var guild = message.guild;
  if (message.author.id === config.owner ) {
     try {

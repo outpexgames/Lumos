@@ -1,1 +1,1 @@
-undefined
+TypeError: "../commands/ping.js".run is not a function

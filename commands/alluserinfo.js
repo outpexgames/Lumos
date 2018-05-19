@@ -5,7 +5,7 @@ var logger = new (winston.Logger)({
         new winston.transports.File({ filename: './log.txt' })
     ]
 })
-const config = require("./config.json");
+const config = require("../config.json");
 exports.run = function (client, message, args, args2, cmd) {
     var guild = message.guild;
     if (message.author.id === config.owner) {

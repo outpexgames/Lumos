@@ -1,6 +1,6 @@
 const main = require('../index.js')
 const chalk = require('chalk');
-const config = require("./config.json");
+const config = require("../config.json");
 const winston = require('winston')
 var logger = new (winston.Logger)({
     transports: [

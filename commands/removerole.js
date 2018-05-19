@@ -8,7 +8,7 @@ var logger = new (winston.Logger)({
 exports.run = function (client, message, args, args2, cmd, config) {
     if (message.guild.member(message.author).hasPermission('MANAGE_ROLES_OR_PERMISSIONS')) {
         const Discord = require('discord.js');
-        const config = require("./config.json");
+        const config = require("../config.json");
         var guild = message.guild;
         const embed19 = new Discord.RichEmbed()
             .setColor("#f0ffff")
@@ -20,8 +20,16 @@ exports.run = function (client, message, args, args2, cmd, config) {
         let member = message.guild.member(message.mentions.users.first());
         let role = message.guild.roles.find("name", args2.join(' '));
         if (member.id === message.author.id) return message.reply("You cannot remove a role you have")
-        member.removeRole(role).catch(console.error);
-        message.channel.send(`Role ${role} has been removed from ${member} `)
+        member.removeRole(role)
+        .then((GuildMember) => {
+            message.channel.send(`::white_check_mark: Role ${role} has been removed from ${member} `)
+        })
+     .catch((err) => {
+         console.log(err)
+         message.channel.send(`:x: Was not able to remove Role ${role} from ${member} `)
+         message.channel.send("**Error:** " + err.message + " **Code:** " + err.code)
+         return;
+     })
     }
     else {
         message.channel.send('You do not have the permission MANAGE_ROLES_OR_PERMISSIONS');

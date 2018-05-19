@@ -6,7 +6,7 @@ var logger = new (winston.Logger)({
     ]
 })
 exports.run = function (client, message, args, args2, cmd1) {
-    const config = require("./config.json");
+    const config = require("../config.json");
     const Discord = require('discord.js');
     var guild = message.guild;
 

@@ -10,8 +10,7 @@ exports.run = function (client, message, args, args2, cmd) {
     logger.log('info', `Warn command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)  
     if (!message.guild.member(message.author).hasPermission('MANAGE_ROLES_OR_PERMISSIONS')) return message.reply('Insufficant Permissions').catch(console.error)
     const Discord = require('discord.js');
-    const config = require("./config.json");
-    var guild = message.guild;
+    const config = require("../config.json");
     let reason = args.slice(1).join(' ')
     let user = message.mentions.users.first()
     let member = message.guild.member(user)
@@ -31,24 +30,24 @@ exports.run = function (client, message, args, args2, cmd) {
     const embed = new Discord.RichEmbed()
         .setColor('#ff9966') //change the color!!!
         .setTimestamp()
-        .setThumbnail(message.author.avatarURL)
+        .setThumbnail(user.avatarURL)
         .addField('Action:', "Warning")
         .addField('User:', user.username + '#' + user.discriminator)
         .addField("User ID:", user.id)
         .addField("Moderator:", message.author.username + "#" + message.author.discriminator)
         .addField("Reason:", reason)
+        .addField("Server:", message.guild)
        
     const embed1 = new Discord.RichEmbed()
         .setColor('#ff9966') //change the color!!!
         .setTimestamp()
-        .setThumbnail(message.author.avatarURL)
+        .setThumbnail(user.avatarURL)
         .addField('Action:', "Warning")
         .addField('User:', user.username + '#' + user.discriminator)
         .addField("User ID:", user.id)
         .addField("Moderator:", message.author.username + "#" + message.author.discriminator)
         .addField("Reason:", reason)
     message.channel.send({ embed: embed1 })
-
-     
-    guild.channels.find("name", "modlog").send({ embed: embed }).catch(e);
+    user.send({embed: embed})
+    guild.channels.find("name", "modlog").send({ embed: embed1 }).catch(err => console.error(err));
 };

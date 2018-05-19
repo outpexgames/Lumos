@@ -8,7 +8,7 @@ var logger = new (winston.Logger)({
 exports.run = function (client, message, args, args2, cmd) {
     var output = "";
     const Discord = require('discord.js')
-    const config = require("./config.json");
+    const config = require("../config.json");
     var guild = message.guild;
     const embed = new Discord.RichEmbed()
         .setColor("#f0ffff")

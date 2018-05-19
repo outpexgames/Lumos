@@ -6,7 +6,7 @@ var logger = new (winston.Logger)({
     ]
 })
 exports.run = function (client, message, args, args2, cmd) {
-    const config = require("./config.json");
+    const config = require("../config.json");
     const Discord = require('discord.js');
     var guild = message.guild;
     const embed1 = new Discord.RichEmbed()
@@ -19,5 +19,5 @@ exports.run = function (client, message, args, args2, cmd) {
     let numArray = args.map(n => parseInt(n));
     let total = numArray.reduce((p, c) => p * c);
     message.channel.send(total);
-    logger.log('info', `Multi command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild})        
+    logger.log('info', `Multi command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)        
 };
