@@ -40,15 +40,17 @@ function getRandomIntInclusive(min, max) {
 }
 client.on('guildCreate', (guild) => {
     console.log(chalk.white(`Joined guild ${guild.name} ID: ${guild.id}  Owner ID: ${guild.ownerID}`)) //Owner: ${guild.owner.user.tag}
-    guild.createRole({
-        name: `Mute`,
-        color: 'BLACK',
-        position: 1,
-        hoist: false,
-        mentionable: false,
-        permissions: 0,
+    if (config.createMuteRoleUponJoin) {
+        guild.createRole({
+            name: `Mute`,
+            color: 'BLACK',
+            position: 1,
+            hoist: false,
+            mentionable: false,
+            permissions: 0,
 
-    })
+        })
+    }
 })
 client.on('guildDelete', (guild) => {
     console.log(chalk.white(`Left/Kicked from guild ${guild.name} ID: ${guild.id}  Owner ID: ${guild.ownerID}`))
@@ -334,10 +336,12 @@ client.on("message", message => {  //message handler starts here!
     if (command === "prefix") {
         config.prefix = args.join(' ');
         fs.writeFile('./config.json', JSON.stringify(config, null, 2), function (err) {
-            if (err) return console.log(err);
-            console.log(JSON.stringify(config));
-            console.log('writing to ' + './config.json');
+            if (err) return console.error(err);
+            // console.log(JSON.stringify(config));
+            // console.log('writing to ' + './config.json');
+            message.channel.send(`Prefix Successfully Changed to ${config.prefix}.`)
         });
+
     }
 
     if (command === "wolfram") { //WIP
@@ -434,15 +438,19 @@ client.on("message", message => {  //message handler starts here!
     }
 
     if (command === "test") {
-        console.log(message.channel)
-        console.log("ENDLJSLFJSLJFLKSJGLS")
-        logger.log('info', `Test command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)
-        message.channel.send(os.hostname)
-        message.channel.send(os.platform)
-
+        // console.log(message.channel)
+        // console.log("ENDLJSLFJSLJFLKSJGLS")
+        // logger.log('info', `Test command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)
+        // message.channel.send(os.hostname)
+        // message.channel.send(os.platform)
+        // if (Date.now() )
     }
-
-
+// var array = [];
+// array.push("May 19 10:40 AM")
+//     if (Date.now() === Date.parse(array[0])) {
+//         console.log("OmG");
+//         message.channel.send("ayy")
+//     }
 
     //     if (command === "triangle") {
     //         var a = parseInt(args[0]);
@@ -497,6 +505,81 @@ client.on("message", message => {  //message handler starts here!
     //     message.channel.send(tcom.search(args.join(' ')).antonyms);
 
     // }
+
+    if (command === "setmuterole") {
+        if (message.author.id != config.owner) return message.reply("Invalid Permissions - Command is owner only.")
+        else {
+            // if (args.join(' ') != "true" || args.join(' ') != "false") return message.reply("Please enter \"true\" for yes, and \"false\" for no.")
+            if (args.join(' ') === "true") {
+                config.createMuteRoleUponJoin = true;
+                fs.writeFile('./config.json', JSON.stringify(config, null, 2), function (err) {
+                    if (err) return console.error(err);
+                    // console.log(JSON.stringify(config));
+                    // console.log('writing to ' + './config.json');
+                    message.channel.send(`createMuteRoleUponJoin Successfully Changed to ${config.createMuteRoleUponJoin}.`)
+                });
+            }
+            else if (args.join(' ') === "false") {
+                config.createMuteRoleUponJoin = false;
+                fs.writeFile('./config.json', JSON.stringify(config, null, 2), function (err) {
+                    if (err) return console.error(err);
+                    // console.log(JSON.stringify(config));
+                    // console.log('writing to ' + './config.json');
+                    message.channel.send(`createMuteRoleUponJoin Successfully Changed to ${config.createMuteRoleUponJoin}.`)
+                });
+            }
+        }
+    }
+
+    if (command === "setpastebineval") {
+        if (message.author.id != config.owner) return message.reply("Invalid Permissions - Command is owner only.")
+        else {
+            // if (args.join(' ') != "true" || args.join(' ') != "false") return message.reply("Please enter \"true\" for yes, and \"false\" for no.")
+            if (args.join(' ') === "true") {
+                config.uploadtoPastebinEval = true;
+                fs.writeFile('./config.json', JSON.stringify(config, null, 2), function (err) {
+                    if (err) return console.error(err);
+                    // console.log(JSON.stringify(config));
+                    // console.log('writing to ' + './config.json');
+                    message.channel.send(`uploadtoPastebinEval Successfully Changed to ${config.createMuteRoleUponJoin}.`)
+                });
+            }
+            else if (args.join(' ') === "false") {
+                config.uploadtoPastebinEval = false;
+                fs.writeFile('./config.json', JSON.stringify(config, null, 2), function (err) {
+                    if (err) return console.error(err);
+                    // console.log(JSON.stringify(config));
+                    // console.log('writing to ' + './config.json');
+                    message.channel.send(`uploadtoPastebinEval Successfully Changed to ${config.createMuteRoleUponJoin}.`)
+                });
+            }
+        }
+    }
+
+    if (command === "setuploadfileeval") {
+        if (message.author.id != config.owner) return message.reply("Invalid Permissions - Command is owner only.")
+        else {
+            // if (args.join(' ') != "true" || args.join(' ') != "false") return message.reply("Please enter \"true\" for yes, and \"false\" for no.")
+            if (args.join(' ') === "true") {
+                config.uploadtoFileEval = true;
+                fs.writeFile('./config.json', JSON.stringify(config, null, 2), function (err) {
+                    if (err) return console.error(err);
+                    // console.log(JSON.stringify(config));
+                    // console.log('writing to ' + './config.json');
+                    message.channel.send(`uploadtoFileEval Successfully Changed to ${config.uploadtoFileEval}.`)
+                });
+            }
+            else if (args.join(' ') === "false") {
+                config.uploadtoFileEval = false;
+                fs.writeFile('./config.json', JSON.stringify(config, null, 2), function (err) {
+                    if (err) return console.error(err);
+                    // console.log(JSON.stringify(config));
+                    // console.log('writing to ' + './config.json');
+                    message.channel.send(`uploadtoFileEval Successfully Changed to ${config.uploadtoFileEval}.`)
+                });
+            }
+        }
+    }
 
     // if (command === "randword") {
     //     message.channel.send(randomWord())
@@ -615,13 +698,17 @@ client.on("message", message => {  //message handler starts here!
                     done = require("util").inspect(done);
                 message.channel.send(":white_check_mark: **Output:**\n" + "```" + `${clean(done)}` + "```");
                 localStorage.setItem('Eval-Results.json', clean(done));
-                message.channel.send({ files: ['Eval-Results.json'] });
-                pastebin.new({ title: 'Eval Results', content: clean(done) }, function (err, ret) {
-                    if (err)
-                        message.channel.send(err);
-                    else
-                        message.channel.send(ret);
-                });
+                if (config.uploadtoFileEval) {
+                    message.channel.send({ files: ['Eval-Results.json'] });
+                }
+                if (config.uploadtoPastebinEval) {
+                    pastebin.new({ title: 'Eval Results', content: clean(done) }, function (err, ret) {
+                        if (err)
+                            message.channel.send(err);
+                        else
+                            message.channel.send(ret);
+                    });
+                }
                 var y = Date.now();
                 var noplz = y - x
                 message.channel.send("Time used: " + noplz + " ms");
@@ -629,13 +716,17 @@ client.on("message", message => {  //message handler starts here!
             catch (e) {
                 message.channel.send(":x: **Output:**\n" + `\`ERROR\` \`\`\`x1\n${clean(e)}\n\`\`\``);
                 localStorage.setItem('Eval-Results.json', clean(e));
-                message.channel.send({ files: ['Eval-Results.json'] });
-                pastebin.new({ title: 'Eval Results', content: clean(e) }, function (err, ret) {
-                    if (err)
-                        message.channel.send(err);
-                    else
-                        message.channel.send(ret);
-                });
+                if (config.uploadtoFileEval) {
+                    message.channel.send({ files: ['Eval-Results.json'] });
+                }
+                if (config.uploadtoPastebinEval) {
+                    pastebin.new({ title: 'Eval Results', content: clean(e) }, function (err, ret) {
+                        if (err)
+                            message.channel.send(err);
+                        else
+                            message.channel.send(ret);
+                    });
+                }
                 var y = Date.now();
                 var noplz = y - x
                 message.channel.send("Time used: " + noplz + " ms");

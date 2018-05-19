@@ -12,7 +12,7 @@ exports.run = function (client, message, args, args2, cmd) {
     const embed = new Discord.RichEmbed()
         .setColor('#7d5bbe')
         .setTitle(message.guild.name + ` Server Stats`)
-        .addField('📄 Channels', `${message.guild.channels.filter(chan => chan.type === 'voice').size} Voice Channels | ${message.guild.channels.filter(chan => chan.type === 'text').size} Text Channel | ${Math.round((message.guild.channels.filter(chan => chan.type === 'voice').size / message.guild.channels.size) * 100)} % Voice Channels | ${Math.round((message.guild.channels.filter(chan => chan.type === 'text').size / message.guild.channels.size) * 100)} % Text Channels`, true)
+        .addField('📄 Channels', `${message.guild.channels.filter(chan => chan.type === 'voice').size} Voice Channels | ${message.guild.channels.filter(chan => chan.type === 'text').size} Text Channels | ${Math.round((message.guild.channels.filter(chan => chan.type === 'voice').size / message.guild.channels.size) * 100)} % Voice Channels | ${Math.round((message.guild.channels.filter(chan => chan.type === 'text').size / message.guild.channels.size) * 100)} % Text Channels`, true)
         //  .addField('🏠 Default Channel', message.guild.defaultChannel, true)
         .addField(':man: Members', `${message.guild.members.filter(member => member.user.bot).size} Bots  | ${message.guild.memberCount} Total Members | ${Math.round((message.guild.members.filter(member => member.user.bot).size / message.guild.memberCount) * 100)} % Bots`, true)
         .addField(':date: Guild Created At', message.guild.createdAt, true)

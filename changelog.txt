@@ -181,3 +181,4 @@ Version x
     fixed -game cmd, added no input helper and fixed logger
     fixed -triangle cmd, added no input helper 
     removed config.jsons from each individual folder. Now running on only one config.json - infra change
+    added -prefix cmd, allows user to change bot's prefix
