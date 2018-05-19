@@ -13,7 +13,7 @@ exports.run = function (client, message, args, args2, cmd) {
     let user = message.mentions.users.first()
     let member = message.guild.member(user)
 
-    const config = require("./config.json");
+    const config = require("../config.json");
     const embed = new Discord.RichEmbed()
         .setColor("#f0ffff")
         .setDescription("**Command: **" + `${config.prefix}ban`)

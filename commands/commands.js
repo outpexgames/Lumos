@@ -12,7 +12,7 @@ var logger = new (winston.Logger)({
 })
 exports.run = function (client, message, args, args2, cmd) {
     const Discord = require('discord.js');
-    const config = require("./config.json");
+    const config = require("../config.json");
     var guild = message.guild;
     var select = getRandomIntInclusive(1, 3);
     logger.log('info', `Commands command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)

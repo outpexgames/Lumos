@@ -12,7 +12,7 @@ exports.run = function (client, message, args, args2, cmd) {
     const Discord = require('discord.js');
     // let modlog = client.channels.find("name", "modlog")
     let member = message.author;
-   const config = require("./config.json");
+   const config = require("../config.json");
    
 
     const embed1 = new Discord.RichEmbed()

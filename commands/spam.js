@@ -7,7 +7,7 @@
 // })
 // exports.run = function (client, message, args, args2, cmd) {
 //     const Discord = require('discord.js');
-//     const config = require("./config.json");
+//     const config = require("../config.json");
 //     var guild = message.guild;
 //     let lastWord = args.join(' ').split(' ').splice(-1);
 //     let msg = args.join(' ').slice(0, args.join(' ').indexOf(lastWord))

@@ -43,7 +43,7 @@ exports.run = function (client, message, args, args2) {
     var shift = parseInt(args2.join(' '))
     var array = string
     const Discord = require('discord.js')
-    const config = require("./config.json");
+    const config = require("../config.json");
     var guild = message.guild;
     const embed = new Discord.RichEmbed()
         .setColor("#f0ffff")

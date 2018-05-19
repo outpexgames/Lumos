@@ -40,6 +40,15 @@ function getRandomIntInclusive(min, max) {
 }
 client.on('guildCreate', (guild) => {
     console.log(chalk.white(`Joined guild ${guild.name} ID: ${guild.id}  Owner ID: ${guild.ownerID}`)) //Owner: ${guild.owner.user.tag}
+    guild.createRole({
+        name: `Mute`,
+        color: 'BLACK',
+        position: 1,
+        hoist: false,
+        mentionable: false,
+        permissions: 0,
+
+    })
 })
 client.on('guildDelete', (guild) => {
     console.log(chalk.white(`Left/Kicked from guild ${guild.name} ID: ${guild.id}  Owner ID: ${guild.ownerID}`))
@@ -322,6 +331,14 @@ client.on("message", message => {  //message handler starts here!
 
     }
 
+    if (command === "prefix") {
+        config.prefix = args.join(' ');
+        fs.writeFile('./config.json', JSON.stringify(config, null, 2), function (err) {
+            if (err) return console.log(err);
+            console.log(JSON.stringify(config));
+            console.log('writing to ' + './config.json');
+        });
+    }
 
     if (command === "wolfram") { //WIP
         // wolfram.query(args.join(' '), function (err, result) {
@@ -338,7 +355,7 @@ client.on("message", message => {  //message handler starts here!
             .addField("**Example:**", `${config.prefix}wolfram 1+2`)
             .addField("**Expected Result From Example:**", "Should return a lot of information about 1+2 - May be quite spammy...")
         if (!args.join(" ")) return message.channel.send({ embed: embed })
-        
+
         wolfram = new Wolfram(config.wolfram)
 
         wolfram.query(args.join(' '), function (error, result) {
@@ -484,11 +501,11 @@ client.on("message", message => {  //message handler starts here!
     // if (command === "randword") {
     //     message.channel.send(randomWord())
     // }
-    if (command === "party") {
-        let ayy = client.emojis.find("name", ":ditto:")
-        // message.channel.send(":congablob: :congablob: :congablob: :congablob: :congablob ::hype: :ditto: :hype: :ditto: :hype: :parrot: :congablob: :congablob: :congablob: :parrot:")
-        message.reply(ayy)
-    }
+    // if (command === "party") {
+    //     let ayy = client.emojis.find("name", ":ditto:")
+    //     // message.channel.send(":congablob: :congablob: :congablob: :congablob: :congablob ::hype: :ditto: :hype: :ditto: :hype: :parrot: :congablob: :congablob: :congablob: :parrot:")
+    //     message.reply(ayy)
+    // }
     if (command === "setgame") {
         const config = require("./config.json");
         var guild = message.guild;

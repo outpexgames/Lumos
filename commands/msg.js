@@ -13,10 +13,11 @@ exports.run = function (client, message, args, args2, cmd) {
     const config = require("../config.json");
     const embed1 = new Discord.RichEmbed()
         .setColor("#f0ffff")
-        .setDescription("**Command: **" + `${config.prefix}dm`)
-        .addField("**Usage:**", `${config.prefix}dm <@username> <Your message>`)
-        .addField("**Example:**", `${config.prefix}dm @AirFusion hello`)
+        .setDescription("**Command: **" + `${config.prefix}msg`)
+        .addField("**Usage:**", `${config.prefix}msg <@username> <Your message>`)
+        .addField("**Example:**", `${config.prefix}msg @AirFusion hello`)
         .addField("**Expected Result From Example:**", "Mentioned user should get a DM from the bot with the correct message & message in chat should be deleted.")
+        .addField("**Alies:**", `${config.prefix}dm`)
     if (!user || args2.join(' ') == "") return message.channel.send({embed: embed1})
     const embed = new Discord.RichEmbed()
         .setColor("#008000")
@@ -30,6 +31,6 @@ exports.run = function (client, message, args, args2, cmd) {
     user.send({ embed: embed })
     message.delete(2)
     message.reply("Message sent!")
-    logger.log('info', `DM command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)    
+    logger.log('info', `Msg (Alies: dm) command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)    
     
 }

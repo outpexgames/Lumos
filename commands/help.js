@@ -14,7 +14,7 @@ var logger = new (winston.Logger)({
 
  exports.run = function (client, message, args, args2, cmd) {
   const Discord = require('discord.js');
-  const config = require("./config.json");
+  const config = require("../config.json");
   var guild = message.guild;
   var select = getRandomIntInclusive(1,3);
   if (select === 1) {

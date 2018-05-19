@@ -12,7 +12,7 @@ exports.run = function (client, message, args, args2, cmd) {
     // let member = message.guild.member(user)
     let guild = message.guild
     logger.log('info', `Unban command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)  
-    const config = require("./config.json");
+    const config = require("../config.json");
     const embed19 = new Discord.RichEmbed()
         .setColor("#f0ffff")
         .setDescription("**Command: **" + `${config.prefix}unban`)

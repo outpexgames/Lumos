@@ -10,7 +10,7 @@ exports.run = function (client, message, args, args2, cmd) {
     var guild = message.guild;
     logger.log('info', `Mute command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)
     const Discord = require('discord.js');
-    const config = require("./config.json");
+    const config = require("../config.json");
     let reason = args.slice(1).join(' ')
     let user = message.mentions.users.first()
     let member = message.guild.member(user)

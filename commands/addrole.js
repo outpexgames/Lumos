@@ -8,7 +8,7 @@ var logger = new (winston.Logger)({
 exports.run = function (client, message, args, args2, cmd) {
     if (message.guild.member(message.author).hasPermission('MANAGE_ROLES_OR_PERMISSIONS')) { //roles.has is false for addroel & removerole
         const Discord = require('discord.js');
-        const config = require("./config.json");
+        const config = require("../config.json");
         var guild = message.guild;
         const embed = new Discord.RichEmbed()
             .setColor("#f0ffff")

@@ -12,7 +12,7 @@ var logger = new (winston.Logger)({
 })
 exports.run = function (client, message, args, args2, cmd) {
     const Discord = require('discord.js');
-    const config = require("./config.json");
+    const config = require("../config.json");
     var guild = message.guild;
     var userInput = args.join(' ').toLowerCase();
     const embed19 = new Discord.RichEmbed()
