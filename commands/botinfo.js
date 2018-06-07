@@ -33,23 +33,23 @@ exports.run = function (client, message, args, args2, cmd) {
     const os = require("os")
     var guild = message.guild;
     let totalPeople = 0;
-    for (var i = 0; i<client.guilds.size; i++) {
-        client.guilds.map(person => totalPeople+=person.memberCount)
-    }
+    let botNumber = 0;
+    client.guilds.map(person => totalPeople += person.memberCount)
+    client.guilds.map(botPerson => botNumber += botPerson.members.filter(member => member.user.bot).size)
     const embed = new Discord.RichEmbed()
         .setColor('#7d5bbe')
         .setTitle(client.user.username + " V: " + pkg.version + ` Stats`)
         .setDescription(client.user.username + ' has been awake for ' + timeCon(process.uptime()))
         .addField('🏠 Guilds', client.guilds.size, true)
         .addField('📄 Channels', client.channels.size, true)
-        .addField('🤵 Total Users', totalPeople, true) //repl with -test cmd contents
+        .addField('🤵 Total Users',(totalPeople - botNumber), true) //repl with -test cmd contents
         // .addField('💾 Last Commit', jsonBody[0].commit.message, true)
         .addField('🐏 RAM Usage', `${((process.memoryUsage().heapUsed / 1024) / 1024).toFixed(2)} MB`, true)
         .addField('🏓 Ping', `${(client.ping).toFixed(0)} ms`, true)
         .addField(`:control_knobs: Library`, `Discord JS v${Discord.version}`, true)
         .addField(`:computer: Node `, `${process.version}`, true)
         .addField(`:regional_indicator_h: :regional_indicator_o: :regional_indicator_s: :regional_indicator_t: Host Name`, `${os.hostname}`, true)
-        .addField(`:white_check_mark: Platform`, `${os.platform}`, true)        
+        .addField(`:white_check_mark: Platform`, `${os.platform}`, true)
         .addField(`:construction_worker: Creator`, `AirFusion#1243`, true)
     //    .addField(`:electric_plug: CPU Usage:`,);
     message.channel.send({ embed: embed })
