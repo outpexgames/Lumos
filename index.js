@@ -9,7 +9,7 @@ var YouTube = require('youtube-node');
 var google = require('google')
 var rand = getRandomIntInclusive(1, 100);
 var base64url = require('base64-url');
-var tcom = require('thesaurus-com');
+const werd = require('werd')
 const randomWord = require('random-word');
 const ipInfo = require("ipinfo");
 const winston = require('winston')
@@ -49,7 +49,7 @@ client.on('guildCreate', (guild) => {
             mentionable: false,
             permissions: 0,
 
-        })
+        }).catch(e => console.error(e))
     }
 })
 client.on('guildDelete', (guild) => {
@@ -334,13 +334,17 @@ client.on("message", message => {  //message handler starts here!
     }
 
     if (command === "prefix") {
-        config.prefix = args.join(' ');
-        fs.writeFile('./config.json', JSON.stringify(config, null, 2), function (err) {
-            if (err) return console.error(err);
-            // console.log(JSON.stringify(config));
-            // console.log('writing to ' + './config.json');
-            message.channel.send(`Prefix Successfully Changed to ${config.prefix}.`)
-        });
+        if (message.author.id === config.owner) {
+            config.prefix = args.join(' ');
+            fs.writeFile('./config.json', JSON.stringify(config, null, 2), function (err) {
+                if (err) return console.error(err);
+                // console.log(JSON.stringify(config));
+                // console.log('writing to ' + './config.json');
+                message.channel.send(`Prefix Successfully Changed to ${config.prefix}.`)
+            });
+        } else {
+            message.reply("Only the bot owner can change the prefix.")
+        }
 
     }
 
@@ -438,19 +442,24 @@ client.on("message", message => {  //message handler starts here!
     }
 
     if (command === "test") {
-        // console.log(message.channel)
-        // console.log("ENDLJSLFJSLJFLKSJGLS")
-        // logger.log('info', `Test command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)
-        // message.channel.send(os.hostname)
-        // message.channel.send(os.platform)
-        // if (Date.now() )
+        let totalPeople = 0;
+        let botNumber = 0;
+        // let person;
+        // for (var i = 0; i<client.guilds.size; i++) {
+        // totalPeople += client.guilds[i].memberCount 
+        client.guilds.map(person => totalPeople += person.memberCount)
+        client.guilds.map(botPerson => botNumber += botPerson.members.filter(member => member.user.bot).size)
+        console.log(botNumber)
+        message.channel.send(totalPeople - botNumber)
+        //   console.log(totalPeople)
+        // }
     }
-// var array = [];
-// array.push("May 19 10:40 AM")
-//     if (Date.now() === Date.parse(array[0])) {
-//         console.log("OmG");
-//         message.channel.send("ayy")
-//     }
+    // var array = [];
+    // array.push("May 19 10:40 AM")
+    //     if (Date.now() === Date.parse(array[0])) {
+    //         console.log("OmG");
+    //         message.channel.send("ayy")
+    //     }
 
     //     if (command === "triangle") {
     //         var a = parseInt(args[0]);
@@ -530,7 +539,27 @@ client.on("message", message => {  //message handler starts here!
             }
         }
     }
+    if (command === "ownerhelp") {
+        const ownercmds = new Discord.RichEmbed()
+            .setColor("#ffd700")
+            .setDescription("If you are not the owner, this list is just to make you jealous... Hehe - Owner superpowers :p")
+            .addField("Upload to Pastebin when eval", "cmd: setpastebineval")
+            .addField("Set if bot creates mute role when joining a server", "cmd: setmuterole")
+            .addField("upload result file when eval", "cmd: setuploadfileeval")
+            .addField("Set bot game", "cmd: setgame <args>")
+            .addField("Set bot status", "cmd: setstatus <args>")
+            .addField("Get all of the servers bot is in", "cmd: getallserver")
+            .addField("leaves the inputed server. Server name has to be exact.", "cmd: leaveserver <args>")
+            .addField("broadcast a message, including update messages", "cmd: broadcast <message/args>")
+            .addField("get log", "cmd: getlog")
+            .addField("Emergency STOP, incase things get out of control", "cmd: killall")
+            .addField("good old eval, evals code from discord chatbox", "cmd: eval <ya code m8 :p>")
+            .addField("change the bot's prefix... For trolling purposes only LOL", "cmd: prefix <new prefix which no one will know>")
 
+        message.channel.send({ embed: ownercmds })
+        logger.log('info', `ownerhelp command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)
+
+    }
     if (command === "setpastebineval") {
         if (message.author.id != config.owner) return message.reply("Invalid Permissions - Command is owner only.")
         else {
@@ -623,7 +652,7 @@ client.on("message", message => {  //message handler starts here!
         logger.log('Information', `Getallserver command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date.now()} Guild: ${guild}`)
     }
 
-    if (command === "update") {
+    if (command === "broadcast") {
         if (message.author.id === config.owner) {
             // var check1 = base64url.encode(rand.toString())
             // if (!args.join(' ')) {
@@ -632,9 +661,26 @@ client.on("message", message => {  //message handler starts here!
             //     message.author.send("Then remove any equal signs(=) from the result!")
             // }
             // else if (args.join(' ') === check1) {
-            let min = 5; // change min here (WIP)
-            let server = client.guilds.find("name", args.join(' '));
-            server.defaultChannel.send(`Hello, ${config.name} will under go a system update in ${min} minutes. Please prepare for at least 5-10 minutes of down time. Thank you for your understanding. Together we will make ${config.name} better and better! ~AirFusion--Creator of ${config.name}`)
+            function getDefaultChannel(guild) {
+                // if(guild.channel.has(guild.id))
+                // return guild.channels.get(guild.id)
+
+                if (guild.channels.exists("name", "general"))
+                    return guild.channels.find("name", "general");
+
+                // Now we get into the heavy stuff: first channel in order where the bot can speak
+                // hold on to your hats!
+                return guild.channels
+                    .filter(c => c.type === "text" &&
+                        c.permissionsFor(guild.client.user).has("SEND_MESSAGES"))
+                    .sort((a, b) => a.position - b.position ||
+                        Long.fromString(a.id).sub(Long.fromString(b.id)).toNumber())
+                    .first();
+            }
+            client.guilds.map(e => getDefaultChannel(e).send(args.join(' ')))
+            // let min = 5; // change min here (WIP)
+            // let server = client.guilds.find("name", args.join(' '));
+            // server.defaultChannel.send(`Hello, PowerBot will under go a system update in 5 minutes. Please prepare for at least 5-10 minutes of down time. Thank you for your understanding. Together we will make PowerBot better and better! ~AirFusion--Creator of PowerBot`)
             // }
         }
         else {
@@ -651,10 +697,16 @@ client.on("message", message => {  //message handler starts here!
         else message.channel.send("Insufficant Permissions.")
     }
     if (command === "getlog") {
-        let user = message.author;
-        user.send({ files: ['log.txt'] })
+        if (message.author.id === config.owner) {
+            let user = message.author;
+            user.send({ files: ['log.txt'] })
+        }
+        else {
+            message.reply("Insufficant Permissions")
+        }
     }
     if (command === "killall") {
+        message.author.send(`KILLALL COMMAND HAS BEEN ACTIVATED | ID: ${message.author.id} | Tag: ${message.author.tag} | Server: ${message.guild} `)
         if (message.author.id === config.owner) {
             var check = base64url.encode(rand.toString())
             if (!args.join(' ')) {

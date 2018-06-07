@@ -169,7 +169,7 @@ Version 2.7.6
     fixed setgame & setstatus cmds
     added reminders to -dm command
 
-Version x
+Version 2.7.8
     Fixed -rps commands with "rocks" "papers" - words w/ "s" input errs
     Fixed -kick cmd (having two same vars declared) & improved the message dm ed to a user after kick.
     fixed -masspurge so now it gives a responce when it fails to exec
@@ -182,3 +182,15 @@ Version x
     fixed -triangle cmd, added no input helper 
     removed config.jsons from each individual folder. Now running on only one config.json - infra change
     added -prefix cmd, allows user to change bot's prefix
+    merged say & spam cmds
+
+Version 2.7.9
+    Merged config.version in bot info with the version in package.json. Linked for easier version control
+    fixed -botinfo cmd user count
+    made -prefix cmd bot owner only as it changes it globally for all instances of the bot that is hosted on the same machine.nces of the bot that is hosted on the same machine.
+    removed -synant as the api is broken, and there are no uses on the cmd
+    fixed -addrole grammar errors
+    added return for -emojimap if no custom emoji exsists on the execued server
+    fixed -google command
+    added -ownerhelp to show owner commands
+    added version flavors :)

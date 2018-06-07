@@ -29,15 +29,20 @@ var logger = new (winston.Logger)({
 exports.run = function (client, message, args, args2, cmd) {
     const Discord = require('discord.js');
     const config = require("../config.json");
+    const pkg = require("../package.json");
     const os = require("os")
     var guild = message.guild;
+    let totalPeople = 0;
+    for (var i = 0; i<client.guilds.size; i++) {
+        client.guilds.map(person => totalPeople+=person.memberCount)
+    }
     const embed = new Discord.RichEmbed()
         .setColor('#7d5bbe')
-        .setTitle(client.user.username + " V: " + config.version + ` Stats`)
+        .setTitle(client.user.username + " V: " + pkg.version + ` Stats`)
         .setDescription(client.user.username + ' has been awake for ' + timeCon(process.uptime()))
         .addField('🏠 Guilds', client.guilds.size, true)
         .addField('📄 Channels', client.channels.size, true)
-        .addField('🤵 Total Users', client.users.size, true) //client.users.size
+        .addField('🤵 Total Users', totalPeople, true) //repl with -test cmd contents
         // .addField('💾 Last Commit', jsonBody[0].commit.message, true)
         .addField('🐏 RAM Usage', `${((process.memoryUsage().heapUsed / 1024) / 1024).toFixed(2)} MB`, true)
         .addField('🏓 Ping', `${(client.ping).toFixed(0)} ms`, true)

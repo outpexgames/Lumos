@@ -26,7 +26,7 @@ exports.run = function (client, message, args, args2, cmd) {
                 // let role1 = await message.guild.roles.find("name", args2.join(' '));
                  member.addRole(role)
                  .then((GuildMember) => {
-                 message.channel.send(`::white_check_mark: Role ${role} has been added to ${member} `)
+                 message.channel.send(`:white_check_mark: Role ${role} has been added to ${member} `)
                  })
             // }
             .catch ((err) => {

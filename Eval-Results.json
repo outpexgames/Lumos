@@ -1,1 +1,1 @@
-TypeError: "../commands/ping.js".run is not a function
+TypeError: Cannot read property 'size' of undefined
