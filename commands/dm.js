@@ -17,6 +17,7 @@ exports.run = function (client, message, args, args2, cmd) {
         .addField("**Usage:**", `${config.prefix}dm <@username> <Your message>`)
         .addField("**Example:**", `${config.prefix}dm @AirFusion hello`)
         .addField("**Expected Result From Example:**", "Mentioned user should get a DM from the bot with the correct message & message in chat should be deleted.")
+        .addField("**Alies**", "-msg")
     if (!user || args2.join(' ') == "") return message.channel.send({embed: embed1})
     const embed = new Discord.RichEmbed()
         .setColor("#008000")

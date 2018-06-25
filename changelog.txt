@@ -194,3 +194,19 @@ Version 2.7.9
     fixed -google command
     added -ownerhelp to show owner commands
     added version flavors :)
+
+Version 2.8.0
+    Added a profanity filter to say
+    have two versions of the bot running, one for signiture edition guilds, and one for public use
+    added a party command :)
+    made spyon compatiable with modern discord servers
+    made serverinv compatiable with modern discord servers
+    cleaned up index.js
+    updated -dm helper
+    made emojisearch not ping the user
+    fixed invite cmd to send production link
+    updated -help to reflect github repo & tell server owners to run -checklist after adding powerbot & updated support server inv link & updated logger
+    moved -checklist to separate file
+    updated ready.js
+    updated config(example).json
+    updated ownerhelp

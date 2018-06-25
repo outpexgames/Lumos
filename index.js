@@ -13,6 +13,8 @@ const werd = require('werd')
 const randomWord = require('random-word');
 const ipInfo = require("ipinfo");
 const winston = require('winston')
+const filter = require('leo-profanity')
+filter.add(config.profanity)
 const os = require("os")
 var logger = new (winston.Logger)({
     transports: [
@@ -55,216 +57,6 @@ client.on('guildCreate', (guild) => {
 client.on('guildDelete', (guild) => {
     console.log(chalk.white(`Left/Kicked from guild ${guild.name} ID: ${guild.id}  Owner ID: ${guild.ownerID}`))
 });
-// client.on("presenceUpdate", (oldMember, newMember) => {
-//     let guild = newMember.guild;
-//     let minecraft = guild.roles.find("name", "Playing Minecraft");
-//     let csgo = guild.roles.find("name", "Playing CS:GO");
-//     let garryMod = guild.roles.find("name", "Playing Garry's Mod");
-//     let gta = guild.roles.find("name", "Playing GTA");
-//     let rainbow6 = guild.roles.find("name", "Playing Rainbow Six Siege");
-//     let halflife = guild.roles.find("name", "Playing Half-Life");
-//     let dnd = guild.roles.find("name", "DND/Do Not Disturb");
-//     let idle = guild.roles.find("name", "Idle");
-//     let blackops = guild.roles.find("name", "Playing Call of Duty: Black Ops III");
-//     let roblox = guild.roles.find("name", "Playing Roblox");
-//     let pubg = guild.roles.find("name", "Playing PUBG");
-//     let leagueoflegend = guild.roles.find("name", "Playing League of Legends");
-//     if (!minecraft) return;
-//     if (!csgo) return;
-//     if (!garryMod) return;
-//     if (!gta) return;
-//     if (!halflife) return;
-//     if (!dnd) return;
-//     if (!idle) return;
-//     if (!blackops) return;
-//     if (!roblox) return;
-//     if (!pubg) return;
-//     if (!leagueoflegend) return;
-
-//     if (newMember.user.presence.status === "dnd") {
-//         newMember.addRole(dnd);
-//         logger.log('info', `dnd (presence update) role given to ${newMember.user.tag} ID: ${newMember.user.id} Time: ${Date()} Guild: ${guild}`)
-//     }
-//     if (newMember.user.presence.status != "dnd" && newMember.roles.has(dnd.id)) {
-//         newMember.removeRole(dnd);
-//         logger.log('info', `dnd (presence update) role removed from ${newMember.user.tag} ID: ${newMember.user.id} Time: ${Date()} Guild: ${guild}`)
-//     }
-//     if (newMember.user.presence.status === "idle") {
-//         newMember.addRole(idle)
-//         logger.log('info', `idle (presence update) role given to ${newMember.user.tag} ID: ${newMember.user.id} Time: ${Date()} Guild: ${guild}`)
-//     }
-//     if (newMember.user.presence.status !== "idle" && newMember.roles.has(idle.id)) {
-//         newMember.removeRole(idle);
-//         logger.log('info', `idle (presence update) role removed from ${newMember.user.tag} ID: ${newMember.user.id} Time: ${Date()} Guild: ${guild}`)
-//     }
-
-//     if (newMember.user.presence.game && newMember.user.presence.game.name === "Minecraft") {
-//         newMember.addRole(minecraft);
-//         logger.log('info', `minecraft (presence update) role added to ${newMember.user.tag} ID: ${newMember.user.id} Time: ${Date()} Guild: ${guild}`)
-//     }
-//     else if (!newMember.user.presence.game && newMember.roles.has(minecraft.id)) {
-//         newMember.removeRole(minecraft);
-//         logger.log('info', `minecraft (presence update) role removed from ${newMember.user.tag} ID: ${newMember.user.id} Time: ${Date()} Guild: ${guild}`)
-//     }
-//     else if (newMember.user.presence.game !== "Minecraft" && newMember.roles.has(minecraft.id)) {
-//         newMember.removeRole(minecraft);
-//         logger.log('info', `minecraft (presence update) role removed from ${newMember.user.tag} ID: ${newMember.user.id} Time: ${Date()} Guild: ${guild}`)
-//     }
-
-//     if (newMember.user.presence.game && newMember.user.presence.game.name === "Counter-Strike Global Offensive") {
-//         newMember.addRole(csgo);
-//         logger.log('info', `Counter-Strike Global Offensive (presence update) role added to ${newMember.user.tag} ID: ${newMember.user.id} Time: ${Date()} Guild: ${guild}`)
-//     }
-//     else if (!newMember.user.presence.game && newMember.roles.has(csgo.id)) {
-//         newMember.removeRole(csgo);
-//         logger.log('info', `Counter-Strike Global Offensive (presence update) role removed from ${newMember.user.tag} ID: ${newMember.user.id} Time: ${Date()} Guild: ${guild}`)
-//     }
-//     else if (newMember.user.presence.game !== "Counter-Strike Global Offensive" && newMember.roles.has(csgo.id)) {
-//         newMember.removeRole(csgo);
-//         logger.log('info', `Counter-Strike Global Offensive (presence update) role removed from ${newMember.user.tag} ID: ${newMember.user.id} Time: ${Date()} Guild: ${guild}`)
-//     }
-
-//     if (newMember.user.presence.game && newMember.user.presence.game.name === "Garry's Mod") {
-//         newMember.addRole(garryMod);
-//         logger.log('info', `Garry's Mod (presence update) role added to ${newMember.user.tag} ID: ${newMember.user.id} Time: ${Date()} Guild: ${guild}`)
-//     }
-//     else if (!newMember.user.presence.game && newMember.roles.has(garryMod.id)) {
-//         newMember.removeRole(garryMod);
-//         logger.log('info', `Garry's Mod (presence update) role removed from ${newMember.user.tag} ID: ${newMember.user.id} Time: ${Date()} Guild: ${guild}`)
-//     }
-//     else if (newMember.user.presence.game !== "Garry's Mod" && newMember.roles.has(garryMod.id)) {
-//         newMember.removeRole(garryMod);
-//         logger.log('info', `Garry's Mod (presence update) role removed from ${newMember.user.tag} ID: ${newMember.user.id} Time: ${Date()} Guild: ${guild}`)
-//     }
-
-//     if (newMember.user.presence.game && newMember.user.presence.game.name === "Grand Theft Auto San Andreas") {
-//         newMember.addRole(gta);
-//         logger.log('info', `Grand Theft Auto San Andreas (presence update) role added to ${newMember.user.tag} ID: ${newMember.user.id} Time: ${Date()} Guild: ${guild}`)
-
-//     }
-//     else if (!newMember.user.presence.game && newMember.roles.has(gta.id)) {
-//         newMember.removeRole(gta);
-//         logger.log('info', `Grand Theft Auto San Andreas (presence update) role removed from ${newMember.user.tag} ID: ${newMember.user.id} Time: ${Date()} Guild: ${guild}`)
-//     }
-//     else if (newMember.user.presence.game !== "Grand Theft Auto San Andreas" && newMember.roles.has(gta.id)) {
-//         newMember.removeRole(gta);
-//         logger.log('info', `Grand Theft Auto San Andreas (presence update) role removed from ${newMember.user.tag} ID: ${newMember.user.id} Time: ${Date()} Guild: ${guild}`)
-//     }
-
-//     if (newMember.user.presence.game && newMember.user.presence.game.name === "Tom Clancy's Rainbow Six Siege") {
-//         newMember.addRole(rainbow6);
-//         logger.log('info', `Tom Clancy's Rainbow Six Siege (presence update) role added to ${newMember.user.tag} ID: ${newMember.user.id} Time: ${Date()} Guild: ${guild}`)
-//     }
-//     else if (!newMember.user.presence.game && newMember.roles.has(rainbow6.id)) {
-//         newMember.removeRole(rainbow6);
-//         logger.log('info', `Tom Clancy's Rainbow Six Siege (presence update) role removed from ${newMember.user.tag} ID: ${newMember.user.id} Time: ${Date()} Guild: ${guild}`)
-//     }
-//     else if (newMember.user.presence.game !== "Tom Clancy's Rainbow Six Siege" && newMember.roles.has(rainbow6.id)) {
-//         newMember.removeRole(rainbow6);
-//         logger.log('info', `Tom Clancy's Rainbow Six Siege (presence update) role removed from ${newMember.user.tag} ID: ${newMember.user.id} Time: ${Date()} Guild: ${guild}`)
-//     }
-
-//     if (newMember.user.presence.game && newMember.user.presence.game.name === "Half-Life") {
-//         newMember.addRole(halflife);
-//         logger.log('info', `Half-Life (presence update) role added to ${newMember.user.tag} ID: ${newMember.user.id} Time: ${Date()} Guild: ${guild}`)
-//     }
-//     else if (!newMember.user.presence.game && newMember.roles.has(halflife.id)) {
-//         newMember.removeRole(halflife);
-//         logger.log('info', `Half-Life (presence update) role removed from ${newMember.user.tag} ID: ${newMember.user.id} Time: ${Date()} Guild: ${guild}`)
-//     }
-//     else if (newMember.user.presence.game !== "Half-Life" && newMember.roles.has(halflife.id)) {
-//         newMember.removeRole(halflife);
-//         logger.log('info', `Half-Life (presence update) role removed from ${newMember.user.tag} ID: ${newMember.user.id} Time: ${Date()} Guild: ${guild}`)
-//     }
-
-//     if (newMember.user.presence.game && newMember.user.presence.game.name === "Call of Duty: Black Ops III") {
-//         newMember.addRole(blackops);
-//         logger.log('info', `Call of Duty: Black Ops III (presence update) role added to ${newMember.user.tag} ID: ${newMember.user.id} Time: ${Date()} Guild: ${guild}`)
-//     }
-//     else if (!newMember.user.presence.game && newMember.roles.has(blackops.id)) {
-//         newMember.removeRole(blackops);
-//         logger.log('info', `Call of Duty: Black Ops III (presence update) role removed from ${newMember.user.tag} ID: ${newMember.user.id} Time: ${Date()} Guild: ${guild}`)
-//     }
-//     else if (newMember.user.presence.game !== "Call of Duty: Black Ops III" && newMember.roles.has(blackops.id)) {
-//         newMember.removeRole(blackops);
-//         logger.log('info', `Call of Duty: Black Ops III (presence update) role removed from ${newMember.user.tag} ID: ${newMember.user.id} Time: ${Date()} Guild: ${guild}`)
-//     }
-
-//     if (newMember.user.presence.game && newMember.user.presence.game.name === "ROBLOX") {
-//         newMember.addRole(roblox);
-//         logger.log('info', `ROBLOX (presence update) role added to ${newMember.user.tag} ID: ${newMember.user.id} Time: ${Date()} Guild: ${guild}`)
-//     }
-//     else if (!newMember.user.presence.game && newMember.roles.has(roblox.id)) {
-//         newMember.removeRole(roblox);
-//         logger.log('info', `ROBLOX (presence update) role removed from ${newMember.user.tag} ID: ${newMember.user.id} Time: ${Date()} Guild: ${guild}`)
-//     }
-//     else if (newMember.user.presence.game !== "ROBLOX" && newMember.roles.has(roblox.id)) {
-//         newMember.removeRole(roblox);
-//         logger.log('info', `ROBLOX (presence update) role removed from ${newMember.user.tag} ID: ${newMember.user.id} Time: ${Date()} Guild: ${guild}`)
-//     }
-
-//     // if (newMember.user.presence.game && newMember.user.presence.game.name == "PlayerUnknown's Battlegrounds") {
-//     //     newMember.addRole(pubg);
-//     // }
-//     // else if (!newMember.user.presence.game && newMember.roles.has(pubg.id)) {
-//     //     newMember.removeRole(pubg);
-//     // }
-//     // else if (newMember.user.presence.game !== "PlayerUnknown's Battlegrounds" && newMember.roles.has(pubg.id)) {
-//     //     newMember.removeRole(pubg);
-//     // }
-
-//     if (newMember.user.presence.game && newMember.user.presence.game.name == "PLAYERUNKNOWN'S BATTLEGROUNDS") {
-//         newMember.addRole(pubg);
-//         logger.log('info', `PLAYERUNKNOWN'S BATTLEGROUNDS (presence update) role added to ${newMember.user.tag} ID: ${newMember.user.id} Time: ${Date()} Guild: ${guild}`)
-//     }
-//     else if (!newMember.user.presence.game && newMember.roles.has(pubg.id)) {
-//         newMember.removeRole(pubg);
-//         logger.log('info', `PLAYERUNKNOWN'S BATTLEGROUNDS (presence update) role removed from ${newMember.user.tag} ID: ${newMember.user.id} Time: ${Date()} Guild: ${guild}`)
-//     }
-//     else if (newMember.user.presence.game !== "PLAYERUNKNOWN'S BATTLEGROUNDS" && newMember.roles.has(pubg.id)) {
-//         newMember.removeRole(pubg);
-//         logger.log('info', `PLAYERUNKNOWN'S BATTLEGROUNDS (presence update) role removed from ${newMember.user.tag} ID: ${newMember.user.id} Time: ${Date()} Guild: ${guild}`)
-//     }
-
-//     if (newMember.user.presence.game && newMember.user.presence.game.name == "League of Legends") {
-//         newMember.addRole(leagueoflegend);
-//         logger.log('info', `League of Legends (presence update) role added to ${newMember.user.tag} ID: ${newMember.user.id} Time: ${Date()} Guild: ${guild}`)
-//     }
-//     else if (!newMember.user.presence.game && newMember.roles.has(leagueoflegend.id)) {
-//         newMember.removeRole(leagueoflegend);
-//         logger.log('info', `League of Legends (presence update) role removed from ${newMember.user.tag} ID: ${newMember.user.id} Time: ${Date()} Guild: ${guild}`)
-//     }
-//     else if (newMember.user.presence.game !== "League of Legends" && newMember.roles.has(leagueoflegend.id)) {
-//         newMember.removeRole(leagueoflegend);
-//         logger.log('info', `League of Legends (presence update) role removed from ${newMember.user.tag} ID: ${newMember.user.id} Time: ${Date()} Guild: ${guild}`)
-//     }
-//     //Counter-Strike Global Offensive
-// });
-
-//TODO: https://youtu.be/Znvxk14Tg6A
-//TODO: https://youtu.be/8AiZBdcPKOM?t=29m10s
-//TODO: https://youtu.be/zdQplH3fwbU?t=16m1s
-////https://youtu.be/qEDhVKFWoVg?t=18m21s
-//https://youtu.be/1AjBVocSQhM?t=24m58s
-
-// const getDefaultChannel = async (guild) => {
-//     // get "original" default channel
-//     if(guild.channel.has(guild.id))
-//       return guild.channels.get(guild.id)
-
-//     // Check for a "general" channel, which is often default chat
-//     if(guild.channels.exists("name", "general"))
-//       return guild.channels.find("name", "general");
-
-//     // Now we get into the heavy stuff: first channel in order where the bot can speak
-//     // hold on to your hats!
-//     return guild.channels
-//       .filter(c => c.type === "text" &&
-//        c.permissionsFor(guild.client.user).has("SEND_MESSAGES"))
-//      .sort((a, b) => a.position - b.position ||
-//        Long.fromString(a.id).sub(Long.fromString(b.id)).toNumber())
-//      .first();
-//   }
 
 var reload = (message, cmd) => {
     delete require.cache[require.resolve('./commands/' + cmd)];
@@ -293,45 +85,25 @@ client.on("message", message => {  //message handler starts here!
     var res = cmd.slice(0, 1)
     var guild = message.guild;
 
-    // if (command === "outer-reload") {
-    //     if (message.author.id === config.owner) {
-    //         if (!args || args.size < 1) return message.reply("Must provide a command name to reload.");
-    //         // the path is relative to the *current folder*, so just ./filename.js
-    //         delete require.cache[require.resolve(`./${args[0]}.js`)];
-    //         message.reply(`:white_check_mark: The command ${args[0]} has been reloaded`);
-    //     }
-    //     else {
-    //         message.reply(":x: Insufficant Permissions!")
-    //     }
+    // if (command === "checklist") {
+    //     logger.log('info', `checklist command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date.now()} Guild: ${guild}`)
+    //     const embed100 = new Discord.RichEmbed()
+    //         .setTitle("If a role is true, means you have the role setup correctly, if it is false, then there is something wrong with the role.")
+    //         .setColor('#ff0000')
+    //         .setFooter(config.name + "CheckList")
+
+
+    //     let powerbotperm = client.guilds.get(message.guild.id).roles.find("name", "PowerBot")
+
+    //     embed100.addField("PowerBot ADMINISTRATOR Permissions: ", powerbotperm.hasPermission("ADMINISTRATOR"))
+
+    //     let muteRole = client.guilds.get(message.guild.id).roles.find("name", "Mute")
+    //     let mute = true;
+    //     if (!muteRole) mute = false;
+    //     embed100.addField("PowerBot Mute Role (role required for mute command to function): ", mute)
+    //     message.channel.send({ embed: embed100 });
+
     // }
-
-    // if (command === "spam") {
-    //     for (var i = 0; i < 10; i++) {
-    //         message.channel.send(args.join(' '))
-    //     }
-    //     logger.log('info', `Spam command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)
-    // }
-
-
-    if (command === "checklist") {
-        logger.log('info', `checklist command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date.now()} Guild: ${guild}`)
-        const embed100 = new Discord.RichEmbed()
-            .setTitle("If a role is true, means you have the role setup correctly, if it is false, then there is something wrong witht the role.")
-            .setColor('#ff0000')
-            .setFooter(config.name + "CheckList")
-
-
-        let powerbotperm = client.guilds.get(message.guild.id).roles.find("name", "PowerBot")
-
-        embed100.addField("PowerBot ADMINISTRATOR Permissions: ", powerbotperm.hasPermission("ADMINISTRATOR"))
-
-        let muteRole = client.guilds.get(message.guild.id).roles.find("name", "Mute")
-        let mute = true;
-        if (!muteRole) mute = false;
-        embed100.addField("PowerBot Mute Role: ", mute)
-        message.channel.send({ embed: embed100 });
-
-    }
 
     if (command === "prefix") {
         if (message.author.id === config.owner) {
@@ -348,14 +120,7 @@ client.on("message", message => {  //message handler starts here!
 
     }
 
-    if (command === "wolfram") { //WIP
-        // wolfram.query(args.join(' '), function (err, result) {
-        //     if (err) throw err
-        //     localStorage.setItem('Wolfram-Results.json', result);
-        //     message.channel.send({ files: ['Wolfram-Results.json'] });
-        //     message.channel.send("**Solution: **" + result)
-        //     console.log(result)
-        // })
+    if (command === "wolfram") {
         const embed = new Discord.RichEmbed()
             .setColor("#f0ffff")
             .setDescription("**Command: **" + `${config.prefix}wolfram`)
@@ -442,78 +207,14 @@ client.on("message", message => {  //message handler starts here!
     }
 
     if (command === "test") {
-        let totalPeople = 0;
-        let botNumber = 0;
-        // let person;
-        // for (var i = 0; i<client.guilds.size; i++) {
-        // totalPeople += client.guilds[i].memberCount 
-        client.guilds.map(person => totalPeople += person.memberCount)
-        client.guilds.map(botPerson => botNumber += botPerson.members.filter(member => member.user.bot).size)
-        console.log(botNumber)
-        message.channel.send(totalPeople - botNumber)
-        //   console.log(totalPeople)
-        // }
+        message.channel.send("Nothing here to see :p")
     }
-    // var array = [];
-    // array.push("May 19 10:40 AM")
-    //     if (Date.now() === Date.parse(array[0])) {
-    //         console.log("OmG");
-    //         message.channel.send("ayy")
-    //     }
-
-    //     if (command === "triangle") {
-    //         var a = parseInt(args[0]);
-    //         var b = parseInt(args[1]);
-    //         var c = parseInt(args[2]);
-    //         if (a + b > c && a + c > b && b + c > a) {
-    //         message.channel.send("Makes a triangle")
-    //     }
-    //     else {
-    //         message.channel.send("Does not make a triangle")
-    //     }
-    //     logger.log('info', `triangle command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)
-    // }
-
-    //Team Fortress 2
-    // if (command === "getip") {
-    //     let user = message.author;
-    //     ipInfo((err, cLoc) => {
-    //         user.send(JSON.stringify(err || cLoc));
-    //     })
-    // }
-
-    // if (command === "iduser") {
-    //     message.channel.send(client.users.get(args.join(' ')).username + "#" + client.users.get(args.join(' ')).discriminator);
-    // }
-
-    // if (command === "iplookup") {
-    //     let user = message.author;
-    //     ipInfo(args.join(' '), (err, cLoc) => {
-    //         user.send(JSON.stringify(err || cLoc));
-    //     });
-    // }
-
-
-    // if (command === "userid") {
-    //     let user = message.mentions.users.first()
-    //     message.channel.send(user.id)
-    // }
 
     function getRandomIntInclusive(min, max) {
         min = Math.ceil(min);
         max = Math.floor(max);
         return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive
     }
-
-    // if (command === "stuff") {
-    //     const embed1010 = new Discord.RichEmbed()
-    //         .setColor("#f0ffff")
-    //         .addField("Synonyms: ", tcom.search(args.join(' ')).synonyms)
-    //     console.log(tcom.search(args.join(' ')));
-    //     message.channel.send({ embed: embed1010 })
-    //     message.channel.send(tcom.search(args.join(' ')).antonyms);
-
-    // }
 
     if (command === "setmuterole") {
         if (message.author.id != config.owner) return message.reply("Invalid Permissions - Command is owner only.")
@@ -539,7 +240,9 @@ client.on("message", message => {  //message handler starts here!
             }
         }
     }
+
     if (command === "ownerhelp") {
+        if (message.author.id === config.owner) { 
         const ownercmds = new Discord.RichEmbed()
             .setColor("#ffd700")
             .setDescription("If you are not the owner, this list is just to make you jealous... Hehe - Owner superpowers :p")
@@ -555,8 +258,11 @@ client.on("message", message => {  //message handler starts here!
             .addField("Emergency STOP, incase things get out of control", "cmd: killall")
             .addField("good old eval, evals code from discord chatbox", "cmd: eval <ya code m8 :p>")
             .addField("change the bot's prefix... For trolling purposes only LOL", "cmd: prefix <new prefix which no one will know>")
+            .addField("spyon servers by gening invites", "cmd:spyon <server name>")
+            .addField("get all loaded user info", "cmd: alluserinfo")
 
         message.channel.send({ embed: ownercmds })
+        }
         logger.log('info', `ownerhelp command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)
 
     }
@@ -610,14 +316,7 @@ client.on("message", message => {  //message handler starts here!
         }
     }
 
-    // if (command === "randword") {
-    //     message.channel.send(randomWord())
-    // }
-    // if (command === "party") {
-    //     let ayy = client.emojis.find("name", ":ditto:")
-    //     // message.channel.send(":congablob: :congablob: :congablob: :congablob: :congablob ::hype: :ditto: :hype: :ditto: :hype: :parrot: :congablob: :congablob: :congablob: :parrot:")
-    //     message.reply(ayy)
-    // }
+
     if (command === "setgame") {
         const config = require("./config.json");
         var guild = message.guild;
@@ -649,7 +348,7 @@ client.on("message", message => {  //message handler starts here!
         else {
             return message.channel.send("Insufficant Permissions");
         }
-        logger.log('Information', `Getallserver command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date.now()} Guild: ${guild}`)
+        logger.log('info', `getallserver command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date.now()} Guild: ${guild}`)
     }
 
     if (command === "broadcast") {
@@ -686,7 +385,7 @@ client.on("message", message => {  //message handler starts here!
         else {
             return message.channel.send("Insufficant Permissions");
         }
-        logger.log('Information', `Update command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date.now()} Guild: ${guild}`)
+        logger.log('info', `broadcast command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date.now()} Guild: ${guild}`)
 
     }
 
@@ -734,12 +433,7 @@ client.on("message", message => {  //message handler starts here!
         logger.log('Information', `Killall command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date.now()} Guild: ${guild}`)
 
     }
-    // if (command == "game") {
-    //     let user = message.mentions.users.first();
-    //     message.channel.send(user.presence.game.name);
-    //     logger.log('Information', `Game command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date.now()} Guild: ${guild}`)
 
-    // }
     if (command === "eval") {
         if (message.author.id === config.owner) {
             var x = Date.now();
@@ -787,7 +481,7 @@ client.on("message", message => {  //message handler starts here!
         else {
             message.channel.send("Insufficant Permissions.")
         }
-        logger.log('Information', `Eval command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date.now()} Guild: ${guild}`)
+        logger.log('info', `eval command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date.now()} Guild: ${guild}`)
 
     }
 
