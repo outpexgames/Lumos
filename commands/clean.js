@@ -7,8 +7,8 @@ var logger = new (winston.Logger)({
 })
 exports.run = function (client, message, args, args2, cmd) {
     var guild = message.guild;
- message.channel.fetchMessages({ limit: parseInt(args[0], 10) }).then(messagelog => {
-            message.edit(`Clearing Reactions from this channel for ${args[0]} messages...`).then(setTimeout(message.delete.bind(message), 2000));
+ message.channel.fetchMessages({ limit: parseInt(parseInt(args.join(' '))+1, 10) }).then(messagelog => {
+            setTimeout(message.delete.bind(message), 2000);
             messagelog.forEach(message => {
                 message.clearReactions();
 

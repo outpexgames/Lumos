@@ -21,7 +21,7 @@ exports.run = function (client, message, args, args2, cmd) {
     // console.log(loop)
     // console.log(msg)
     message.delete()
-   message.channel.send(filter.clean(args.join(' ')))
+   message.channel.send(filter.clean(args.join(' ')), disableEveryone)
     
 
     logger.log('info', `Say command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)

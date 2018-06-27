@@ -27,7 +27,9 @@ exports.run = function (client, message, args, args2, cmd) {
             .addField('Checklist:', `Please run the command \`${config.prefix}checklist\` to check if PowerBot has all the required permissions to run.`)
             .addField('Github', `The repo for this bot can be found [here](https://github.com/AirFusion45/Power-Bot).`)
             .addField('Support Server:', `Come [here](https://discord.gg/KSjW2wB) to get help or just hang out.`)
-
+            .setFooter(`Made by AirFusion™#1243`)
+            .setTimestamp()
+            
         message.channel.send({ embed: embed })
     }
     if (select === 2) {
@@ -40,6 +42,9 @@ exports.run = function (client, message, args, args2, cmd) {
             .addField('Checklist:', `Please run the command \`${config.prefix}checklist\` to check if PowerBot has all the required permissions to run.`)
             .addField('Github', `The repo for this bot can be found [here](https://github.com/AirFusion45/Power-Bot).`)
             .addField('Support Server:', `Come [here](https://discord.gg/KSjW2wB) to get help or just hang out.`)
+            .setFooter(`Made by AirFusion™#1243`)
+            .setTimestamp()
+
         message.channel.send({ embed: embed })
     }
     if (select === 3) {
@@ -52,6 +57,8 @@ exports.run = function (client, message, args, args2, cmd) {
             .addField('Checklist:', `Please run the command \`${config.prefix}checklist\` to check if PowerBot has all the required permissions to run. If nothing returns, then the bot have essential permissions missing.`)
             .addField('Github', `The repo for this bot can be found [here](https://github.com/AirFusion45/Power-Bot).`)
             .addField('Support Server:', `Come [here](https://discord.gg/KSjW2wB) to get help or just hang out.`)
+            .setFooter(`Made by AirFusion™#1243`)
+            .setTimestamp()
 
         message.channel.send({ embed: embed })
     }
