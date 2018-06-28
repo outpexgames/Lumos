@@ -2,11 +2,12 @@ const chalk = require('chalk');
 const config = require("../config.json");
  const Discord = require('discord.js');
 module.exports = message => {
+
     if (message.author.bot) return;
     if (!message.content.startsWith(config.prefix)) return;
     
     const client = message.client;
-    
+    client.options.disableEveryone = true;
     //let embed = new Discord.RichEmbed() 
 //   let command = message.content.split(" ")[0];
 //     command = command.slice(config.prefix.length);

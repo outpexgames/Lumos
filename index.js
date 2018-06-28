@@ -74,7 +74,7 @@ var reload = (message, cmd) => {
 exports.reload = reload;
 
 client.on("message", message => {  //message handler starts here!
-    client.options.disableEveryone true;
+    client.options.disableEveryone = true;
     if (message.author.bot) return;
     if (!message.content.startsWith(config.prefix)) return;
     let command = message.content.split(" ")[0];
