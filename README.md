@@ -50,8 +50,8 @@ This is not a command list. Some of the descriptions after the dash are not actu
   * Announcements - User join & leave announcements
   * Moderation:
     * Admin/Mod Commands - kick, ban, warn, mute
-    * Info Commands - server info, user info 
     * Chat Management - purge & lockdown
+  * Utility Commands - server info, user info 
   * Mathematical Commands - Full Wolfram Alpha integration, basic calculations, find the nth prime, randomize numbers, etc
   * General Chat Commands - Google search integration, YouTube search integration, avatar steal, send DMs using the bot, send embed messages in chat, show all & search server's custom emojis, etc
   * Data & Computer Related Commands - Getting information about your IP address & another IP address (Fully secured by a registered npm API, PowerBot DOES NOT log your IP address), binary, morse, caesar cipher encode & decode integration
