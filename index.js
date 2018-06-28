@@ -74,6 +74,7 @@ var reload = (message, cmd) => {
 exports.reload = reload;
 
 client.on("message", message => {  //message handler starts here!
+    client.options.disableEveryone = true;
     if (message.author.bot) return;
     if (!message.content.startsWith(config.prefix)) return;
     let command = message.content.split(" ")[0];
@@ -377,10 +378,7 @@ client.on("message", message => {  //message handler starts here!
                     .first();
             }
             client.guilds.map(e => getDefaultChannel(e).send(args.join(' ')))
-            // let min = 5; // change min here (WIP)
-            // let server = client.guilds.find("name", args.join(' '));
-            // server.defaultChannel.send(`Hello, PowerBot will under go a system update in 5 minutes. Please prepare for at least 5-10 minutes of down time. Thank you for your understanding. Together we will make PowerBot better and better! ~AirFusion--Creator of PowerBot`)
-            // }
+          
         }
         else {
             return message.channel.send("Insufficant Permissions");
