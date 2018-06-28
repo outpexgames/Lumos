@@ -1,9 +1,9 @@
 # Power-Bot
-Power Bot is a multipurpose discord bot made using [discord.js](https://discord.js.org/). 
-Power Bot is now offically in its public test stage.
+PowerBot is a multipurpose discord bot made using [discord.js](https://discord.js.org/). 
+Power Bot is now officially public! :)
 
 # Self Hosting PowerBot
-You can host PowerBot on a raspberry pi, or web hosting services like AWS or heroku. For this guide, I am only going to go over hosting on a raspberry pi.
+You can host PowerBot on a raspberry pi, or web hosting services like AWS or Heroku. For this guide, I am only going to go over hosting on a raspberry pi/computer.
 
   * __**Prerequisites:**__
     * A computer that has command prompt, or terminal access.
@@ -11,8 +11,8 @@ You can host PowerBot on a raspberry pi, or web hosting services like AWS or her
     * Know the basics of how to add a Discord Bot to servers, setup & get tokens, etc.
     
   * __**Instructions:**__
-    * Download the PowerBot code from github in a zip, then delete the node modules folder.
-    * Unzip the file so its a folder.
+    * Download the PowerBot code from Github in a zip, and unzip it.
+    * Then delete the node modules folder & the .vscode folder.
     * Head over to Discord's Developer Page [here](https://discordapp.com/developers/applications/me) to register a bot. 
     * After registering a bot, grab the bot's token. This will be used in the next step when the config needs to be filled in. A Discord Bot token should look like this: `MzgxPDY2NDIyODIxODk3MTk0.DhPVkg.2uX5QRrHLNhfU-nDzjK_rgdOJe4`. (<------- This is not a real token.)
     * View config (example).json, then create a config.json with all the missing information filled in.
@@ -23,10 +23,10 @@ You can host PowerBot on a raspberry pi, or web hosting services like AWS or her
     npm install // To install all required npm modules
     node . // Start the bot
     ```
-    * For a more detailed installlation guide, please refer to this video [here](https://youtu.be/-NqpG_vc9cI).
+    * For a more detailed installation guide, please refer to this video [here](https://youtu.be/3C0wdh4DdpU). I did not fully fill in all the parameters in the config (example).json, but for PowerBot to work correctly in the long run, you should fill all parameters in.
     * Next, use the Discord Permissions Calculator [here](https://discordapi.com/permissions.html#2146958591) to make your bot's invite link. The link provided already has the required permissions pre-checked. If you choose not to use the pre-checked link, the bot must have "ADMINISTRATOR" permissions to function. At the bottom of the page, place in your bot's client ID, which is found on your Discord Developers page.
     * Then, copy the link at the bottom of the page. That is your bot's invite link, anyone who has that link and have the "Manage Server" permission or is the server owner of a server can invite your bot to their server. 
-    * To invite the bot to a server, paste the link in to your browser, and select the server that you want to add the bot to. Make sure all the required permissions are checked, and click "Authorize".
+    * To invite the bot to a server, paste the link into your browser, and select the server that you want to add the bot to. Make sure all the required permissions are checked and click "Authorize".
     * You are all set, head to your server and check the bot out!
 
 # Adding PowerBot To Your Discord Server
@@ -34,8 +34,8 @@ You can also just add PowerBot to your existing server. PowerBot has been alread
 
   * __**Prerequisites:**__
     * You need to have the "Manage Server" permission of the server __**OR**__ Be the owner of the server.
-    * When adding Powerbot, make sure that the bot has "ADMINISTRATOR" permissions on your server.
-    * A link is provided [here](https://discordapp.com/oauth2/authorize?client_id=305475826982453250&scope=bot&permissions=2146958591) with all of the required permissions pre-selected.
+    * When adding PowerBot, make sure that the bot has "ADMINISTRATOR" permissions on your server.
+    * A link is provided [here](https://discordapp.com/oauth2/authorize?client_id=460610749283172353&scope=bot&permissions=2146958591) with all of the required permissions pre-selected.
    
   * __**Basic Operations Guide**__
     * The prefix of PowerBot is `-`.
@@ -46,14 +46,15 @@ You can also just add PowerBot to your existing server. PowerBot has been alread
     * Feel free to join [this support server](https://discord.gg/KSjW2wB) if additional help is needed!
 
 # PowerBot Features
+This is not a command list. Some of the descriptions after the dash are not actually how you use that command. Use `-commands` in a server with PowerBot or use this commands list link [here](https://hastebin.com/rahorilewo.xml) to find PowerBot's full command list.
   * Announcements - User join & leave announcements
   * Moderation:
     * Admin/Mod Commands - kick, ban, warn, mute
-    * Info Commands - serverinfo, userinfo 
-    * Chat Management - purge & masspurge & lockdown
-  * Mathematical Commands - Full Wolfram Alpha intergration, basic calculations, find the n th prime, randomize numbers, etc
-  * General Chat Commands - Google search intergration, YouTube search intergration, avatar steal, send DMs using the bot, send embed messages in chat, show all & search server's custom emojies, etc
-  * Data & Computer Related Commands - Getting information about your ip address & another ip address (Fully secured by a registered npm API, PowerBot DOES NOT log your ip address), binary, morse, caesar cipher encode & decode intergration
+    * Info Commands - server info, user info 
+    * Chat Management - purge & lockdown
+  * Mathematical Commands - Full Wolfram Alpha integration, basic calculations, find the nth prime, randomize numbers, etc
+  * General Chat Commands - Google search integration, YouTube search integration, avatar steal, send DMs using the bot, send embed messages in chat, show all & search server's custom emojis, etc
+  * Data & Computer Related Commands - Getting information about your IP address & another IP address (Fully secured by a registered npm API, PowerBot DOES NOT log your IP address), binary, morse, caesar cipher encode & decode integration
   * English Related Commands - Find random words, check if a word is an anagram
   * Fun Commands :) - rock paper scissors, party commands
 
@@ -64,7 +65,7 @@ You can also just add PowerBot to your existing server. PowerBot has been alread
   * Chroish#4151 (Discord Tag) - First one to start using the bot before beta & numerous bug reports
   * Peter da Best#2547 (Discord Tag) - PowerBot Beta Tester & bug reporter
   * FlubberGhasted#0741 (Discord Tag) - PowerBot Beta Tester & Reported major input bug
-  * Alexander#4377 (Discord Tag) - Multiple bug reports (-rps, -say) & suggested -party command & Invited PowerBot to multiple servers :) 
+  * Alexander#4377 (Discord Tag) - Multiple bug reports (-rps, -say, anti spam [WIP]) & suggested -party command & Invited PowerBot to multiple servers :) 
   * D A N#7517 (Discord Tag) - PowerBot Beta Tester & requested -wolfram command
   * Peter da Best#2547 (Discord Tag) - PowerBot "anti-crash" Tester (Great effort on trying to crash the bot!) :)
   
@@ -91,6 +92,4 @@ Feel free to contact me if you find bugs, license issues, missing credits, etc. 
   * Discord Contact Information: Discord Tag: AirFusion™#1243
 
 # Note/Notes 
-  When self hosting PowerBot, we recommand downloading the MASTER branch, as that is the latest stable version. 
-  The branch DEV is the latest version, which may be unstable.
-
+  When self-hosting PowerBot, we recommend downloading the MASTER branch, as that is the latest stable version. 
