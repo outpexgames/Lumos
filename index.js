@@ -13,6 +13,7 @@ const werd = require('werd')
 const randomWord = require('random-word');
 const ipInfo = require("ipinfo");
 const winston = require('winston')
+const Sequelize = require('sequelize');
 const filter = require('leo-profanity')
 filter.add(config.profanity)
 const os = require("os")
@@ -30,7 +31,44 @@ localStorage = new LocalStorage('./');
 const embed = new Discord.RichEmbed()
 var pastebin = require('./node_modules/pastebin/src/pastebin.js')(config.pastebin);
 const { binary } = require('./util.js')
+const Enmap = require('enmap');
+const Provider = require('enmap-sqlite');
+const settings = new Enmap({ provider: new Provider({ name: "settings" }) }); // settings = welcomeMsg
+
+const defaultSettings = {
+    welcome: true
+}
 // var wolfram = require('wolfram').createClient(config.wolfram)
+// const sequelize = new Sequelize('database', 'user', 'password', {
+//     host: 'localhost',
+//     dialect: 'sqlite',
+//     logging: false,
+//     operatorsAliases: false,
+//     // SQLite only
+//     storage: 'database.sqlite',
+// });
+// //const WelcomeMsg = 
+// const WelcomeMsg = sequelize.define('welcomeMsg', {
+//     servID: {
+//         type: Sequelize.STRING,
+//         unique: true,
+//     },
+//     messages: {
+//         type: Sequelize.BOOLEAN,
+//         defaultValue: true,
+//         allowNull: false
+//     }
+//     // username: Sequelize.STRING,
+//     // usage_count: {
+//     //     type: Sequelize.INTEGER,
+//     //     defaultValue: 0,
+//     //     allowNull: false,
+//     // },
+// });
+
+// WelcomeMsg.sync();
+// WelcomeMsg.sync({ force: true });
+
 var Wolfram = require('node-wolfram')
 
 require('./util/eventLoader')(client);
@@ -40,8 +78,29 @@ function getRandomIntInclusive(min, max) {
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive
 }
-client.on('guildCreate', (guild) => {
+
+
+
+client.on('guildCreate', async (guild) => {
     console.log(chalk.white(`Joined guild ${guild.name} ID: ${guild.id}  Owner ID: ${guild.ownerID}`)) //Owner: ${guild.owner.user.tag}
+    logger.log('info', `Joined guild ${guild.name} ID: ${guild.id}  Owner ID: ${guild.ownerID}`)
+    settings.set(guild.id, defaultSettings);
+    //add tag -> server id. | default send welcome messages "true"
+    // try {
+    //     // equivalent to: INSERT INTO tags (name, descrption, username) values (?, ?, ?);
+    //     const welmsg = await WelcomeMsg.create({
+    //         servID: guild.id,
+    //         messages: true
+    //     });
+    //     // return message.reply(`Tag ${tag.name} added.`);
+    //     return console.log("data added");
+    // }
+    // catch (e) {
+    //     if (e.name === 'SequelizeUniqueConstraintError') {
+    //         return console.log('That tag already exists.');
+    //     }
+    //     return console.log('Something went wrong with adding a tag.');
+    // }
     if (config.createMuteRoleUponJoin) {
         guild.createRole({
             name: `Mute`,
@@ -54,9 +113,118 @@ client.on('guildCreate', (guild) => {
         }).catch(e => console.error(e))
     }
 })
-client.on('guildDelete', (guild) => {
+client.on('guildDelete', async (guild) => {
     console.log(chalk.white(`Left/Kicked from guild ${guild.name} ID: ${guild.id}  Owner ID: ${guild.ownerID}`))
+    logger.log('info', `Left/Kicked from guild ${guild.name} ID: ${guild.id}  Owner ID: ${guild.ownerID}`)
+    settings.delete(guild.id);
+    //removetag -> using server id 
+    // const rowCount = await WelcomeMsg.destroy({ where: { servID: guild.id } });
+    // if (!rowCount) return console.log('That server tag did not exist.');
+
+    // return console.log('server tag deleted.');
 });
+
+client.on('guildMemberAdd', async member => {
+    let guild = member.guild;
+    let welcomeMessages = settings.getProp(guild.id, "welcome");
+    // const statuss = await WelcomeMsg.findOne({ where: { servID: guild.id } });
+    // console.log(guild.id)
+    // console.log(statuss)
+    // if (statuss) {
+    // equivalent to: UPDATE tags SET usage_count = usage_count + 1 WHERE name = 'tagName';
+    // tag.increment('usage_count');
+    // return message.channel.send(tag.get('description'));
+    // if (statuss.get('messages') === true) {
+    if (welcomeMessages) {
+
+        function getDefaultChannel(guild) {
+            // if(guild.channel.has(guild.id))
+            // return guild.channels.get(guild.id)
+
+            if (guild.channels.exists("name", "general"))
+                return guild.channels.find("name", "general");
+
+            // Now we get into the heavy stuff: first channel in order where the bot can speak
+            // hold on to your hats!
+            return guild.channels
+                .filter(c => c.type === "text" &&
+                    c.permissionsFor(guild.client.user).has("SEND_MESSAGES").catch(err => console.error(err)))
+                .sort((a, b) => a.position - b.position ||
+                    Long.fromString(a.id).sub(Long.fromString(b.id)).toNumber())
+                .first();
+        }
+
+        //  let where = getDefaultChannel;
+        // console.log(getDefaultChannel(guild));
+        // console.log(member.guild)
+        if (member.user.bot) {
+            getDefaultChannel(member.guild).send(`A Wild Bot Has Appeared On The Server... \n The Bot's Name Is: ${member.user} OHHHHHHH... :/`).catch(err => console.error(err));
+            logger.log('info', `guildMemberAdd (new member join a guild-Bot) (presence update) triggered by ${member.user.tag} ID: ${member.user.id} Time: ${Date()} Guild: ${guild}`)
+        }
+        else {
+            getDefaultChannel(member.guild).send(`Welcome ${member.user} to ${guild.name}`).catch(err => console.error(err));  // channels.find("name", "general")
+            logger.log('info', `guildMemberAdd (new member join a guild-user/human) (presence update) triggered by ${member.user.tag} ID: ${member.user.id} Time: ${Date()} Guild: ${guild}`)
+        }
+
+        //     } else {
+        //         return console.log(`Could not find tag`);
+        //     }
+        // }
+    } else {
+
+    }
+
+})
+client.on('guildMemberRemove', async member => {
+    let guild = member.guild;
+    let welcomeMessages1 = settings.getProp(guild.id, "welcome");
+
+    // // // SQL: tag -> using server id. if false, returh | else continu
+    // // const statusss = await WelcomeMsg.findOne({ where: { servID: guild.id } });
+    // // if (statusss) {
+    //     // equivalent to: UPDATE tags SET usage_count = usage_count + 1 WHERE name = 'tagName';
+    //     // tag.increment('usage_count');
+    //     // return message.channel.send(tag.get('description'));
+    //     if (statusss.get('messages') === true) {
+    if (welcomeMessages1) {
+        function getDefaultChannel(guild) {
+            // if (guild.channel.has(guild.id))
+            //     return guild.channels.get(guild.id)
+
+            if (guild.channels.exists("name", "general"))
+                return guild.channels.find("name", "general");
+
+            // Now we get into the heavy stuff: first channel in order where the bot can speak
+            // hold on to your hats!
+            return guild.channels
+                .filter(c => c.type === "text" &&
+                    c.permissionsFor(guild.client.user).has("SEND_MESSAGES").catch(err => console.error(err)))
+                .sort((a, b) => a.position - b.position ||
+                    Long.fromString(a.id).sub(Long.fromString(b.id)).toNumber())
+                .first().catch(err => console.error(err));
+
+        }
+        if (member.user.bot) {
+            // guild.defaultChannel.send(`Goodbye to Bot ${member.user} :( `);
+            getDefaultChannel(member.guild).send(`Goodbye to Bot ${member.user} :( `).catch(err => console.error(err));
+            logger.log('info', `guildMemberRemove (member laves a guild-Bot) (presence update) triggered by ${member.user.tag} ID: ${member.user.id} Time: ${Date()} Guild: ${guild}`)
+        }
+        else {
+            getDefaultChannel(member.guild).send(`Goodbye to user ${member.user} :(`).catch(err => console.error(err));
+            logger.log('info', `guildMemberRemove (member leaves a guild-member/human) (presence update) triggered by ${member.user.tag} ID: ${member.user.id} Time: ${Date()} Guild: ${guild}`)
+
+            //         }
+            //     } else {
+
+            //     }
+            // }
+            // return console.log(`Could not find tag`);
+        }
+
+    } else {
+
+    }
+})
 
 var reload = (message, cmd) => {
     delete require.cache[require.resolve('./commands/' + cmd)];
@@ -73,14 +241,51 @@ var reload = (message, cmd) => {
 };
 exports.reload = reload;
 
-client.on("message", message => {  //message handler starts here!
+
+client.on("message", async message => {  //message handler starts here!
     client.options.disableEveryone = true;
     if (message.author.bot) return;
-    if (!message.content.startsWith(config.prefix)) return;
-    let command = message.content.split(" ")[0];
-    command = command.slice(config.prefix.length);
-    let args = message.content.split(" ").slice(1);
-    let args2 = message.content.split(" ").slice(2);
+    // const prefixMention = new RegExp(`^<@!?${client.user.id}> `);
+    // const prefix = message.content.match(prefixMention) ? message.content.match(prefixMention)[0] : '-';
+    // // if (!message.content.startsWith(config.prefix)) return;
+
+    // // let command
+    // // if (message.content.match(prefixMention)) {
+    // //  command = message.content.split(prefixMention)[0];
+    // //     }
+    // //  else   
+    // let command = message.content.split(" ")[1];
+
+    // // command = command.slice(config.prefix.length);
+    // // if (prefix === '-'){
+    // //     command = command.slice(prefix.length);
+    // // }  
+    // let args = message.content.split(" ").slice(1);
+    // let args2 = message.content.split(" ").slice(2);
+    let command;
+    let args;
+    let args2;
+
+    const prefixMention = new RegExp(`^<@!?${client.user.id}> `);
+    const prefix = message.content.match(prefixMention) ? message.content.match(prefixMention)[0] : message.content.charAt(0);
+
+
+
+    // command = command.slice(config.prefix.length);
+    if (prefix === config.prefix) {
+        command = message.content.split(" ")[0];
+        command = command.slice(config.prefix.length);
+        args = message.content.split(" ").slice(1);
+        args2 = message.content.split(" ").slice(2);
+    }
+    else if (prefix === '<@305475826982453250> ') {
+        command = message.content.split(" ")[1];
+        args = message.content.split(" ").slice(2);
+        args2 = message.content.split(" ").slice(3);
+    }
+    else {
+        return;
+    }
     let cmd = args.join(' ');
     let cmd2 = args2.join(' ');
     var res = cmd.slice(0, 1)
@@ -105,7 +310,52 @@ client.on("message", message => {  //message handler starts here!
     //     message.channel.send({ embed: embed100 });
 
     // }
+    if (command === "serverconf") {
+        if ((message.member.hasPermission("MANAGE_MESSAGES") && message.member.hasPermission("MANAGE_GUILD")) || message.member.hasPermission("ADMINISTRATOR")) {
+            const guildConf = settings.get(message.guild.id) || defaultSettings;
+            const key = args[0];
+            // const tagList = await WelcomeMsg.findAll(); //{ attributes: ['ServID'] } WelcomeMsg
+            // const tagString = tagList.map(t => t.name).join(', ') || 'No tags set.';
+            // return message.channel.send(`List of tags: ${tagString}`);
+            let configKeys = "";
+            Object.keys(guildConf).forEach(key => {
+                configKeys += `${key}  :  ${guildConf[key]}\n`;
+            });
+            message.channel.send(`The following are the server's current configuration: \`\`\`${configKeys}\`\`\``);
+        } else {
+            message.reply("Insufficant Permissions!")
+        }
 
+    }
+    if (command === "setmsg") {
+        if ((message.member.hasPermission("MANAGE_MESSAGES") && message.member.hasPermission("MANAGE_GUILD")) || message.member.hasPermission("ADMINISTRATOR")) {
+            let input;
+            if (args.join(' ') === "true") {
+                input = true
+            }
+            else if (args.join(' ') === "false") {
+                input = false
+            }
+            settings.setProp(message.guild.id, "welcome", input)
+            // console.log("done")
+        } else {
+            message.reply("Insufficant Permissions!")
+        }
+        // edittag -> using server id | option: set true / false for welcome msg
+        // ADVANCED: Display current welcome msg status in helper
+        // let inputt;
+        // if (args.join(' ').toLowerCase === "true") {
+        //     inputt = true
+        // }
+        // else if (args.join(' ').toLowerCase === 'false') {
+        //     inputt = false
+        // }
+        // const affectedRows = await WelcomeMsg.update({ messages: inputt }, { where: { servID: message.guild.id } });
+        // if (affectedRows > 0) {
+        //     return console.log(`Tag ${message.guild.id} was edited.`);
+        // }
+        // return console.log(`Could not find a tag with name ${message.guild.id}.`);
+    }
     if (command === "prefix") {
         if (message.author.id === config.owner) {
             config.prefix = args.join(' ');
@@ -243,26 +493,26 @@ client.on("message", message => {  //message handler starts here!
     }
 
     if (command === "ownerhelp") {
-        if (message.author.id === config.owner) { 
-        const ownercmds = new Discord.RichEmbed()
-            .setColor("#ffd700")
-            .setDescription("If you are not the owner, this list is just to make you jealous... Hehe - Owner superpowers :p")
-            .addField("Upload to Pastebin when eval", "cmd: setpastebineval")
-            .addField("Set if bot creates mute role when joining a server", "cmd: setmuterole")
-            .addField("upload result file when eval", "cmd: setuploadfileeval")
-            .addField("Set bot game", "cmd: setgame <args>")
-            .addField("Set bot status", "cmd: setstatus <args>")
-            .addField("Get all of the servers bot is in", "cmd: getallserver")
-            .addField("leaves the inputed server. Server name has to be exact.", "cmd: leaveserver <args>")
-            .addField("broadcast a message, including update messages", "cmd: broadcast <message/args>")
-            .addField("get log", "cmd: getlog")
-            .addField("Emergency STOP, incase things get out of control", "cmd: killall")
-            .addField("good old eval, evals code from discord chatbox", "cmd: eval <ya code m8 :p>")
-            .addField("change the bot's prefix... For trolling purposes only LOL", "cmd: prefix <new prefix which no one will know>")
-            .addField("spyon servers by gening invites", "cmd:spyon <server name>")
-            .addField("get all loaded user info", "cmd: alluserinfo")
+        if (message.author.id === config.owner) {
+            const ownercmds = new Discord.RichEmbed()
+                .setColor("#ffd700")
+                .setDescription("If you are not the owner, this list is just to make you jealous... Hehe - Owner superpowers :p")
+                .addField("Upload to Pastebin when eval", "cmd: setpastebineval")
+                .addField("Set if bot creates mute role when joining a server", "cmd: setmuterole")
+                .addField("upload result file when eval", "cmd: setuploadfileeval")
+                .addField("Set bot game", "cmd: setgame <args>")
+                .addField("Set bot status", "cmd: setstatus <args>")
+                .addField("Get all of the servers bot is in", "cmd: getallserver")
+                .addField("leaves the inputed server. Server name has to be exact.", "cmd: leaveserver <args>")
+                .addField("broadcast a message, including update messages", "cmd: broadcast <message/args>")
+                .addField("get log", "cmd: getlog")
+                .addField("Emergency STOP, incase things get out of control", "cmd: killall")
+                .addField("good old eval, evals code from discord chatbox", "cmd: eval <ya code m8 :p>")
+                .addField("change the bot's prefix... For trolling purposes only LOL", "cmd: prefix <new prefix which no one will know>")
+                .addField("spyon servers by gening invites", "cmd:spyon <server name>")
+                .addField("get all loaded user info", "cmd: alluserinfo")
 
-        message.channel.send({ embed: ownercmds })
+            message.channel.send({ embed: ownercmds })
         }
         logger.log('info', `ownerhelp command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)
 
@@ -378,7 +628,7 @@ client.on("message", message => {  //message handler starts here!
                     .first();
             }
             client.guilds.map(e => getDefaultChannel(e).send(args.join(' ')))
-          
+
         }
         else {
             return message.channel.send("Insufficant Permissions");
@@ -507,6 +757,12 @@ client.on("warn", error => {
 // client.on("err", error => {
 //     console.log(chalk.red(error.replace(token, "HIDDEN")));
 // }); //Broken
+client.addListener('DiscordAPIError', function (e) {
+    var disapierr = e.error
+    console.log(chalk.red(disapierr))
+    console.error(error)
+    console.log(error);
+})
 client.addListener('error', function (e) {
     var error = e.error;
     console.log(chalk.red(error))
