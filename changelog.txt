@@ -210,3 +210,9 @@ Version 2.8.0
     updated ready.js
     updated config(example).json
     updated ownerhelp
+
+Version 2.8.2
+    Added SQLite support 
+    added togglable welcome messages for each server
+    added a mentionable prefix
+    Fixed bot crashing when missing permissions

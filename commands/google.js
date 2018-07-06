@@ -25,7 +25,7 @@ exports.run = function (client, message, args, args2, cmd) {
         .addField("**Expected Result From Example:**", "Should return first 3 results of the query on Google")
     if (args.join(' ') == "") return message.channel.send({ embed: embed11 })
     let result;
-    let Url = `https://www.googleapis.com/customsearch/v1?key=${config.yt}&cx=${config.Gcx}&q=${args.join(' ')}`;
+    let Url = `https://www.googleapis.com/customsearch/v1?key=${config.yt}&cx=${config.Gcx}&q=${args.join(' ')}&safe=medium`;
     superagent.get(Url)
     .end((err,res) => {
         result = res.body;

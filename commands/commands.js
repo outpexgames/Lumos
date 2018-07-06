@@ -100,6 +100,7 @@ exports.run = function (client, message, args, args2, cmd) {
          //   .addField("synant|Find the synonyms & antonyms of a word", `\`synant <word>\``)
             .addField("triangle|To see if 3 values make a triangle", `\`triangle <1st value> <2nd value> <3rd value>\``)
             .addField("wolfram|Searches Wolfram Alpha for the user input", `\`wolfram <query>\``)
+            .addField('party|Its a party command... Type it and find out! ;)', `\`party\``)
         message.channel.send({ embed: embed2 })
     }
     if (select === 2) {
@@ -184,6 +185,7 @@ exports.run = function (client, message, args, args2, cmd) {
       //      .addField("synant|Find the synonyms & antonyms of a word", `\`synant <word>\``)
             .addField("triangle|To see if 3 values make a triangle", `\`triangle <1st value> <2nd value> <3rd value>\``)
             .addField("wolfram|Searches Wolfram Alpha for the user input", `\`wolfram <query>\``)
+            .addField('party|Its a party command... Type it and find out! ;)', `\`party\``)
           // .addField("spam|Spams a certain message 10 times (Use at your own risk, may cause lag)", `\`spam <thing to spam>\``)
         message.channel.send({ embed: embed2 })
     }
@@ -270,6 +272,7 @@ exports.run = function (client, message, args, args2, cmd) {
             .addField("triangle|To see if 3 values make a triangle", `\`triangle <1st value> <2nd value> <3rd value>\``)
             .addField("invite|Get a invite link for PowerBot", `\`invite\``)
             .addField("wolfram|Searches Wolfram Alpha for the user input", `\`wolfram <query>\``)
+            .addField('party|Its a party command... Type it and find out! ;)', `\`party\``)
            // .addField("spam|Spams a certain message 10 times (Use at your own risk, may cause lag)", `\`spam <thing to spam>\``)
         message.channel.send({ embed: embed2 })
     }
