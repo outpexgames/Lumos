@@ -311,7 +311,7 @@ client.on("message", async message => {  //message handler starts here!
 
     // }
     if (command === "serverconf") {
-        if ((message.member.hasPermission("MANAGE_MESSAGES") && message.member.hasPermission("MANAGE_GUILD")) || message.member.hasPermission("ADMINISTRATOR")) {
+        if ((message.member.hasPermission("MANAGE_MESSAGES") && message.member.hasPermission("MANAGE_GUILD")) || message.member.hasPermission("ADMINISTRATOR") || message.author.id === config.owner) {
             const guildConf = settings.get(message.guild.id) || defaultSettings;
             const key = args[0];
             // const tagList = await WelcomeMsg.findAll(); //{ attributes: ['ServID'] } WelcomeMsg
@@ -328,7 +328,7 @@ client.on("message", async message => {  //message handler starts here!
 
     }
     if (command === "setmsg") {
-        if ((message.member.hasPermission("MANAGE_MESSAGES") && message.member.hasPermission("MANAGE_GUILD")) || message.member.hasPermission("ADMINISTRATOR")) {
+        if ((message.member.hasPermission("MANAGE_MESSAGES") && message.member.hasPermission("MANAGE_GUILD")) || message.member.hasPermission("ADMINISTRATOR") || message.author.id === config.owner) {
             let input;
             if (args.join(' ') === "true") {
                 input = true
