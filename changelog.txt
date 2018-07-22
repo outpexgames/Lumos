@@ -216,3 +216,8 @@ Version 2.8.2
     added togglable welcome messages for each server
     added a mentionable prefix
     Fixed bot crashing when missing permissions
+
+Version 2.8.x
+    Changed eval logging timing
+    updated -getip command to -gethostip. only will be bot's owner only, and will only get info on the host's ip information
+    

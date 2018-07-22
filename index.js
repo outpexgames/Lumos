@@ -82,9 +82,10 @@ function getRandomIntInclusive(min, max) {
 
 
 client.on('guildCreate', async (guild) => {
-    console.log(chalk.white(`Joined guild ${guild.name} ID: ${guild.id}  Owner ID: ${guild.ownerID}`)) //Owner: ${guild.owner.user.tag}
-    logger.log('info', `Joined guild ${guild.name} ID: ${guild.id}  Owner ID: ${guild.ownerID}`)
+    console.log(chalk.white(`Joined guild ${guild.name} ID: ${guild.id}  Owner ID: ${guild.ownerID} Size: ${guild.memberCount}`)) //Owner: ${guild.owner.user.tag}
+    logger.log('info', `Joined guild ${guild.name} ID: ${guild.id}  Owner ID: ${guild.ownerID} Size: ${guild.memberCount}`)
     settings.set(guild.id, defaultSettings);
+    logger.log('info', `Database SET`)
     //add tag -> server id. | default send welcome messages "true"
     // try {
     //     // equivalent to: INSERT INTO tags (name, descrption, username) values (?, ?, ?);
@@ -111,12 +112,14 @@ client.on('guildCreate', async (guild) => {
             permissions: 0,
 
         }).catch(e => console.error(e))
+    logger.log('info', 'muterole created')
     }
 })
 client.on('guildDelete', async (guild) => {
-    console.log(chalk.white(`Left/Kicked from guild ${guild.name} ID: ${guild.id}  Owner ID: ${guild.ownerID}`))
-    logger.log('info', `Left/Kicked from guild ${guild.name} ID: ${guild.id}  Owner ID: ${guild.ownerID}`)
+    console.log(chalk.white(`Left/Kicked from guild ${guild.name} ID: ${guild.id}  Owner ID: ${guild.ownerID} Size: ${guild.memberCount}`))
+    logger.log('info', `Left/Kicked from guild ${guild.name} ID: ${guild.id}  Owner ID: ${guild.ownerID} Size: ${guild.memberCount}`)
     settings.delete(guild.id);
+    logger.log('info', 'Database DEL')
     //removetag -> using server id 
     // const rowCount = await WelcomeMsg.destroy({ where: { servID: guild.id } });
     // if (!rowCount) return console.log('That server tag did not exist.');
@@ -319,9 +322,14 @@ client.on("message", async message => {  //message handler starts here!
             // return message.channel.send(`List of tags: ${tagString}`);
             let configKeys = "";
             Object.keys(guildConf).forEach(key => {
-                configKeys += `${key}  :  ${guildConf[key]}\n`;
+                configKeys += `${guildConf[key]}\n`;
             });
-            message.channel.send(`The following are the server's current configuration: \`\`\`${configKeys}\`\`\``);
+            // message.channel.send(`The following are the server's current configuration: \`\`\`${configKeys}\`\`\``);
+            const serverconfinfo = new Discord.RichEmbed()
+            .setDescription(`${guild}'s Server Configuration | If true, welcome messages are on, if false, welcome messages are off.`)
+            .setColor("36393E")
+            .addField("Welcome Messages", `${configKeys}`)
+            message.channel.send({embed: serverconfinfo})
         } else {
             message.reply("Insufficant Permissions!")
         }
@@ -329,6 +337,8 @@ client.on("message", async message => {  //message handler starts here!
     }
     if (command === "setmsg") {
         if ((message.member.hasPermission("MANAGE_MESSAGES") && message.member.hasPermission("MANAGE_GUILD")) || message.member.hasPermission("ADMINISTRATOR") || message.author.id === config.owner) {
+            //add helper
+            if (args.join(' ')) return message.channel.send({embed: setmsghelp})
             let input;
             if (args.join(' ') === "true") {
                 input = true
@@ -336,7 +346,9 @@ client.on("message", async message => {  //message handler starts here!
             else if (args.join(' ') === "false") {
                 input = false
             }
-            settings.setProp(message.guild.id, "welcome", input)
+            settings.setProp(message.guild.id, "welcome", input).catch(err => console.error(err))
+            message.reply(`:white_check_mark: Success! Server welcome messages set to ${input}`)
+            
             // console.log("done")
         } else {
             message.reply("Insufficant Permissions!")
@@ -511,6 +523,7 @@ client.on("message", async message => {  //message handler starts here!
                 .addField("change the bot's prefix... For trolling purposes only LOL", "cmd: prefix <new prefix which no one will know>")
                 .addField("spyon servers by gening invites", "cmd:spyon <server name>")
                 .addField("get all loaded user info", "cmd: alluserinfo")
+                .addField('Get the host machine'/'s IP address ONLY! No user data leaks :P', "cmd: -gethostip")
 
             message.channel.send({ embed: ownercmds })
         }
@@ -684,6 +697,7 @@ client.on("message", async message => {  //message handler starts here!
 
     if (command === "eval") {
         if (message.author.id === config.owner) {
+            logger.log('info', `eval command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date.now()} Guild: ${guild}`)
             var x = Date.now();
             try {
                 var jvs = args.join(" ");
@@ -729,7 +743,7 @@ client.on("message", async message => {  //message handler starts here!
         else {
             message.channel.send("Insufficant Permissions.")
         }
-        logger.log('info', `eval command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date.now()} Guild: ${guild}`)
+        
 
     }
 
