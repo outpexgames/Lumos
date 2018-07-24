@@ -112,7 +112,7 @@ client.on('guildCreate', async (guild) => {
             permissions: 0,
 
         }).catch(e => console.error(e))
-    logger.log('info', 'muterole created')
+        logger.log('info', 'muterole created')
     }
 })
 client.on('guildDelete', async (guild) => {
@@ -326,10 +326,10 @@ client.on("message", async message => {  //message handler starts here!
             });
             // message.channel.send(`The following are the server's current configuration: \`\`\`${configKeys}\`\`\``);
             const serverconfinfo = new Discord.RichEmbed()
-            .setDescription(`${guild}'s Server Configuration | If true, welcome messages are on, if false, welcome messages are off.`)
-            .setColor("36393E")
-            .addField("Welcome Messages", `${configKeys}`)
-            message.channel.send({embed: serverconfinfo})
+                .setDescription(`${guild}'s Server Configuration | If true, welcome messages are on, if false, welcome messages are off.`)
+                .setColor("36393E")
+                .addField("Welcome Messages", `${configKeys}`)
+            message.channel.send({ embed: serverconfinfo })
         } else {
             message.reply("Insufficant Permissions!")
         }
@@ -337,8 +337,14 @@ client.on("message", async message => {  //message handler starts here!
     }
     if (command === "setmsg") {
         if ((message.member.hasPermission("MANAGE_MESSAGES") && message.member.hasPermission("MANAGE_GUILD")) || message.member.hasPermission("ADMINISTRATOR") || message.author.id === config.owner) {
+            const setmsghelp = new Discord.RichEmbed()
+                .setColor("#f0ffff")
+                .setDescription("**Command: **" + `${config.prefix}setmsg`)
+                .addField("**Usage:**", `${config.prefix}setmsg <true for welcome msgs, false for no welcome msgs>`)
+                .addField("**Example:**", `${config.prefix}setmsg true`)
+                .addField("**Expected Result From Example:**", "Welcome messages for the current server should be turned on.")
             //add helper
-            if (args.join(' ')) return message.channel.send({embed: setmsghelp})
+            if (args.join(' ') === '') return message.channel.send({ embed: setmsghelp })
             let input;
             if (args.join(' ') === "true") {
                 input = true
@@ -346,9 +352,12 @@ client.on("message", async message => {  //message handler starts here!
             else if (args.join(' ') === "false") {
                 input = false
             }
-            settings.setProp(message.guild.id, "welcome", input).catch(err => console.error(err))
+            else {
+                return;
+            }
+            settings.setProp(message.guild.id, "welcome", input)
             message.reply(`:white_check_mark: Success! Server welcome messages set to ${input}`)
-            
+
             // console.log("done")
         } else {
             message.reply("Insufficant Permissions!")
@@ -523,7 +532,7 @@ client.on("message", async message => {  //message handler starts here!
                 .addField("change the bot's prefix... For trolling purposes only LOL", "cmd: prefix <new prefix which no one will know>")
                 .addField("spyon servers by gening invites", "cmd:spyon <server name>")
                 .addField("get all loaded user info", "cmd: alluserinfo")
-                .addField('Get the host machine'/'s IP address ONLY! No user data leaks :P', "cmd: -gethostip")
+                .addField('Get the host machine' / 's IP address ONLY! No user data leaks :P', "cmd: -gethostip")
 
             message.channel.send({ embed: ownercmds })
         }
@@ -743,7 +752,7 @@ client.on("message", async message => {  //message handler starts here!
         else {
             message.channel.send("Insufficant Permissions.")
         }
-        
+
 
     }
 

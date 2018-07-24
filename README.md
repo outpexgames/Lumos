@@ -10,7 +10,7 @@ You can host PowerBot on a raspberry pi, or web hosting services like AWS or Her
     * A computer that has node installed on it, and the ability to install npm modules.
     * Know the basics of how to add a Discord Bot to servers, setup & get tokens, etc.
     
-  * __**Instructions:**__
+  * __**Instructions:**__ (This guide only works on windows. Read the 8th bullet point for more details.)
     * Download the PowerBot code from Github in a zip, and unzip it.
     * Then delete the node modules folder & the .vscode folder.
     * Head over to Discord's Developer Page [here](https://discordapp.com/developers/applications/me) to register a bot. 
@@ -18,8 +18,11 @@ You can host PowerBot on a raspberry pi, or web hosting services like AWS or Her
     * View config (example).json, then create a config.json with all the missing information filled in.
     * Make sure that the newly created config.json is in the folder where the config (example).json is.
     * Open up a command prompt or terminal, and go to the folder where all the files are (cd <file location>)
+    * Open up a PowerShell in administrator mode, then run the command: `npm i -g --production windows-build-tools` NOTE: Make sure the installation is fully complete before you close the PowerShell window! <----- This will only work on windows computers... Someone fill me in via the issues tab on how to do this on mac or linux.
+    * Please now close all open command prompts 
     * Then run the following commands:
     ``` 
+    npm i discord.js enmap enmap-sqlite // Install enmap & enmap-sqlite (just incase the npm install does not install everything)
     npm install // To install all required npm modules
     node . // Start the bot
     ```
