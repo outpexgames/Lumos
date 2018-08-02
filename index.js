@@ -13,6 +13,7 @@ const werd = require('werd')
 const randomWord = require('random-word');
 const ipInfo = require("ipinfo");
 const winston = require('winston')
+var xkcd = require('xkcd');
 const Sequelize = require('sequelize');
 const filter = require('leo-profanity')
 filter.add(config.profanity)
@@ -313,6 +314,40 @@ client.on("message", async message => {  //message handler starts here!
     //     message.channel.send({ embed: embed100 });
 
     // }
+
+    // if (command === "xkcd") {
+    //     const xkcdData = new Discord.RichEmbed()
+    //     const xkcdData1 = new Discord.RichEmbed()
+    //     if (args.join(' ') === '') {
+    //         xkcd(function (data) {
+    //             xkcdData.setTitle(`Current XKCD #${data.num}`)
+    //             xkcdData.setImage(data.img)
+    //             xkcdData.setColor("36393E")
+                
+    //             xkcdData.addField('Title', data.title)
+    //             xkcdData.addField('Year', data.year)
+    //             xkcdData.addField('Link', `https://xkcd.com/${data.num}`)
+    //             xkcdData.setFooter(`Get a specific XKCD, do ${config.prefix}xkcd <xkcd number>`)
+    //             message.channel.send({embed: xkcdData})
+    //         });
+            
+    //     }
+    //     xkcd(args.join(' '), function (data) {
+    //         xkcdData1.setTitle(`Current XKCD #${data.num}`)
+    //         xkcdData1.setImage(data.img)
+    //         xkcdData1.setColor("36393E")
+            
+    //         xkcdData1.addField('Title', data.title)
+    //         xkcdData1.addField('Year', data.year)
+    //         xkcdData1.addField('Link', `https://xkcd.com/${data.num}`)
+    //         xkcdData1.setFooter(`Get a specific XKCD, do ${config.prefix}xkcd <xkcd number>`)
+    //         message.channel.send({embed: xkcdData1})
+    //     });
+        
+
+    // }
+
+
     if (command === "serverconf") {
         if ((message.member.hasPermission("MANAGE_MESSAGES") && message.member.hasPermission("MANAGE_GUILD")) || message.member.hasPermission("ADMINISTRATOR") || message.author.id === config.owner) {
             const guildConf = settings.get(message.guild.id) || defaultSettings;
