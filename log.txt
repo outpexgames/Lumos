@@ -1,3 +1,4 @@
 {"level":"info","message":"xkcd command used by AirFusion™#1243 ID: 243222905188646912 Time: Wed Aug 01 2018 17:22:08 GMT-0700 (Pacific Daylight Time) Guild: null","timestamp":"2018-08-02T00:22:08.413Z"}
 {"level":"info","message":"xkcd command used by AirFusion™#1243 ID: 243222905188646912 Time: Wed Aug 01 2018 17:22:55 GMT-0700 (Pacific Daylight Time) Guild: null","timestamp":"2018-08-02T00:22:55.596Z"}
 {"level":"info","message":"xkcd command used by AirFusion™#1243 ID: 243222905188646912 Time: Wed Aug 01 2018 17:23:01 GMT-0700 (Pacific Daylight Time) Guild: null","timestamp":"2018-08-02T00:23:01.138Z"}
+{"level":"info","message":"Unban command used by AirFusion™#1243 ID: 243222905188646912 Time: Wed Aug 08 2018 20:45:45 GMT-0700 (Pacific Daylight Time) Guild: Bot Dev","timestamp":"2018-08-09T03:45:45.261Z"}

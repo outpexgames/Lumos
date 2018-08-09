@@ -11,6 +11,8 @@ var rand = getRandomIntInclusive(1, 100);
 var base64url = require('base64-url');
 const werd = require('werd')
 const randomWord = require('random-word');
+var antispam = require("discord-anti-spam");
+
 const ipInfo = require("ipinfo");
 const winston = require('winston')
 var xkcd = require('xkcd');
@@ -266,6 +268,20 @@ client.on("message", async message => {  //message handler starts here!
     // // }  
     // let args = message.content.split(" ").slice(1);
     // let args2 = message.content.split(" ").slice(2);
+
+    antispam(client, {
+        warnBuffer: 3, //Maximum amount of messages allowed to send in the interval time before getting warned.
+        maxBuffer: 5, // Maximum amount of messages allowed to send in the interval time before getting banned.
+        interval: 4000, // Amount of time in ms users can send a maximum of the maxBuffer variable before getting banned.
+        warningMessage: "Stop Spamming! Spammers will be banned", // Warning message send to the user indicating they are going to fast.
+        banMessage: "has been banned for spamming, anyone else?", // Ban message, always tags the banned user in front of it.
+        maxDuplicatesWarning: 7,// Maximum amount of duplicate messages a user can send in a timespan before getting warned
+        maxDuplicatesBan: 10, // Maximum amount of duplicate messages a user can send in a timespan before getting banned
+        deleteMessagesAfterBanForPastDays: 7, // Delete the spammed messages after banning for the past x days.
+        onoff: 'on'
+    });
+
+    
     let command;
     let args;
     let args2;
@@ -323,27 +339,27 @@ client.on("message", async message => {  //message handler starts here!
     //             xkcdData.setTitle(`Current XKCD #${data.num}`)
     //             xkcdData.setImage(data.img)
     //             xkcdData.setColor("36393E")
-                
+
     //             xkcdData.addField('Title', data.title)
     //             xkcdData.addField('Year', data.year)
     //             xkcdData.addField('Link', `https://xkcd.com/${data.num}`)
     //             xkcdData.setFooter(`Get a specific XKCD, do ${config.prefix}xkcd <xkcd number>`)
     //             message.channel.send({embed: xkcdData})
     //         });
-            
+
     //     }
     //     xkcd(args.join(' '), function (data) {
     //         xkcdData1.setTitle(`Current XKCD #${data.num}`)
     //         xkcdData1.setImage(data.img)
     //         xkcdData1.setColor("36393E")
-            
+
     //         xkcdData1.addField('Title', data.title)
     //         xkcdData1.addField('Year', data.year)
     //         xkcdData1.addField('Link', `https://xkcd.com/${data.num}`)
     //         xkcdData1.setFooter(`Get a specific XKCD, do ${config.prefix}xkcd <xkcd number>`)
     //         message.channel.send({embed: xkcdData1})
     //     });
-        
+
 
     // }
 
