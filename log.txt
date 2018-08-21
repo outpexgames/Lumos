@@ -6,3 +6,6 @@
 {"level":"info","message":"feedback command used by AirFusion™#1243 ID: 243222905188646912 Time: Mon Aug 20 2018 18:48:28 GMT-0700 (Pacific Daylight Time) Guild: Bot Dev","timestamp":"2018-08-21T01:48:28.732Z"}
 {"level":"info","message":"feedback command used by AirFusion™#1243 ID: 243222905188646912 Time: Mon Aug 20 2018 18:51:18 GMT-0700 (Pacific Daylight Time) Guild: Bot Dev","timestamp":"2018-08-21T01:51:18.286Z"}
 {"level":"info","message":"feedback command used by AirFusion™#1243 ID: 243222905188646912 Time: Mon Aug 20 2018 18:51:45 GMT-0700 (Pacific Daylight Time) Guild: Bot Dev","timestamp":"2018-08-21T01:51:45.910Z"}
+{"level":"info","message":"masspurge command used by AirFusion™#1243 ID: 243222905188646912 Time: Mon Aug 20 2018 21:56:30 GMT-0700 (Pacific Daylight Time) Guild: BuildCreek Network","timestamp":"2018-08-21T04:56:30.458Z"}
+{"level":"info","message":"Prime command used by AirFusion™#1243 ID: 243222905188646912 Time: Mon Aug 20 2018 22:02:33 GMT-0700 (Pacific Daylight Time) Guild: Bot Dev","timestamp":"2018-08-21T05:02:33.143Z"}
+{"level":"info","message":"Prime command used by AirFusion™#1243 ID: 243222905188646912 Time: Mon Aug 20 2018 22:04:55 GMT-0700 (Pacific Daylight Time) Guild: Bot Dev","timestamp":"2018-08-21T05:04:55.870Z"}
