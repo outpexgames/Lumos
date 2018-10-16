@@ -1,3 +1,4 @@
+[![Discord Bots](https://discordbots.org/api/widget/460610749283172353.svg)](https://discordbots.org/bot/460610749283172353)
 # Power-Bot
 PowerBot is a multipurpose discord bot made using [discord.js](https://discord.js.org/). 
 Power Bot is now officially public! :)

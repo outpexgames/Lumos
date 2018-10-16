@@ -9,3 +9,7 @@
 {"level":"info","message":"masspurge command used by AirFusion™#1243 ID: 243222905188646912 Time: Mon Aug 20 2018 21:56:30 GMT-0700 (Pacific Daylight Time) Guild: BuildCreek Network","timestamp":"2018-08-21T04:56:30.458Z"}
 {"level":"info","message":"Prime command used by AirFusion™#1243 ID: 243222905188646912 Time: Mon Aug 20 2018 22:02:33 GMT-0700 (Pacific Daylight Time) Guild: Bot Dev","timestamp":"2018-08-21T05:02:33.143Z"}
 {"level":"info","message":"Prime command used by AirFusion™#1243 ID: 243222905188646912 Time: Mon Aug 20 2018 22:04:55 GMT-0700 (Pacific Daylight Time) Guild: Bot Dev","timestamp":"2018-08-21T05:04:55.870Z"}
+{"level":"info","message":"Commands command used by AirFusion#1243 ID: 243222905188646912 Time: Mon Oct 15 2018 22:35:15 GMT-0700 (Pacific Daylight Time) Guild: Bot Dev","timestamp":"2018-10-16T05:35:15.447Z"}
+{"level":"info","message":"Commands command used by AirFusion#1243 ID: 243222905188646912 Time: Mon Oct 15 2018 22:37:28 GMT-0700 (Pacific Daylight Time) Guild: Bot Dev","timestamp":"2018-10-16T05:37:28.150Z"}
+{"level":"info","message":"Commands command used by AirFusion#1243 ID: 243222905188646912 Time: Mon Oct 15 2018 22:37:59 GMT-0700 (Pacific Daylight Time) Guild: Bot Dev","timestamp":"2018-10-16T05:37:59.076Z"}
+{"level":"info","message":"Commands command used by AirFusion#1243 ID: 243222905188646912 Time: Mon Oct 15 2018 22:39:02 GMT-0700 (Pacific Daylight Time) Guild: Bot Dev","timestamp":"2018-10-16T05:39:02.616Z"}

@@ -38,6 +38,8 @@ exports.run = function (client, message, args, args2, cmd) {
         .addField('div|Divide Numbers', `\`div <First Number> <Second Number>\``)
         .addField('dm|Directly Message a mentioned user', `\`dm <@user> <message>\``)
         .addField('embed|Sends a embeded version of a message', `\`embed <your message>\``)
+    const embed1 = new Discord.RichEmbed()
+        .setColor('#ccff00')
         .addField('emojimap|Displays all custom uploaded emojis on a server', `\`emojimap\``)
         .addField('emojisearch|Search for the emoji that you input', `\`emojisearch <emoji name>\``)
         .addField('feedback|A command to send feedback.', `\`feedback\``)
@@ -57,103 +59,52 @@ exports.run = function (client, message, args, args2, cmd) {
         .addField('numrand|Number randomizer', `\`numrand <min range number> <max range number>\``)
         .addField('pika|Returns "boo"', `\`pika\``)
         .addField('ping|Returns "Pong" and the speed in ms', `\`ping\``)
-        ////////////////////////////
-
-        //add ccencode & ccdecode
-
-        // .addField('dnd|Set the Author of the message in Do Not Disturb Mode', `\`dnd\``)
-        // .addField('dndexit|Set the Author of the message from Do Not Disturb to active/online', `\`dndexit\``)
-
-        
-        
-      
-        
-        
-        //reload missing & not working
-        .addField('removerole|Removes a Role From a User **(Special Permission Required: MANAGE_ROLES_OR_PERMISSIONS)**', `\`removerole <@User> <Role>\``)
-        .addField('say|Echo what you said/sent', `\`say <Message You Want To Echo>\``)
-    //  .addField("setgame|Sets PowerBot's game! **(Special Permissions Required: This Command Is Owner ONLY!)**", `\`setgame <Mood/Game>\``)
-    //25
-    message.channel.send({ embed: embed })
-
-    const embed1 = new Discord.RichEmbed()
-        .setColor('#ccff00') //change the color!
-        //.setTitle("PowerBot Commands-Continued\n\n")
-        // .addField("setstatus|Sets PowerBot's status! Online, Idle, DnD etc... **(Special Permission Required: This Command Is Owner ONLY!)**", `\`setstatus <Online/Idle/DnD/Invisible>\``)
-        // .addField("spyon|Generate Invites to Servers That PowerBot Is In **(Special Permissions Required: This Command Is Owner ONLY!)**", `\`spyon <ServerName>\``)
-        .addField('sqrt|Square Root the User Input Number', `\`sqrt <Square Root Number>\``)
-        // .addField('startup|Displays Some Startup Information', `\`startup\``)
-        .addField('subtract|Subtracts numbers', `\`subtract <First Number> <Second Number>\``)
-
-        .addField('unban|Unbans a user by ID **(Special Permission Required: BAN_MEMBERS)**', `\`unban <user ID>\``)
-        .addField('warn|Warns a mentioned user **(Special Permission Required: MANAGE_ROLES_OR_PERMISSIONS)**', `\`warn <@user>\``)
-        
-        .addField('unmute|Unmute the mentioned user **(Special Permission Required: MANAGE_ROLES_OR_PERMISSIONS)**', `\`unmute <@user>\``)
-       
-        .addField('stats|Displays status about the author of the message', `\`stats\``)
-        .addField('userstats|Displays stats on the mentioned user', `\`userstats <@user>\``)
-
-        
-
-
-        .addField('yt|Search YouTube for videos, channels & playlists', `\`yt <video name/channel name/playlist name>\``)
-        //wolfram WIP
-
-        //  .addField('outer-reload|Reloads the specified file in the outer file structure **(Special Permission Required: This Command Is Owner ONLY!)**', `\`outer-reload <reload file name>\``)
-        // .addField('reload|Reloads the specified file in the file structure **(Special Permission Required: This Command Is Owner ONLY!)**', `\`reload <module name>\``)
-
         .addField('prime|Finds the nth prime', `\`prime <n th>\``)
-    message.channel.send({ embed: embed1 })
-
+        .addField('purge|Purge a number of messages', `\`purge <# of messages that needs to be purged>\``)
+        .addField('randword|Returns a random word', `\`randword\``)
+        .addField('removerole|Remove a role from a user', `\`removerole <@user> <role>\``)
+        .addField('rps|Play rock paper scissors with the bot!', `\`rps <your choice>\``)
+        .addField('say|Get the bot to say something', `\`say <what you want the bot to say>\``)
     const embed2 = new Discord.RichEmbed()
         .setColor('#ccff00')
-        
-        .addField(`rps|Rock paper scissor game`, `\`rps <your selection>\``)
-
-
-        //  .addField('killall|A kill switch for PowerBot', `\`killall <password with no equal signs>\``)
-        .addField('serverinv|Generates a invite for the current server', `\`serverinv\``)
-
-
-        .addField('serverinfo|Get information about the current server', `\`serverinfo\``)
+        .addField('serverinfo|Return the current server\'s information', `\`serverinfo\``)
+        .addField('serverinv|Reutrn the current server\'s invite', `\`serverinv\``)
+        .addField('sqrt|Return the square root of a number', `\`sqrt <number>\``)
+        .addField('subtract|Subtract a number', `\`subtract <number>\``)
+        .addField('triangle|See if 3 numbers makes a triangle', `\`triangle <one number> <two number> <three number>\``)
+        .addField('unban|Unbans a user by ID **(Special Permission Required: BAN_MEMBERS)**', `\`unban <user ID>\``)
+        .addField('unmute|Unmute the mentioned user **(Special Permission Required: MANAGE_ROLES_OR_PERMISSIONS)**', `\`unmute <@user>\``)
         .addField('userid|Get a mentioned users id from a mention', `\`userid <@user>\``)
-
-
-        .addField("randword|Get a random word", `\`randword\``)
-
-        //   .addField("synant|Find the synonyms & antonyms of a word", `\`synant <word>\``)
-        .addField("triangle|To see if 3 values make a triangle", `\`triangle <1st value> <2nd value> <3rd value>\``)
+        .addField('userinfo|get a user\'s info', `\`userinfo <@user>\``)
+        .addField('warn|Warns a mentioned user **(Special Permission Required: MANAGE_ROLES_OR_PERMISSIONS)**', `\`warn <@user>\``)
         .addField("wolfram|Searches Wolfram Alpha for the user input", `\`wolfram <query>\``)
-        // .addField('party|Its a party command... Type it and find out! ;)', `\`party\``)
+        .addField('xkcd|Return a xkcd comic', `\`xkcd (to return the current xkcd) , xkcd <comic number>\``)
+        .addField('yt|Return a YouTube video', `\`yt <query>\``)
+    ////////////////////////////
+
+    //add ccencode & ccdecode
+
+    // .addField('dnd|Set the Author of the message in Do Not Disturb Mode', `\`dnd\``)
+    // .addField('dndexit|Set the Author of the message from Do Not Disturb to active/online', `\`dndexit\``)
+
+
+
+
+
+
+    //reload missing & not working
+
+    //  .addField("setgame|Sets PowerBot's game! **(Special Permissions Required: This Command Is Owner ONLY!)**", `\`setgame <Mood/Game>\``)
+    //25
+    const embedNew = new Discord.RichEmbed()
+        .setColor('36393E') //change the color!
+        .setTitle("PowerBot Commands\n\n")
+        .addField("Prefix:", `\`${config.prefix}\``)
+        .addField(`:tools: **General**`, `test`)
+
+    message.channel.send({ embed: embed })
+    message.channel.send({ embed: embed1 })
     message.channel.send({ embed: embed2 })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

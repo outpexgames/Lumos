@@ -668,7 +668,7 @@ client.on("message", async message => {  //message handler starts here!
     if (command === "getallserver") {
         if (message.author.id === config.owner) {
             let user = message.author;
-            user.send(client.guilds.map(e => e.toString()).join(" "));
+            user.send(client.guilds.map(e => e.toString()).join(", "));
         }
         else {
             return message.channel.send("Insufficant Permissions");
