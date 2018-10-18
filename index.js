@@ -12,7 +12,8 @@ var base64url = require('base64-url');
 const werd = require('werd')
 const randomWord = require('random-word');
 var antispam = require("discord-anti-spam");
-
+const Sentry = require('@sentry/node');
+Sentry.init({ dsn: config.sentry });
 const ipInfo = require("ipinfo");
 const winston = require('winston')
 var xkcd = require('xkcd');
