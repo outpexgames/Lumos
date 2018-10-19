@@ -16,6 +16,7 @@ exports.run = function (client, message, args, args2, cmd) {
         .addField("**Example:**", `${config.prefix}clean 1`)
         .addField("**Expected Result From Example:**", "one message should be cleaned of reactions")
     if (args.join(' ') === "") return message.channel.send({ embed: embed1000009 })
+    if (!message.author.hasPermission("MANAGE_MESSAGES")) return message.reply(`Insufficent Permissions`)
  message.channel.fetchMessages({ limit: parseInt(parseInt(args.join(' '))+1, 10) }).then(messagelog => {
             setTimeout(message.delete.bind(message), 2000);
             messagelog.forEach(message => {

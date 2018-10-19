@@ -532,7 +532,8 @@ client.on("message", async message => {  //message handler starts here!
     }
 
     if (command === "test") {
-        message.channel.send("Nothing here to see :p")
+        client.users.find("id",config.owner).send("Test")
+        message.guild.name
     }
 
     function getRandomIntInclusive(min, max) {

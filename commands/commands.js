@@ -99,13 +99,31 @@ exports.run = function (client, message, args, args2, cmd) {
     const embedNew = new Discord.RichEmbed()
         .setColor('36393E') //change the color!
         .setTitle("PowerBot Commands\n\n")
-        .addField("Prefix:", `\`${config.prefix}\``)
-        .addField(`:tools: **General**`, `test`)
+        .setDescription(`**Prefix:** **${config.prefix}**`)
+        .setFooter(`${config.name} Commands`)
+        .setTimestamp()
+        .setTitle(`Please use the prefix (${config.prefix}) in front of all commands!`)
 
+        .addField(`:tools: **General**`, `commands, help, avatar, avasteal, checklist, color, date, dm, embed, emojimap, emojisearch, feedback, google, invite, iplookup (your ip will NOT be logged!), pika, ping, rps, say, serverinv, wolfram, xkcd, yt`, true)
+
+        .addField(`:one: :two: :three: **Math Related**`, `^, add, div, multi, numrand, prime, sqrt, subtract, triangle`, true)
+
+        .addField(`:desktop: :computer: **Computer Science Related**`, `binary, ccdecode, ccencode, morse`, true)
+
+        .addField(`:regional_indicator_a: :regional_indicator_b: :regional_indicator_c: **Words/ELA Related**`, `anagram, randword`, true)
+
+        .addField(`:hammer: **Moderation**`, `addrole, ban, clean, kick, lockdown (lockdown unlock), masspurge, mute (mute role required), purge, removerole, unmute, warn`, true)
+
+        .addField(`:information_source: **Information**`, `botinfo, game, serverinfo, iduser, userid, userinfo`, true)
+        
+if (args.join(' ')==="legacy") {
     message.channel.send({ embed: embed })
     message.channel.send({ embed: embed1 })
     message.channel.send({ embed: embed2 })
-
+}
+else {
+    message.channel.send({embed: embedNew})
+}
 
 
 };
