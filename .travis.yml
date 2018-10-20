@@ -1,10 +1,17 @@
 language: node_js
 node_js:
+<<<<<<< HEAD
   - "7"
 before_install:
   - npm install npm@latest -g
   - npm install
   - npm update
+=======
+  - "iojs"
+  - "7"
+before_install:
+  - npm install npm@latest -g
+>>>>>>> 2.8.x-next-version
 cache:
   directories:
     - "node_modules"
