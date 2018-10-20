@@ -83,7 +83,7 @@ function getRandomIntInclusive(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive
 }
 
-
+client.on('error', console.error);
 
 client.on('guildCreate', async (guild) => {
     console.log(chalk.white(`Joined guild ${guild.name} ID: ${guild.id}  Owner ID: ${guild.ownerID} Size: ${guild.memberCount}`)) //Owner: ${guild.owner.user.tag}
@@ -271,7 +271,7 @@ client.on("message", async message => {  //message handler starts here!
     // let args2 = message.content.split(" ").slice(2);
 
 
-    
+
     let command;
     let args;
     let args2;
