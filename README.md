@@ -1,4 +1,6 @@
 [![Discord Bots](https://discordbots.org/api/widget/460610749283172353.svg)](https://discordbots.org/bot/460610749283172353)
+[![Waffle.io - Columns and their card count](https://badge.waffle.io/AirFusion45/Power-Bot.svg?columns=all)](https://waffle.io/AirFusion45/Power-Bot)
+[![Build Status](https://travis-ci.org/AirFusion45/Power-Bot.svg?branch=master)](https://travis-ci.org/AirFusion45/Power-Bot)
 # Power-Bot
 PowerBot is a multipurpose discord bot made using [discord.js](https://discord.js.org/). 
 Power Bot is now officially public! :)
@@ -27,7 +29,6 @@ You can host PowerBot on a raspberry pi, or web hosting services like AWS or Her
     npm install // To install all required npm modules
     node . // Start the bot
     ```
-    * For a more detailed installation guide, please refer to this video [here](https://youtu.be/3C0wdh4DdpU). I did not fully fill in all the parameters in the config (example).json, but for PowerBot to work correctly in the long run, you should fill all parameters in.
     * Next, use the Discord Permissions Calculator [here](https://discordapi.com/permissions.html#2146958591) to make your bot's invite link. The link provided already has the required permissions pre-checked. If you choose not to use the pre-checked link, the bot must have "ADMINISTRATOR" permissions to function. At the bottom of the page, place in your bot's client ID, which is found on your Discord Developers page.
     * Then, copy the link at the bottom of the page. That is your bot's invite link, anyone who has that link and have the "Manage Server" permission or is the server owner of a server can invite your bot to their server. 
     * To invite the bot to a server, paste the link into your browser, and select the server that you want to add the bot to. Make sure all the required permissions are checked and click "Authorize".

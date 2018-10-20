@@ -271,6 +271,7 @@ client.on("message", async message => {  //message handler starts here!
     // let args2 = message.content.split(" ").slice(2);
 
 
+    
     let command;
     let args;
     let args2;
@@ -532,7 +533,7 @@ client.on("message", async message => {  //message handler starts here!
     }
 
     if (command === "test") {
-        client.users.find("id",config.owner).send("Test")
+        client.users.find("id", config.owner).send("Test")
         message.guild.name
     }
 
@@ -825,6 +826,7 @@ function clean(text) {
 
 
 var token = /[\w\d]{24}\.[\w\d]{6}\.[\w\d-_]{27}/g;
+// Promise.reject(new Error(`Error. ${Promise}`));
 client.on("debug", error => {
     console.log(chalk.cyan(error.replace(token, "HIDDEN")));
 });
