@@ -12,11 +12,9 @@ exports.run = function (client, message, args, args2, cmd) {
     const embed100 = new Discord.RichEmbed()
         .setTitle("If a role is true, means you have the role setup correctly, if it is false, then there is something wrong with the role.")
         .setColor('#ff0000')
-        .setFooter(config.name + "CheckList")
-
+        .setFooter(config.name + " CheckList")
 
     let powerbotperm = client.guilds.get(message.guild.id).roles.find("name", "PowerBot")
-    let powerbotadmintf = false;
     embed100.addField("PowerBot ADMINISTRATOR Permissions: ", powerbotperm.hasPermission("ADMINISTRATOR"))
 
     let muteRole = client.guilds.get(message.guild.id).roles.find("name", "Mute")

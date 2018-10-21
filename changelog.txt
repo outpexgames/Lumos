@@ -216,3 +216,21 @@ Version 2.8.2
     added togglable welcome messages for each server
     added a mentionable prefix
     Fixed bot crashing when missing permissions
+
+Version 2.8.3
+    Changed eval logging timing
+    updated -getip command to -gethostip. only will be bot's owner only, and will only get info on the host's ip information
+    added xkcd support
+    Improved the experience when turning on / turning off welcome msgs
+    added a feedback page & command for feedback for PowerBot
+    rewrote commands command
+    edited the permissions in masspurge.js
+    edited permissions in pruge.js
+    added a limit to prime.js
+    edited checklist (small changes)
+    improvements to getallserver
+    revised readme
+    connected CI, and other intergrations. 
+    fixed permissions for clean.js
+    
+    

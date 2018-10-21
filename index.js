@@ -11,8 +11,12 @@ var rand = getRandomIntInclusive(1, 100);
 var base64url = require('base64-url');
 const werd = require('werd')
 const randomWord = require('random-word');
+var antispam = require("discord-anti-spam");
+const Sentry = require('@sentry/node');
+Sentry.init({ dsn: config.sentry });
 const ipInfo = require("ipinfo");
 const winston = require('winston')
+var xkcd = require('xkcd');
 const Sequelize = require('sequelize');
 const filter = require('leo-profanity')
 filter.add(config.profanity)
@@ -79,12 +83,13 @@ function getRandomIntInclusive(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive
 }
 
-
+client.on('error', console.error);
 
 client.on('guildCreate', async (guild) => {
-    console.log(chalk.white(`Joined guild ${guild.name} ID: ${guild.id}  Owner ID: ${guild.ownerID}`)) //Owner: ${guild.owner.user.tag}
-    logger.log('info', `Joined guild ${guild.name} ID: ${guild.id}  Owner ID: ${guild.ownerID}`)
+    console.log(chalk.white(`Joined guild ${guild.name} ID: ${guild.id}  Owner ID: ${guild.ownerID} Size: ${guild.memberCount}`)) //Owner: ${guild.owner.user.tag}
+    logger.log('info', `Joined guild ${guild.name} ID: ${guild.id}  Owner ID: ${guild.ownerID} Size: ${guild.memberCount}`)
     settings.set(guild.id, defaultSettings);
+    logger.log('info', `Database SET`)
     //add tag -> server id. | default send welcome messages "true"
     // try {
     //     // equivalent to: INSERT INTO tags (name, descrption, username) values (?, ?, ?);
@@ -111,12 +116,14 @@ client.on('guildCreate', async (guild) => {
             permissions: 0,
 
         }).catch(e => console.error(e))
+        logger.log('info', 'muterole created')
     }
 })
 client.on('guildDelete', async (guild) => {
-    console.log(chalk.white(`Left/Kicked from guild ${guild.name} ID: ${guild.id}  Owner ID: ${guild.ownerID}`))
-    logger.log('info', `Left/Kicked from guild ${guild.name} ID: ${guild.id}  Owner ID: ${guild.ownerID}`)
+    console.log(chalk.white(`Left/Kicked from guild ${guild.name} ID: ${guild.id}  Owner ID: ${guild.ownerID} Size: ${guild.memberCount}`))
+    logger.log('info', `Left/Kicked from guild ${guild.name} ID: ${guild.id}  Owner ID: ${guild.ownerID} Size: ${guild.memberCount}`)
     settings.delete(guild.id);
+    logger.log('info', 'Database DEL')
     //removetag -> using server id 
     // const rowCount = await WelcomeMsg.destroy({ where: { servID: guild.id } });
     // if (!rowCount) return console.log('That server tag did not exist.');
@@ -262,6 +269,9 @@ client.on("message", async message => {  //message handler starts here!
     // // }  
     // let args = message.content.split(" ").slice(1);
     // let args2 = message.content.split(" ").slice(2);
+
+
+
     let command;
     let args;
     let args2;
@@ -310,8 +320,55 @@ client.on("message", async message => {  //message handler starts here!
     //     message.channel.send({ embed: embed100 });
 
     // }
+
+    // if (command === "xkcd") {
+    //     const xkcdData = new Discord.RichEmbed()
+    //     const xkcdData1 = new Discord.RichEmbed()
+    //     if (args.join(' ') === '') {
+    //         xkcd(function (data) {
+    //             xkcdData.setTitle(`Current XKCD #${data.num}`)
+    //             xkcdData.setImage(data.img)
+    //             xkcdData.setColor("36393E")
+
+    //             xkcdData.addField('Title', data.title)
+    //             xkcdData.addField('Year', data.year)
+    //             xkcdData.addField('Link', `https://xkcd.com/${data.num}`)
+    //             xkcdData.setFooter(`Get a specific XKCD, do ${config.prefix}xkcd <xkcd number>`)
+    //             message.channel.send({embed: xkcdData})
+    //         });
+
+    //     }
+    //     xkcd(args.join(' '), function (data) {
+    //         xkcdData1.setTitle(`Current XKCD #${data.num}`)
+    //         xkcdData1.setImage(data.img)
+    //         xkcdData1.setColor("36393E")
+
+    //         xkcdData1.addField('Title', data.title)
+    //         xkcdData1.addField('Year', data.year)
+    //         xkcdData1.addField('Link', `https://xkcd.com/${data.num}`)
+    //         xkcdData1.setFooter(`Get a specific XKCD, do ${config.prefix}xkcd <xkcd number>`)
+    //         message.channel.send({embed: xkcdData1})
+    //     });
+
+
+    // }
+
+    // if (command === 'spam') {
+    //     antispam(client, {
+    //         warnBuffer: 3, //Maximum amount of messages allowed to send in the interval time before getting warned.
+    //         maxBuffer: 5, // Maximum amount of messages allowed to send in the interval time before getting banned.
+    //         interval: 1000, // Amount of time in ms users can send a maximum of the maxBuffer variable before getting banned.
+    //         warningMessage: "Stop Spamming! Spammers will be banned", // Warning message send to the user indicating they are going to fast.
+    //         banMessage: "has been banned for spamming, anyone else?", // Ban message, always tags the banned user in front of it.
+    //         maxDuplicatesWarning: 7,// Maximum amount of duplicate messages a user can send in a timespan before getting warned
+    //         maxDuplicatesBan: 10, // Maximum amount of duplicate messages a user can send in a timespan before getting banned
+    //         deleteMessagesAfterBanForPastDays: 7, // Delete the spammed messages after banning for the past x days.
+    //         onoff: args.join(' ')
+    //     });
+    // }
+
     if (command === "serverconf") {
-        if ((message.member.hasPermission("MANAGE_MESSAGES") && message.member.hasPermission("MANAGE_GUILD")) || message.member.hasPermission("ADMINISTRATOR")) {
+        if ((message.member.hasPermission("MANAGE_MESSAGES") && message.member.hasPermission("MANAGE_GUILD")) || message.member.hasPermission("ADMINISTRATOR") || message.author.id === config.owner) {
             const guildConf = settings.get(message.guild.id) || defaultSettings;
             const key = args[0];
             // const tagList = await WelcomeMsg.findAll(); //{ attributes: ['ServID'] } WelcomeMsg
@@ -319,16 +376,29 @@ client.on("message", async message => {  //message handler starts here!
             // return message.channel.send(`List of tags: ${tagString}`);
             let configKeys = "";
             Object.keys(guildConf).forEach(key => {
-                configKeys += `${key}  :  ${guildConf[key]}\n`;
+                configKeys += `${guildConf[key]}\n`;
             });
-            message.channel.send(`The following are the server's current configuration: \`\`\`${configKeys}\`\`\``);
+            // message.channel.send(`The following are the server's current configuration: \`\`\`${configKeys}\`\`\``);
+            const serverconfinfo = new Discord.RichEmbed()
+                .setDescription(`${guild}'s Server Configuration | If true, welcome messages are on, if false, welcome messages are off.`)
+                .setColor("36393E")
+                .addField("Welcome Messages", `${configKeys}`)
+            message.channel.send({ embed: serverconfinfo })
         } else {
             message.reply("Insufficant Permissions!")
         }
 
     }
     if (command === "setmsg") {
-        if ((message.member.hasPermission("MANAGE_MESSAGES") && message.member.hasPermission("MANAGE_GUILD")) || message.member.hasPermission("ADMINISTRATOR")) {
+        if ((message.member.hasPermission("MANAGE_MESSAGES") && message.member.hasPermission("MANAGE_GUILD")) || message.member.hasPermission("ADMINISTRATOR") || message.author.id === config.owner) {
+            const setmsghelp = new Discord.RichEmbed()
+                .setColor("#f0ffff")
+                .setDescription("**Command: **" + `${config.prefix}setmsg`)
+                .addField("**Usage:**", `${config.prefix}setmsg <true for welcome msgs, false for no welcome msgs>`)
+                .addField("**Example:**", `${config.prefix}setmsg true`)
+                .addField("**Expected Result From Example:**", "Welcome messages for the current server should be turned on.")
+            //add helper
+            if (args.join(' ') === '') return message.channel.send({ embed: setmsghelp })
             let input;
             if (args.join(' ') === "true") {
                 input = true
@@ -336,7 +406,12 @@ client.on("message", async message => {  //message handler starts here!
             else if (args.join(' ') === "false") {
                 input = false
             }
+            else {
+                return;
+            }
             settings.setProp(message.guild.id, "welcome", input)
+            message.reply(`:white_check_mark: Success! Server welcome messages set to ${input}`)
+
             // console.log("done")
         } else {
             message.reply("Insufficant Permissions!")
@@ -381,7 +456,8 @@ client.on("message", async message => {  //message handler starts here!
         if (!args.join(" ")) return message.channel.send({ embed: embed })
 
         wolfram = new Wolfram(config.wolfram)
-
+        const { DiscordAPIError } = require('discord.js');
+try {
         wolfram.query(args.join(' '), function (error, result) {
             if (error) {
                 console.log(error);
@@ -450,7 +526,10 @@ client.on("message", async message => {  //message handler starts here!
                 }
             }
         });
-
+    } catch(error) {
+        if (error instanceof DiscordAPIError) Error.captureStackTrace(error);
+        console.error(error);
+    }
 
 
         logger.log('info', `Wolfram command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)
@@ -458,7 +537,14 @@ client.on("message", async message => {  //message handler starts here!
     }
 
     if (command === "test") {
-        message.channel.send("Nothing here to see :p")
+        try {
+        message.channel.send(null)
+        } catch(error) {
+        console.error(error)
+        }
+
+        // client.users.find("id", config.owner).send("Test")
+        message.guild.name
     }
 
     function getRandomIntInclusive(min, max) {
@@ -511,6 +597,7 @@ client.on("message", async message => {  //message handler starts here!
                 .addField("change the bot's prefix... For trolling purposes only LOL", "cmd: prefix <new prefix which no one will know>")
                 .addField("spyon servers by gening invites", "cmd:spyon <server name>")
                 .addField("get all loaded user info", "cmd: alluserinfo")
+                .addField('Get the host machine' / 's IP address ONLY! No user data leaks :P', "cmd: -gethostip")
 
             message.channel.send({ embed: ownercmds })
         }
@@ -594,7 +681,7 @@ client.on("message", async message => {  //message handler starts here!
     if (command === "getallserver") {
         if (message.author.id === config.owner) {
             let user = message.author;
-            user.send(client.guilds.map(e => e.toString()).join(" "));
+            user.send(client.guilds.map(e => e.toString()).join(", "));
         }
         else {
             return message.channel.send("Insufficant Permissions");
@@ -684,6 +771,7 @@ client.on("message", async message => {  //message handler starts here!
 
     if (command === "eval") {
         if (message.author.id === config.owner) {
+            logger.log('info', `eval command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date.now()} Guild: ${guild}`)
             var x = Date.now();
             try {
                 var jvs = args.join(" ");
@@ -729,7 +817,7 @@ client.on("message", async message => {  //message handler starts here!
         else {
             message.channel.send("Insufficant Permissions.")
         }
-        logger.log('info', `eval command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date.now()} Guild: ${guild}`)
+
 
     }
 
@@ -748,6 +836,7 @@ function clean(text) {
 
 
 var token = /[\w\d]{24}\.[\w\d]{6}\.[\w\d-_]{27}/g;
+// Promise.reject(new Error(`Error. ${Promise}`));
 client.on("debug", error => {
     console.log(chalk.cyan(error.replace(token, "HIDDEN")));
 });
@@ -757,6 +846,8 @@ client.on("warn", error => {
 // client.on("err", error => {
 //     console.log(chalk.red(error.replace(token, "HIDDEN")));
 // }); //Broken
+client.on("error", (e) => console.error((chalk.red(e.replace(token,"HIDDEN")))));
+
 client.addListener('DiscordAPIError', function (e) {
     var disapierr = e.error
     console.log(chalk.red(disapierr))

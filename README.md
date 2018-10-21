@@ -1,3 +1,6 @@
+[![Discord Bots](https://discordbots.org/api/widget/460610749283172353.svg)](https://discordbots.org/bot/460610749283172353)
+[![Waffle.io - Columns and their card count](https://badge.waffle.io/AirFusion45/Power-Bot.svg?columns=all)](https://waffle.io/AirFusion45/Power-Bot)
+[![Build Status](https://travis-ci.org/AirFusion45/Power-Bot.svg?branch=master)](https://travis-ci.org/AirFusion45/Power-Bot)
 # Power-Bot
 PowerBot is a multipurpose discord bot made using [discord.js](https://discord.js.org/). 
 Power Bot is now officially public! :)
@@ -10,7 +13,7 @@ You can host PowerBot on a raspberry pi, or web hosting services like AWS or Her
     * A computer that has node installed on it, and the ability to install npm modules.
     * Know the basics of how to add a Discord Bot to servers, setup & get tokens, etc.
     
-  * __**Instructions:**__
+  * __**Instructions:**__ (This guide only works on windows. Read the 8th bullet point for more details.)
     * Download the PowerBot code from Github in a zip, and unzip it.
     * Then delete the node modules folder & the .vscode folder.
     * Head over to Discord's Developer Page [here](https://discordapp.com/developers/applications/me) to register a bot. 
@@ -18,12 +21,14 @@ You can host PowerBot on a raspberry pi, or web hosting services like AWS or Her
     * View config (example).json, then create a config.json with all the missing information filled in.
     * Make sure that the newly created config.json is in the folder where the config (example).json is.
     * Open up a command prompt or terminal, and go to the folder where all the files are (cd <file location>)
+    * Open up a PowerShell in administrator mode, then run the command: `npm i -g --production windows-build-tools` NOTE: Make sure the installation is fully complete before you close the PowerShell window! <----- This will only work on windows computers... Someone fill me in via the issues tab on how to do this on mac or linux.
+    * Please now close all open command prompts 
     * Then run the following commands:
     ``` 
+    npm i discord.js enmap enmap-sqlite // Install enmap & enmap-sqlite (just incase the npm install does not install everything)
     npm install // To install all required npm modules
     node . // Start the bot
     ```
-    * For a more detailed installation guide, please refer to this video [here](https://youtu.be/3C0wdh4DdpU). I did not fully fill in all the parameters in the config (example).json, but for PowerBot to work correctly in the long run, you should fill all parameters in.
     * Next, use the Discord Permissions Calculator [here](https://discordapi.com/permissions.html#2146958591) to make your bot's invite link. The link provided already has the required permissions pre-checked. If you choose not to use the pre-checked link, the bot must have "ADMINISTRATOR" permissions to function. At the bottom of the page, place in your bot's client ID, which is found on your Discord Developers page.
     * Then, copy the link at the bottom of the page. That is your bot's invite link, anyone who has that link and have the "Manage Server" permission or is the server owner of a server can invite your bot to their server. 
     * To invite the bot to a server, paste the link into your browser, and select the server that you want to add the bot to. Make sure all the required permissions are checked and click "Authorize".

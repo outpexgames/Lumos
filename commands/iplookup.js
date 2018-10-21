@@ -20,10 +20,23 @@ exports.run = function (client, message, args, args2, cmd) {
     if (args.join(' ') === "") {
         return message.channel.send({ embed: embed });
     }
-    else if (args.join(' ') != ""){
+    else if (args.join(' ') != "") {
         ipInfo(args.join(' '), (err, cLoc) => {
-            user.send(JSON.stringify(err || cLoc));
+            // user.send(JSON.stringify(err || cLoc));
+            const embed1 = new Discord.RichEmbed()
+                .setTitle(`${args.join(' ')}'s IP Information - PowerBot Does NOT Log IP Addresses`)
+                .setColor("36393E")
+                .setTimestamp()
+                .addField('IP', cLoc.ip)
+                .addField('Host', cLoc.hostname)
+                .addField('City', cLoc.city)
+                .addField('Region', cLoc.region)
+                .addField('Country', cLoc.country)
+                .addField('Location Cords', cLoc.loc)
+                .addField('Postal/Zip Code', cLoc.postal)
+                .addField('ISP/Organization', cLoc.org)
+            user.send({ embed: embed1 })
         });
     }
-    logger.log('info', `Iplookup command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)    
+    logger.log('info', `Iplookup command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)
 }

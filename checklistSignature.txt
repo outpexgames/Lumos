@@ -1,0 +1,2 @@
+* check if bot name and token are the signature edition's in config.json
+* 
