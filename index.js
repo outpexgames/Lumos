@@ -456,7 +456,8 @@ client.on("message", async message => {  //message handler starts here!
         if (!args.join(" ")) return message.channel.send({ embed: embed })
 
         wolfram = new Wolfram(config.wolfram)
-
+        const { DiscordAPIError } = require('discord.js');
+try {
         wolfram.query(args.join(' '), function (error, result) {
             if (error) {
                 console.log(error);
@@ -525,7 +526,10 @@ client.on("message", async message => {  //message handler starts here!
                 }
             }
         });
-
+    } catch(error) {
+        if (error instanceof DiscordAPIError) Error.captureStackTrace(error);
+        console.error(error);
+    }
 
 
         logger.log('info', `Wolfram command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)
@@ -533,7 +537,13 @@ client.on("message", async message => {  //message handler starts here!
     }
 
     if (command === "test") {
-        client.users.find("id", config.owner).send("Test")
+        try {
+        message.channel.send(null)
+        } catch(error) {
+        console.error(error)
+        }
+
+        // client.users.find("id", config.owner).send("Test")
         message.guild.name
     }
 
@@ -836,6 +846,8 @@ client.on("warn", error => {
 // client.on("err", error => {
 //     console.log(chalk.red(error.replace(token, "HIDDEN")));
 // }); //Broken
+client.on("error", (e) => console.error((chalk.red(e.replace(token,"HIDDEN")))));
+
 client.addListener('DiscordAPIError', function (e) {
     var disapierr = e.error
     console.log(chalk.red(disapierr))
