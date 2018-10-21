@@ -1,6 +1,6 @@
 [![Discord Bots](https://discordbots.org/api/widget/460610749283172353.svg)](https://discordbots.org/bot/460610749283172353)
 [![Waffle.io - Columns and their card count](https://badge.waffle.io/AirFusion45/Power-Bot.svg?columns=all)](https://waffle.io/AirFusion45/Power-Bot)
-[![Build Status](https://travis-ci.org/AirFusion45/Power-Bot.svg?branch=master)](https://travis-ci.org/AirFusion45/Power-Bot)
+[![Build Status](https://travis-ci.org/AirFusion45/Power-Bot.svg?branch=master)](https://travis-ci.org/AirFusion45/Power-Bot?branch=master)
 # Power-Bot
 PowerBot is a multipurpose discord bot made using [discord.js](https://discord.js.org/). 
 Power Bot is now officially public! :)
