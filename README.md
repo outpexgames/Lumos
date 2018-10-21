@@ -1,4 +1,5 @@
 [![Discord Bots](https://discordbots.org/api/widget/460610749283172353.svg)](https://discordbots.org/bot/460610749283172353)
+[![PowerBot](https://bots.ondiscord.xyz/bots/460610749283172353/embed?theme=dark&showGuilds=true)](https://bots.ondiscord.xyz/bots/460610749283172353)
 [![Waffle.io - Columns and their card count](https://badge.waffle.io/AirFusion45/Power-Bot.svg?columns=all)](https://waffle.io/AirFusion45/Power-Bot)
 [![Build Status](https://travis-ci.org/AirFusion45/Power-Bot.svg?branch=master)](https://travis-ci.org/AirFusion45/Power-Bot?branch=master)
 # Power-Bot
@@ -17,7 +18,7 @@ You can host PowerBot on a raspberry pi, or web hosting services like AWS or Her
     * Download the PowerBot code from Github in a zip, and unzip it.
     * Then delete the node modules folder & the .vscode folder.
     * Head over to Discord's Developer Page [here](https://discordapp.com/developers/applications/me) to register a bot. 
-    * After registering a bot, grab the bot's token. This will be used in the next step when the config needs to be filled in. A Discord Bot token should look like this: `MzgxPDY2NDIyODIxODk3MTk0.DhPVkg.2uX5QRrHLNhfU-nDzjK_rgdOJe4`. (<------- This is not a real token.)
+    * After registering a bot, grab the bot's token. This will be used in the next step when the config needs to be filled in. A Discord Bot token should look like this: `MzgxPDyNotARealTokenTk0.DhPVkg.ThisIsNotRealnDzjK_rgdOJe4`. (<------- This is not a real token.)
     * View config (example).json, then create a config.json with all the missing information filled in.
     * Make sure that the newly created config.json is in the folder where the config (example).json is.
     * Open up a command prompt or terminal, and go to the folder where all the files are (cd <file location>)
