@@ -12,7 +12,7 @@ exports.run = function (client, message, args, args2, cmd) {
     const Discord = require('discord.js');
     let user = message.mentions.users.first()
     let member = message.guild.member(user)
-   
+
     const config = require("../config.json");
     const embed = new Discord.RichEmbed()
         .setColor("#f0ffff")
@@ -56,14 +56,16 @@ exports.run = function (client, message, args, args2, cmd) {
         // console.log(okgoogle)
 
         //message.channel.send("\n\n")
+
+
+        message.channel.send({ embed: okgoogle })
+        user.send({ embed: channelsendlol })
         setTimeout(function () {
             message.guild.member(user).kick().catch(err => console.error(err))
         }, 1000);
+        
+        guild.channels.find(val => val.name === "modlog").send({ embed: okgoogle }).catch(err => console.err(err));
 
-        message.channel.send({ embed: okgoogle })
-        user.send({embed: channelsendlol})
-        guild.channels.find("name", "modlog").send({ embed: okgoogle }).catch(err => console.err(err));
-      
     }
     else {
         message.reply(":x: I can not kick " + user)

@@ -87,7 +87,7 @@ client.on('error', console.error);
 
 client.on('guildCreate', async (guild) => {
     console.log(chalk.white(`Joined guild ${guild.name} ID: ${guild.id}  Owner ID: ${guild.ownerID} Size: ${guild.memberCount}`)) //Owner: ${guild.owner.user.tag}
-    logger.log('info', `Joined guild ${guild.name} ID: ${guild.id}  Owner ID: ${guild.ownerID} Size: ${guild.memberCount}`)
+    logger.log('info', `Joined guild ${guild.name} ID: ${guild.id}  Owner ID: ${guild.ownerID} Size: ${guild.memberCount} Time: ${Date()}`)
     settings.set(guild.id, defaultSettings);
     logger.log('info', `Database SET`)
     //add tag -> server id. | default send welcome messages "true"
@@ -121,7 +121,7 @@ client.on('guildCreate', async (guild) => {
 })
 client.on('guildDelete', async (guild) => {
     console.log(chalk.white(`Left/Kicked from guild ${guild.name} ID: ${guild.id}  Owner ID: ${guild.ownerID} Size: ${guild.memberCount}`))
-    logger.log('info', `Left/Kicked from guild ${guild.name} ID: ${guild.id}  Owner ID: ${guild.ownerID} Size: ${guild.memberCount}`)
+    logger.log('info', `Left/Kicked from guild ${guild.name} ID: ${guild.id}  Owner ID: ${guild.ownerID} Size: ${guild.memberCount} Time ${Date()}`)
     settings.delete(guild.id);
     logger.log('info', 'Database DEL')
     //removetag -> using server id 
@@ -132,8 +132,21 @@ client.on('guildDelete', async (guild) => {
 });
 
 client.on('guildMemberAdd', async member => {
-    let guild = member.guild;
-    let welcomeMessages = settings.getProp(guild.id, "welcome");
+    let guild = member.guild; //= settings.getProp(guild.id, "welcome");
+    let welcomeMessages;
+    try {
+        welcomeMessages = settings.getProp(guild.id, "welcome");
+    } catch (err) {
+        // console.log(err.name)
+        // console.log(err.message)
+        console.log(err)
+        if (err.indexOf(" does not exist in the enmap settings") != -1) {
+            settings.set(guild.id, defaultSettings);
+        }
+    }
+    welcomeMessages = settings.getProp(guild.id, "welcome");
+
+
     // const statuss = await WelcomeMsg.findOne({ where: { servID: guild.id } });
     // console.log(guild.id)
     // console.log(statuss)
@@ -148,14 +161,14 @@ client.on('guildMemberAdd', async member => {
             // if(guild.channel.has(guild.id))
             // return guild.channels.get(guild.id)
 
-            if (guild.channels.exists("name", "general"))
-                return guild.channels.find("name", "general");
+            if (guild.channels.has('name', "general"))
+                return guild.channels.find(val => val.name === "general");
 
             // Now we get into the heavy stuff: first channel in order where the bot can speak
             // hold on to your hats!
             return guild.channels
                 .filter(c => c.type === "text" &&
-                    c.permissionsFor(guild.client.user).has("SEND_MESSAGES").catch(err => console.error(err)))
+                    c.permissionsFor(guild.client.user).has("SEND_MESSAGES"))
                 .sort((a, b) => a.position - b.position ||
                     Long.fromString(a.id).sub(Long.fromString(b.id)).toNumber())
                 .first();
@@ -167,10 +180,12 @@ client.on('guildMemberAdd', async member => {
         if (member.user.bot) {
             getDefaultChannel(member.guild).send(`A Wild Bot Has Appeared On The Server... \n The Bot's Name Is: ${member.user} OHHHHHHH... :/`).catch(err => console.error(err));
             logger.log('info', `guildMemberAdd (new member join a guild-Bot) (presence update) triggered by ${member.user.tag} ID: ${member.user.id} Time: ${Date()} Guild: ${guild}`)
+            console.log(`guildMemberAdd (new member join a guild-Bot) (presence update) triggered by ${member.user.tag} ID: ${member.user.id} Time: ${Date()} Guild: ${guild}`)
         }
         else {
             getDefaultChannel(member.guild).send(`Welcome ${member.user} to ${guild.name}`).catch(err => console.error(err));  // channels.find("name", "general")
             logger.log('info', `guildMemberAdd (new member join a guild-user/human) (presence update) triggered by ${member.user.tag} ID: ${member.user.id} Time: ${Date()} Guild: ${guild}`)
+            console.log(`guildMemberAdd (new member join a guild-user/human) (presence update) triggered by ${member.user.tag} ID: ${member.user.id} Time: ${Date()} Guild: ${guild}`)
         }
 
         //     } else {
@@ -184,7 +199,20 @@ client.on('guildMemberAdd', async member => {
 })
 client.on('guildMemberRemove', async member => {
     let guild = member.guild;
-    let welcomeMessages1 = settings.getProp(guild.id, "welcome");
+    let welcomeMessages1;
+    try {
+        welcomeMessages1 = settings.getProp(guild.id, "welcome");
+    } catch (err) {
+        // console.log(err.name)
+        // console.log(err.message)
+        console.log(err)
+        console.log(err.indexOf(" does not exist in the enmap settings") != -1)
+        if (err.name === "TypeError" && err.message === "Cannot convert undefined or null to object" || err.indexOf(" does not exist in the enmap settings") != -1) { //  
+            settings.set(guild.id, defaultSettings);
+        }
+    }
+    welcomeMessages1 = settings.getProp(guild.id, "welcome");
+
 
     // // // SQL: tag -> using server id. if false, returh | else continu
     // // const statusss = await WelcomeMsg.findOne({ where: { servID: guild.id } });
@@ -198,27 +226,30 @@ client.on('guildMemberRemove', async member => {
             // if (guild.channel.has(guild.id))
             //     return guild.channels.get(guild.id)
 
-            if (guild.channels.exists("name", "general"))
-                return guild.channels.find("name", "general");
+
+            if (guild.channels.has('name', "general"))
+                return guild.channels.find(val1 => val1.name === "general");
 
             // Now we get into the heavy stuff: first channel in order where the bot can speak
             // hold on to your hats!
             return guild.channels
                 .filter(c => c.type === "text" &&
-                    c.permissionsFor(guild.client.user).has("SEND_MESSAGES").catch(err => console.error(err)))
+                    c.permissionsFor(guild.client.user).has("SEND_MESSAGES"))
                 .sort((a, b) => a.position - b.position ||
                     Long.fromString(a.id).sub(Long.fromString(b.id)).toNumber())
-                .first().catch(err => console.error(err));
+                .first();
 
         }
         if (member.user.bot) {
             // guild.defaultChannel.send(`Goodbye to Bot ${member.user} :( `);
             getDefaultChannel(member.guild).send(`Goodbye to Bot ${member.user} :( `).catch(err => console.error(err));
             logger.log('info', `guildMemberRemove (member laves a guild-Bot) (presence update) triggered by ${member.user.tag} ID: ${member.user.id} Time: ${Date()} Guild: ${guild}`)
+            console.log(`guildMemberRemove (member laves a guild-Bot) (presence update) triggered by ${member.user.tag} ID: ${member.user.id} Time: ${Date()} Guild: ${guild}`)
         }
         else {
             getDefaultChannel(member.guild).send(`Goodbye to user ${member.user} :(`).catch(err => console.error(err));
             logger.log('info', `guildMemberRemove (member leaves a guild-member/human) (presence update) triggered by ${member.user.tag} ID: ${member.user.id} Time: ${Date()} Guild: ${guild}`)
+            console.log(`guildMemberRemove (member leaves a guild-member/human) (presence update) triggered by ${member.user.tag} ID: ${member.user.id} Time: ${Date()} Guild: ${guild}`)
 
             //         }
             //     } else {
@@ -369,12 +400,29 @@ client.on("message", async message => {  //message handler starts here!
 
     if (command === "serverconf") {
         if ((message.member.hasPermission("MANAGE_MESSAGES") && message.member.hasPermission("MANAGE_GUILD")) || message.member.hasPermission("ADMINISTRATOR") || message.author.id === config.owner) {
-            const guildConf = settings.get(message.guild.id) || defaultSettings;
+            try {
+                const guildConf = settings.get(message.guild.id); // || defaultSettings
+                const key = args[0];
+                // const tagList = await WelcomeMsg.findAll(); //{ attributes: ['ServID'] } WelcomeMsg
+                // const tagString = tagList.map(t => t.name).join(', ') || 'No tags set.';
+                // return message.channel.send(`List of tags: ${tagString}`);
+                let configKeys;
+
+                configKeys = "";
+                Object.keys(guildConf).forEach(key => {
+                    configKeys += `${guildConf[key]}\n`;
+                });
+            } catch (err) {
+                // console.log(err)
+                // console.log(err.indexOf(" does not exist in the enmap settings") != -1)
+                if (err.name === "TypeError" && err.message === "Cannot convert undefined or null to object" || err.indexOf(" does not exist in the enmap settings") != -1) { //  
+                    settings.set(message.guild.id, defaultSettings);
+                }
+
+            }
+            const guildConf = settings.get(message.guild.id); // || defaultSettings
             const key = args[0];
-            // const tagList = await WelcomeMsg.findAll(); //{ attributes: ['ServID'] } WelcomeMsg
-            // const tagString = tagList.map(t => t.name).join(', ') || 'No tags set.';
-            // return message.channel.send(`List of tags: ${tagString}`);
-            let configKeys = "";
+            configKeys = "";
             Object.keys(guildConf).forEach(key => {
                 configKeys += `${guildConf[key]}\n`;
             });
@@ -409,7 +457,27 @@ client.on("message", async message => {  //message handler starts here!
             else {
                 return;
             }
+
+            let guildN = settings.get(message.guild.id); // || defaultSettings
+
+            // const tagList = await WelcomeMsg.findAll(); //{ attributes: ['ServID'] } WelcomeMsg
+            // const tagString = tagList.map(t => t.name).join(', ') || 'No tags set.';
+            // return message.channel.send(`List of tags: ${tagString}`);
+            let configKeys = "";
+            try {
+                Object.keys(guildN).forEach(key => {
+                    configKeys += `${guildN[key]}\n`;
+                })
+            } catch (err) {
+                console.log(err.name)
+                console.log(err.message)
+                if (err.name === "TypeError" && err.message === "Cannot convert undefined or null to object" || err.indexOf(" does not exist in the enmap settings") != -1) {
+                    settings.set(message.guild.id, defaultSettings);
+                }
+            }
+
             settings.setProp(message.guild.id, "welcome", input)
+
             message.reply(`:white_check_mark: Success! Server welcome messages set to ${input}`)
 
             // console.log("done")
@@ -457,79 +525,79 @@ client.on("message", async message => {  //message handler starts here!
 
         wolfram = new Wolfram(config.wolfram)
         const { DiscordAPIError } = require('discord.js');
-try {
-        wolfram.query(args.join(' '), function (error, result) {
-            if (error) {
-                console.log(error);
-                message.edit("Couldn't talk to Wolfram Alpha :(")
-            } else {
-                console.log(JSON.stringify(result));
-                var response = "";
-                if (result.queryresult.$.success == "true") {
-                    message.delete();
-                    if (result.queryresult.hasOwnProperty("warnings")) {
-                        for (var i in result.queryresult.warnings) {
-                            for (var j in result.queryresult.warnings[i]) {
-                                if (j != "$") {
-                                    try {
-                                        message.channel.send(result.queryresult.warnings[i][j][0].$.text);
-                                    } catch (e) {
-                                        console.log("WolframAlpha: failed displaying warning:\n" + e.stack());
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    if (result.queryresult.hasOwnProperty("assumptions")) {
-                        for (var i in result.queryresult.assumptions) {
-                            for (var j in result.queryresult.assumptions[i]) {
-                                if (j == "assumption") {
-                                    try {
-                                        message.channel.send(`Assuming ${result.queryresult.assumptions[i][j][0].$.word} is ${result.queryresult.assumptions[i][j][0].value[0].$.desc}`);
-                                    } catch (e) {
-                                        console.log("WolframAlpha: failed displaying assumption:\n" + e.stack());
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    for (var a = 0; a < result.queryresult.pod.length; a++) {
-                        var pod = result.queryresult.pod[a];
-                        response += "**" + pod.$.title + "**:\n";
-                        for (var b = 0; b < pod.subpod.length; b++) {
-                            var subpod = pod.subpod[b];
-                            //can also display the plain text, but the images are prettier
-                            /*for(var c=0; c<subpod.plaintext.length; c++)
-                            {
-                                response += '\t'+subpod.plaintext[c];
-                            }*/
-                            for (var d = 0; d < subpod.img.length; d++) {
-                                response += "\n" + subpod.img[d].$.src;
-                                message.channel.send(response);
-                                response = "";
-                            }
-                        }
-                        response += "\n";
-                    }
+        try {
+            wolfram.query(args.join(' '), function (error, result) {
+                if (error) {
+                    console.log(error);
+                    message.edit("Couldn't talk to Wolfram Alpha :(")
                 } else {
-                    if (result.queryresult.hasOwnProperty("didyoumeans")) {
-                        var msg = [];
-                        for (var i in result.queryresult.didyoumeans) {
-                            for (var j in result.queryresult.didyoumeans[i].didyoumean) {
-                                msg.push(result.queryresult.didyoumeans[i].didyoumean[j]._);
+                    console.log(JSON.stringify(result));
+                    var response = "";
+                    if (result.queryresult.$.success == "true") {
+                        message.delete();
+                        if (result.queryresult.hasOwnProperty("warnings")) {
+                            for (var i in result.queryresult.warnings) {
+                                for (var j in result.queryresult.warnings[i]) {
+                                    if (j != "$") {
+                                        try {
+                                            message.channel.send(result.queryresult.warnings[i][j][0].$.text);
+                                        } catch (e) {
+                                            console.log("WolframAlpha: failed displaying warning:\n" + e.stack());
+                                        }
+                                    }
+                                }
                             }
                         }
-                        message.edit("Did you mean: " + msg.join(" "));
+                        if (result.queryresult.hasOwnProperty("assumptions")) {
+                            for (var i in result.queryresult.assumptions) {
+                                for (var j in result.queryresult.assumptions[i]) {
+                                    if (j == "assumption") {
+                                        try {
+                                            message.channel.send(`Assuming ${result.queryresult.assumptions[i][j][0].$.word} is ${result.queryresult.assumptions[i][j][0].value[0].$.desc}`);
+                                        } catch (e) {
+                                            console.log("WolframAlpha: failed displaying assumption:\n" + e.stack());
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        for (var a = 0; a < result.queryresult.pod.length; a++) {
+                            var pod = result.queryresult.pod[a];
+                            response += "**" + pod.$.title + "**:\n";
+                            for (var b = 0; b < pod.subpod.length; b++) {
+                                var subpod = pod.subpod[b];
+                                //can also display the plain text, but the images are prettier
+                                /*for(var c=0; c<subpod.plaintext.length; c++)
+                                {
+                                    response += '\t'+subpod.plaintext[c];
+                                }*/
+                                for (var d = 0; d < subpod.img.length; d++) {
+                                    response += "\n" + subpod.img[d].$.src;
+                                    message.channel.send(response);
+                                    response = "";
+                                }
+                            }
+                            response += "\n";
+                        }
                     } else {
-                        message.edit("No results from Wolfram Alpha :(");
+                        if (result.queryresult.hasOwnProperty("didyoumeans")) {
+                            var msg = [];
+                            for (var i in result.queryresult.didyoumeans) {
+                                for (var j in result.queryresult.didyoumeans[i].didyoumean) {
+                                    msg.push(result.queryresult.didyoumeans[i].didyoumean[j]._);
+                                }
+                            }
+                            message.edit("Did you mean: " + msg.join(" "));
+                        } else {
+                            message.edit("No results from Wolfram Alpha :(");
+                        }
                     }
                 }
-            }
-        });
-    } catch(error) {
-        if (error instanceof DiscordAPIError) Error.captureStackTrace(error);
-        console.error(error);
-    }
+            });
+        } catch (error) {
+            if (error instanceof DiscordAPIError) Error.captureStackTrace(error);
+            console.error(error);
+        }
 
 
         logger.log('info', `Wolfram command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)
@@ -538,12 +606,13 @@ try {
 
     if (command === "test") {
         try {
-        message.channel.send(null)
-        } catch(error) {
-        console.error(error)
+            message.channel.send(null)
+        } catch (error) {
+            console.error(error)
         }
 
-        // client.users.find("id", config.owner).send("Test")
+        // client.users.
+        find("id", config.owner).send("Test")
         message.guild.name
     }
 
@@ -681,13 +750,33 @@ try {
     if (command === "getallserver") {
         if (message.author.id === config.owner) {
             let user = message.author;
-            user.send(client.guilds.map(e => e.toString()).join(", "));
+
+            user.send(client.guilds.map(e => e.toString()).join(`, `));
+
         }
         else {
             return message.channel.send("Insufficant Permissions");
         }
         logger.log('info', `getallserver command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date.now()} Guild: ${guild}`)
     }
+
+    if (command === 'getinfoserver') {
+        const getx = client.guilds.find(server => server.id === args.join(' '))
+        message.author.send(getx.name)
+    }
+
+    // if (command === "getallserverid") { // new
+    //     if (message.author.id === config.owner) {
+    //         let user = message.author;
+    //         // let x = 0 
+    //         // user.send(client.guilds.map(e => e.id).join(`[(${x})], `));
+    //         // x++;
+    //     }
+    //     else {
+    //         return message.channel.send("Insufficant Permissions");
+    //     }
+    //     logger.log('info', `getallserver command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date.now()} Guild: ${guild}`)
+    // }
 
     if (command === "broadcast") {
         if (message.author.id === config.owner) {
@@ -703,7 +792,7 @@ try {
                 // return guild.channels.get(guild.id)
 
                 if (guild.channels.exists("name", "general"))
-                    return guild.channels.find("name", "general");
+                    return guild.channels.find(val11 => val11.name === "general");
 
                 // Now we get into the heavy stuff: first channel in order where the bot can speak
                 // hold on to your hats!
@@ -726,7 +815,7 @@ try {
 
     if (command === "leaveserver") {
         if (message.author.id === config.owner) {
-            guild = client.guilds.find("name", args.join(' ')).leave();
+            guild = client.guilds.find(val => val.name === args.join(' ')).leave();
         }
         else message.channel.send("Insufficant Permissions.")
     }
@@ -846,7 +935,9 @@ client.on("warn", error => {
 // client.on("err", error => {
 //     console.log(chalk.red(error.replace(token, "HIDDEN")));
 // }); //Broken
-client.on("error", (e) => console.error((chalk.red(e.replace(token,"HIDDEN")))));
+client.on("error", (error) => {
+    console.error(chalk.red(error.replace(token, "HIDDEN")));
+});
 
 client.addListener('DiscordAPIError', function (e) {
     var disapierr = e.error

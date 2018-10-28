@@ -11,9 +11,9 @@ exports.run = function (client, message, args, args2, cmd) {
         // if(guild.channel.has(guild.id))
         // return guild.channels.get(guild.id)
 
-        if (guild.channels.exists("name", "general"))
-            return guild.channels.find("name", "general");
-
+        if (guild.channels.some(name1 => name1.name === "general"))
+            return guild.channels.find(name => name.name === "general");
+//"name", "general"
         // Now we get into the heavy stuff: first channel in order where the bot can speak
         // hold on to your hats!
         return guild.channels

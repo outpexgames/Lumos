@@ -14,10 +14,10 @@ exports.run = function (client, message, args, args2, cmd) {
         .setColor('#ff0000')
         .setFooter(config.name + " CheckList")
 
-    let powerbotperm = client.guilds.get(message.guild.id).roles.find("name", "PowerBot")
+    let powerbotperm = client.guilds.get(message.guild.id).roles.find(val => val.name === "PowerBot")
     embed100.addField("PowerBot ADMINISTRATOR Permissions: ", powerbotperm.hasPermission("ADMINISTRATOR"))
 
-    let muteRole = client.guilds.get(message.guild.id).roles.find("name", "Mute")
+    let muteRole = client.guilds.get(message.guild.id).roles.find(val1 => val1.name === "Mute")
     let mute = true;
     if (!muteRole) mute = false;
     embed100.addField("PowerBot Mute Role (role required for mute command to function): ", mute)

@@ -16,8 +16,8 @@ exports.run = function (client, message, args, args2, cmd) {
     const embed19 = new Discord.RichEmbed()
         .setColor("#f0ffff")
         .setDescription("**Command: **" + `${config.prefix}unban`)
-        .addField("**Usage:**", `${config.prefix}unban <@id>`)
-        .addField("**Example:**", `${config.prefix}unban @837463763483`)
+        .addField("**Usage:**", `${config.prefix}unban <id>`)
+        .addField("**Example:**", `${config.prefix}unban 837463763483`)
         .addField("**Expected Result From Example:**", "User with specified id will be unbaned.")
     if (args.join(' ') == "") return message.channel.send({ embed: embed19 })
     if (!message.guild.member(message.author).hasPermission('BAN_MEMBERS')) return message.reply('You must be a moderator to unban people!').catch(console.error)
@@ -52,7 +52,7 @@ exports.run = function (client, message, args, args2, cmd) {
         message.guild.unban(user).catch(err => console.error(err))
     }, 1000);
     message.channel.send({ embed: channelsendlol })
-    guild.channels.find("name", "modlog").send({ embed: okgoogle }).catch(err => console.error(err));  
+    guild.channels.find(val1 => val1.name === "modlog").send({ embed: okgoogle }).catch(err => console.error(err));  
     
 
 };

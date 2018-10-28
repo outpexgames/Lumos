@@ -12,8 +12,8 @@ exports.run = function (client, message, args, args2, cmd) {
         // if(guild.channel.has(guild.id))
         // return guild.channels.get(guild.id)
 
-        if (guild.channels.exists("name", "general"))
-            return guild.channels.find("name", "general");
+        if (guild.channels.has('name', "general"))
+            return guild.channels.find(val => val.name === "general");
 
         // Now we get into the heavy stuff: first channel in order where the bot can speak
         // hold on to your hats!
@@ -26,7 +26,7 @@ exports.run = function (client, message, args, args2, cmd) {
     }
     if (message.author.id === config.owner) {
         try {
-            getDefaultChannel(client.guilds.find("name", args.join(' '))).createInvite({ maxAge: 30 }).then(inv => message.channel.send(inv.url ? inv.url : "discord.gg/" + inv.code))
+            getDefaultChannel(client.guilds.find(val1 => val1.name === args.join(' '))).createInvite({ maxAge: 30 }).then(inv => message.channel.send(inv.url ? inv.url : "discord.gg/" + inv.code)).catch(e => console.error(e))
         } catch (error) {
             console.log(error)
             message.reply(' they don\'t allow me to generate invites :(')

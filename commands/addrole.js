@@ -17,7 +17,7 @@ exports.run = function (client, message, args, args2, cmd) {
             .addField("**Example:**", `${config.prefix}addrole @AirFusion Owner`)
             .addField("**Expected Result From Example:**", "AirFusion should have role Owner")
         const member = message.guild.member(message.mentions.users.first());
-        const role = message.guild.roles.find("name", args2.join(' '));
+        const role = message.guild.roles.find(role => role.name === args2.join(' '));
         if (member.id === message.author.id) return message.reply("You cannot add a role to yourself")
         if (!member || !role) return message.channel.send({ embed: embed })
         // async (member, role) => {

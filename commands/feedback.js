@@ -20,7 +20,7 @@ message.channel.send({embed : embed})
 if (args.join(' ')!== "") {
     message.delete(2)
     message.reply("Feedback received from Discord Chatbox! Thank you for your feedback!")
-    client.users.find("id",config.owner).send(`New feedback from ${message.author.tag} from server: ${message.guild.name}. Message/Feedback: ${args.join(' ')}`)
+    client.users.find(val1 => val1.id === config.owner).send(`New feedback from ${message.author.tag} from server: ${message.guild.name}. Message/Feedback: ${args.join(' ')}`)
 }
  logger.log('info', `feedback command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)
 

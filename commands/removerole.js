@@ -18,7 +18,7 @@ exports.run = function (client, message, args, args2, cmd, config) {
             .addField("**Expected Result From Example:**", "Specified role should be removed from mentioned user")
         if (args.join(' ') == "" && args2.join(" ") == "") return message.channel.send({ embed: embed19 })
         let member = message.guild.member(message.mentions.users.first());
-        let role = message.guild.roles.find("name", args2.join(' '));
+        let role = message.guild.roles.find(val => val.name === args2.join(' '));
         if (member.id === message.author.id) return message.reply("You cannot remove a role you have")
         member.removeRole(role)
         .then((GuildMember) => {

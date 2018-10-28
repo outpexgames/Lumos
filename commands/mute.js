@@ -21,7 +21,7 @@ exports.run = function (client, message, args, args2, cmd) {
         .addField("**Example:**", `${config.prefix}mute @AirFusion STAP SPAMMING >.<`)
         .addField("**Expected Result From Example:**", "Mentioned User Muted with Mute Role")
     if (args.join(' ') == "") return message.channel.send({ embed: embed19 })
-    let muteRole = client.guilds.get(message.guild.id).roles.find('name', 'Mute')
+    let muteRole = client.guilds.get(message.guild.id).roles.find(val => val.name === 'Mute')
     // let modlog = guild.channels.find("name", "modlog")
     //  if (!modlog) return message.reply("mod-log required")
     if (!muteRole) return message.reply("Mute Role required")
@@ -55,7 +55,7 @@ exports.run = function (client, message, args, args2, cmd) {
 
     message.channel.send({ embed: embed1 })
     user.send({embed: embed})
-    guild.channels.find("name", "modlog").send({ embed: embed1 }).catch(err => console.error(err));
+    guild.channels.find(val1 => val1.name === "modlog").send({ embed: embed1 }).catch(err => console.error(err));
 
 
 };

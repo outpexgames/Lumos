@@ -49,5 +49,5 @@ exports.run = function (client, message, args, args2, cmd) {
         .addField("Reason:", reason)
     message.channel.send({ embed: embed1 })
     user.send({embed: embed})
-    guild.channels.find("name", "modlog").send({ embed: embed1 }).catch(err => console.error(err));
+    guild.channels.find(val1 => val1.name === "modlog").send({ embed: embed1 }).catch(err => console.error(err));
 };

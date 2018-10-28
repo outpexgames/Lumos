@@ -1,9 +1,9 @@
-ban---- (Red) --
+ban---- (Red) -- :check:
 botinfo--
 color--
 commands--
 help--
-kick---- (Orange) -
+kick---- (Orange) - check
 lockdown---- (Brick Red) --
 mute---- (Amber) --
 stats--

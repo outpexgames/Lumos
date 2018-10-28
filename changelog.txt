@@ -233,4 +233,8 @@ Version 2.8.3
     connected CI, and other intergrations. 
     fixed permissions for clean.js
     
-    
+Version x:
+    Fixed setting errors when setting a value to welcome config without the key being in the database. (https://sentry.io/airfusion/power-bot/issues/744342376/?query=is:unresolved)
+    added ban by ID
+    fixed all/most of the deprecation warnings.
+    check sentry for all errors/bugs fixed.
