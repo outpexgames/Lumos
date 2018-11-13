@@ -137,6 +137,12 @@ client.on('guildDelete', async (guild) => {
 });
 
 client.on('guildMemberAdd', async member => {
+    // This information still needs to be filled in, so please look through ~Eton
+    if(!client.guildMemberEnmap.get(member.guild.id)) return console.log('No Enmap Settings Found');
+    client.guilds.find(t => t.id == member.guild.id).channels.find(t => t.id == client.guildMemberEnmap.get(member.guild.id)).send(WelcomeMessage);
+    
+    
+    // I'm not quite sure if this code is used for something else so I've left it here ~Eton
     let guild = member.guild; //= settings.getProp(guild.id, "welcome");
     let welcomeMessages;
     try {
