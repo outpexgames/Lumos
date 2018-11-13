@@ -39,6 +39,11 @@ const Enmap = require('enmap');
 const Provider = require('enmap-sqlite');
 const settings = new Enmap({ provider: new Provider({ name: "settings" }) }); // settings = welcomeMsg
 
+// guildMemberAdd Message Enmap
+// NOTE: In order for the enmap to be persistant (save on bot shutdown) you need the npm module "better-sqlite-pool"
+const guildMembrAdd = new Enmap({name: "guildMemberAdd"});
+client.guildMemberEnmap = guildMembrAdd;
+
 const defaultSettings = {
     welcome: true
 }
