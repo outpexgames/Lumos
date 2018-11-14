@@ -74,7 +74,7 @@ This is not a command list. Some of the descriptions after the dash are not actu
   * Alexander#4377 (Discord Tag) - Multiple bug reports (-rps, -say, anti spam [WIP]) & suggested -party command & Invited PowerBot to multiple servers :) 
   * D A N#7517 (Discord Tag) - PowerBot Beta Tester & requested -wolfram command
   * Peter da Best#2547 (Discord Tag) - PowerBot "anti-crash" Tester (Great effort on trying to crash the bot!) :)
-  * Eton#4446 - Assisting with Code
+  * Eton#4446 (Discord Tag) - Assisting with Code
   
 # License 
 This Project is licensed under MIT License - see the LICENSE.md file for more details. The main points of the MIT License are:
