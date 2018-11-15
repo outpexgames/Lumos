@@ -1,4 +1,0 @@
-{"level":"info","message":"Ping command used by AirFusion#1243 ID: 243222905188646912 Time: Tue Nov 13 2018 18:11:50 GMT-0800 (Pacific Standard Time) Guild: Bot Dev","timestamp":"2018-11-14T02:11:50.434Z"}
-{"level":"info","message":"guildMemberRemove (member leaves a guild-member/human) (presence update) triggered by FireBirds!#4852 ID: 304431822941454339 Time: Tue Nov 13 2018 18:59:46 GMT-0800 (Pacific Standard Time) Guild: Bot Dev","timestamp":"2018-11-14T02:59:46.086Z"}
-{"level":"info","message":"Serverinfo command used by AirFusion#1243 ID: 243222905188646912 Time: Tue Nov 13 2018 20:27:09 GMT-0800 (Pacific Standard Time) Guild: Bot Dev","timestamp":"2018-11-14T04:27:09.058Z"}
-{"level":"info","message":"guildMemberAdd (new member join a guild-user/human) (presence update) triggered by FireBirds!#4852 ID: 304431822941454339 Time: Tue Nov 13 2018 20:27:40 GMT-0800 (Pacific Standard Time) Guild: Bot Dev","timestamp":"2018-11-14T04:27:40.219Z"}

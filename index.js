@@ -46,7 +46,7 @@ const settings = new Enmap({ provider: new Provider({ name: "settings" }) }); //
 
 const defaultSettings = {
     welcome: true,
-    welcomeChannel : "general"
+    welcomeChannel: "general"
 }
 // var wolfram = require('wolfram').createClient(config.wolfram)
 // const sequelize = new Sequelize('database', 'user', 'password', {
@@ -228,11 +228,14 @@ client.on('guildMemberAdd', async member => {
     }
 
 })
+
+
 client.on('guildMemberRemove', async member => {
     let guild = member.guild;
     let welcomeMessages1;
     try {
         welcomeMessages1 = settings.getProp(guild.id, "welcome");
+        welcomeChanneles = settings.getProp(guild.id, "welcomeChannel");
     } catch (err) {
         // console.log(err.name)
         // console.log(err.message)
@@ -243,6 +246,7 @@ client.on('guildMemberRemove', async member => {
         }
     }
     welcomeMessages1 = settings.getProp(guild.id, "welcome");
+    welcomeChanneles = settings.getProp(guild.id, "welcomeChannel");
 
 
     // // // SQL: tag -> using server id. if false, returh | else continu
@@ -253,32 +257,32 @@ client.on('guildMemberRemove', async member => {
     //     // return message.channel.send(tag.get('description'));
     //     if (statusss.get('messages') === true) {
     if (welcomeMessages1) {
-        function getDefaultChannel(guild) {
-            // if (guild.channel.has(guild.id))
-            //     return guild.channels.get(guild.id)
+        // function getDefaultChannel(guild) {
+        //     // if (guild.channel.has(guild.id))
+        //     //     return guild.channels.get(guild.id)
 
 
-            if (guild.channels.has('name', "general"))
-                return guild.channels.find(val1 => val1.name === "general");
+        //     if (guild.channels.has('name', "general"))
+        //         return guild.channels.find(val1 => val1.name === "general");
 
-            // Now we get into the heavy stuff: first channel in order where the bot can speak
-            // hold on to your hats!
-            return guild.channels
-                .filter(c => c.type === "text" &&
-                    c.permissionsFor(guild.client.user).has("SEND_MESSAGES"))
-                .sort((a, b) => a.position - b.position ||
-                    Long.fromString(a.id).sub(Long.fromString(b.id)).toNumber())
-                .first();
+        //     // Now we get into the heavy stuff: first channel in order where the bot can speak
+        //     // hold on to your hats!
+        //     return guild.channels
+        //         .filter(c => c.type === "text" &&
+        //             c.permissionsFor(guild.client.user).has("SEND_MESSAGES"))
+        //         .sort((a, b) => a.position - b.position ||
+        //             Long.fromString(a.id).sub(Long.fromString(b.id)).toNumber())
+        //         .first();
 
-        }
+        // }
         if (member.user.bot) {
             // guild.defaultChannel.send(`Goodbye to Bot ${member.user} :( `);
-            getDefaultChannel(member.guild).send(`Goodbye to Bot ${member.user} :( `).catch(err => console.error(err));
+            client.guilds.find(t => t.id == member.guild.id).channels.find(t => t.name == welcomeChanneles).send(`Goodbye to Bot ${member.user} :( `).catch(err => console.error(err));
             logger.log('info', `guildMemberRemove (member laves a guild-Bot) (presence update) triggered by ${member.user.tag} ID: ${member.user.id} Time: ${Date()} Guild: ${guild}`)
             console.log(`guildMemberRemove (member laves a guild-Bot) (presence update) triggered by ${member.user.tag} ID: ${member.user.id} Time: ${Date()} Guild: ${guild}`)
         }
         else {
-            getDefaultChannel(member.guild).send(`Goodbye to user ${member.user} :(`).catch(err => console.error(err));
+            client.guilds.find(t => t.id == member.guild.id).channels.find(t => t.name == welcomeChanneles).send(`Goodbye to user ${member.user} :(`).catch(err => console.error(err));
             logger.log('info', `guildMemberRemove (member leaves a guild-member/human) (presence update) triggered by ${member.user.tag} ID: ${member.user.id} Time: ${Date()} Guild: ${guild}`)
             console.log(`guildMemberRemove (member leaves a guild-member/human) (presence update) triggered by ${member.user.tag} ID: ${member.user.id} Time: ${Date()} Guild: ${guild}`)
 
@@ -368,20 +372,31 @@ client.on("message", async message => {  //message handler starts here!
 
             }
             const guildConf = settings.get(message.guild.id); // || defaultSettings
-            console.log(guildConf)
+            // console.log(guildConf.welcome)
+
             const key = args[0];
             configKeys = "";
             Object.keys(guildConf).forEach(key => {
                 configKeys += `${guildConf[key]}\n`;
             });
             // message.channel.send(`The following are the server's current configuration: \`\`\`${configKeys}\`\`\``);
-            
-            const serverconfinfo = new Discord.RichEmbed()
-                .setDescription(`${guild}'s Server Configuration | If true, welcome messages are on, if false, welcome messages are off.`)
-                .setColor("36393E")
-                .addField("Welcome Messages", `${configKeys}`)
-                .addField("Welcome Message Channel", `${configKeys}`)
-            message.channel.send({ embed: serverconfinfo })
+            let welcomeStatus = guildConf.welcome
+            let channelStatus = guildConf.welcomeChannel
+            if (!welcomeStatus) {
+                const serverconfinfo1 = new Discord.RichEmbed()
+                    .setDescription(`**${guild}'s Server Configuration** \n Welcome Messages: <true> means welcome msgs are enabled <false> means they are turned off.  Welcome Message Channel: the channel where welcome msgs will go to if welcome msgs are enabled.`)
+                    .setColor("36393E")
+                    .addField("Welcome Messages", `${welcomeStatus}`) //configKeys.welcome
+                    .addField("Welcome Message Channel", `N/A`)
+                message.channel.send({ embed: serverconfinfo1 })
+            } else {
+                const serverconfinfo = new Discord.RichEmbed()
+                    .setDescription(`${guild}'s Server Configuration | Welcome Messages: <true> means welcome msgs are enabled <false> means they are turned off.  Welcome Message Channel: the channel where welcome msgs will go to if welcome msgs are enabled.`)
+                    .setColor("36393E")
+                    .addField("Welcome Messages", `${welcomeStatus}`) //configKeys.welcome
+                    .addField("Welcome Message Channel", `#${channelStatus}`)
+                message.channel.send({ embed: serverconfinfo })
+            }
         } else {
             message.reply("Insufficant Permissions!")
         }
@@ -451,8 +466,61 @@ client.on("message", async message => {  //message handler starts here!
     }
 
     if (command === "setchannel") {
-        settings.setProp(message.guild.id, "welcomeChannel", args.join(' '))
-        console.log('done')
+        if ((message.member.hasPermission("MANAGE_MESSAGES") && message.member.hasPermission("MANAGE_GUILD")) || message.member.hasPermission("ADMINISTRATOR") || message.author.id === config.owner) {
+            const setmsghelp = new Discord.RichEmbed()
+                .setColor("#f0ffff")
+                .setDescription("**Command: **" + `${config.prefix}setchannel`)
+                .addField("**Usage:**", `${config.prefix}setchannel <the channel for welcome msgs without the hashtag. Just the name of the channel>`)
+                .addField("**Example:**", `${config.prefix}setmsg general`)
+                .addField("**Expected Result From Example:**", "All welcome msgs should go to that channel")
+            //add helper
+            if (args.join(' ') === '') return message.channel.send({ embed: setmsghelp })
+            if (args.join(' ').indexOf('#') > -1) {
+                message.reply("Enter the name of the channel only! Without the hashtag!")
+
+            } else {
+                // let input;
+                // if (args.join(' ') === "true") {
+                //     input = true
+                // }
+                // else if (args.join(' ') === "false") {
+                //     input = false
+                // }
+                // else {
+                //     return;
+                // }
+
+                let guildN = settings.get(message.guild.id); // || defaultSettings
+
+                // const tagList = await WelcomeMsg.findAll(); //{ attributes: ['ServID'] } WelcomeMsg
+                // const tagString = tagList.map(t => t.name).join(', ') || 'No tags set.';
+                // return message.channel.send(`List of tags: ${tagString}`);
+                let configKeys = "";
+                try {
+                    Object.keys(guildN).forEach(key => {
+                        configKeys += `${guildN[key]}\n`;
+                    })
+
+                } catch (err) {
+                    console.log(err.name)
+                    console.log(err.message)
+                    if (err.name === "TypeError" && err.message === "Cannot convert undefined or null to object" || err.indexOf(" does not exist in the enmap settings") != -1) {
+                        settings.set(message.guild.id, defaultSettings);
+                    }
+                }
+
+                settings.setProp(message.guild.id, "welcomeChannel", args.join(' '))
+
+                message.reply(`:white_check_mark: Success! Server welcome channel set to #${args.join(' ')}`)
+
+                // console.log("done")
+            }
+        } else {
+            message.reply("Insufficant Permissions!")
+        }
+
+        // settings.setProp(message.guild.id, "welcomeChannel", args.join(' '))
+        // console.log('done')
     }
     if (command === "prefix") {
         if (message.author.id === config.owner) {
