@@ -1,5 +1,6 @@
 [![Discord Bots](https://discordbots.org/api/widget/460610749283172353.svg)](https://discordbots.org/bot/460610749283172353)
 [![PowerBot](https://bots.ondiscord.xyz/bots/460610749283172353/embed?theme=dark&showGuilds=true)](https://bots.ondiscord.xyz/bots/460610749283172353)
+ [![Bots for Discord](https://botsfordiscord.com/api/bot/460610749283172353/widget)](https://botsfordiscord.com/bots/460610749283172353)
 [![Waffle.io - Columns and their card count](https://badge.waffle.io/AirFusion45/Power-Bot.svg?columns=all)](https://waffle.io/AirFusion45/Power-Bot)
 [![Build Status](https://travis-ci.org/AirFusion45/Power-Bot.svg?branch=master)](https://travis-ci.org/AirFusion45/Power-Bot?branch=master)
 # Power-Bot

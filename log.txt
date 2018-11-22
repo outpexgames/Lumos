@@ -1,0 +1,18 @@
+{"level":"info","message":"Ping command used by AirFusion#1243 ID: 243222905188646912 Time: Thu Nov 22 2018 14:15:44 GMT-0600 (Central Standard Time) Guild: null","timestamp":"2018-11-22T20:15:44.339Z"}
+{"level":"info","message":"Botinfo command used by AirFusion#1243 ID: 243222905188646912 Time: Thu Nov 22 2018 14:16:23 GMT-0600 (Central Standard Time) Guild: null","timestamp":"2018-11-22T20:16:23.774Z"}
+{"level":"info","message":"Botinfo command used by AirFusion#1243 ID: 243222905188646912 Time: Thu Nov 22 2018 14:17:19 GMT-0600 (Central Standard Time) Guild: null","timestamp":"2018-11-22T20:17:19.592Z"}
+{"level":"info","message":"Ping command used by AirFusion#1243 ID: 243222905188646912 Time: Thu Nov 22 2018 14:17:42 GMT-0600 (Central Standard Time) Guild: null","timestamp":"2018-11-22T20:17:42.639Z"}
+{"level":"info","message":"Botinfo command used by AirFusion#1243 ID: 243222905188646912 Time: Thu Nov 22 2018 14:31:51 GMT-0600 (Central Standard Time) Guild: Bot Dev","timestamp":"2018-11-22T20:31:51.126Z"}
+{"level":"info","message":"Botinfo command used by AirFusion#1243 ID: 243222905188646912 Time: Thu Nov 22 2018 14:36:33 GMT-0600 (Central Standard Time) Guild: Bot Dev","timestamp":"2018-11-22T20:36:33.158Z"}
+{"level":"info","message":"Botinfo command used by AirFusion#1243 ID: 243222905188646912 Time: Thu Nov 22 2018 14:37:40 GMT-0600 (Central Standard Time) Guild: Bot Dev","timestamp":"2018-11-22T20:37:40.262Z"}
+{"level":"info","message":"Botinfo command used by AirFusion#1243 ID: 243222905188646912 Time: Thu Nov 22 2018 14:39:07 GMT-0600 (Central Standard Time) Guild: Bot Dev","timestamp":"2018-11-22T20:39:07.003Z"}
+{"level":"info","message":"Botinfo command used by AirFusion#1243 ID: 243222905188646912 Time: Thu Nov 22 2018 14:39:41 GMT-0600 (Central Standard Time) Guild: Bot Dev","timestamp":"2018-11-22T20:39:41.415Z"}
+{"level":"info","message":"Say command used by AirFusion#1243 ID: 243222905188646912 Time: Thu Nov 22 2018 14:56:33 GMT-0600 (Central Standard Time) Guild: Bot Dev","timestamp":"2018-11-22T20:56:33.176Z"}
+{"level":"info","message":"Botinfo command used by AirFusion#1243 ID: 243222905188646912 Time: Thu Nov 22 2018 14:57:10 GMT-0600 (Central Standard Time) Guild: Bot Dev","timestamp":"2018-11-22T20:57:10.802Z"}
+{"level":"info","message":"Botinfo command used by AirFusion#1243 ID: 243222905188646912 Time: Thu Nov 22 2018 14:57:44 GMT-0600 (Central Standard Time) Guild: Bot Dev","timestamp":"2018-11-22T20:57:44.471Z"}
+{"level":"info","message":"Botinfo command used by AirFusion#1243 ID: 243222905188646912 Time: Thu Nov 22 2018 14:57:51 GMT-0600 (Central Standard Time) Guild: Bot Dev","timestamp":"2018-11-22T20:57:51.619Z"}
+{"level":"info","message":"Botinfo command used by AirFusion#1243 ID: 243222905188646912 Time: Thu Nov 22 2018 14:58:52 GMT-0600 (Central Standard Time) Guild: Bot Dev","timestamp":"2018-11-22T20:58:52.613Z"}
+{"level":"info","message":"Botinfo command used by AirFusion#1243 ID: 243222905188646912 Time: Thu Nov 22 2018 14:59:01 GMT-0600 (Central Standard Time) Guild: Bot Dev","timestamp":"2018-11-22T20:59:01.295Z"}
+{"level":"info","message":"Botinfo command used by AirFusion#1243 ID: 243222905188646912 Time: Thu Nov 22 2018 14:59:34 GMT-0600 (Central Standard Time) Guild: Bot Dev","timestamp":"2018-11-22T20:59:34.462Z"}
+{"level":"info","message":"Botinfo command used by AirFusion#1243 ID: 243222905188646912 Time: Thu Nov 22 2018 14:59:39 GMT-0600 (Central Standard Time) Guild: Bot Dev","timestamp":"2018-11-22T20:59:39.647Z"}
+{"level":"info","message":"vote command used by AirFusion#1243 ID: 243222905188646912 Time: Thu Nov 22 2018 15:00:03 GMT-0600 (Central Standard Time) Guild: Bot Dev","timestamp":"2018-11-22T21:00:03.848Z"}
