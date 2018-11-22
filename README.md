@@ -100,4 +100,4 @@ Feel free to contact me if you find bugs, license issues, missing credits, etc. 
   * Discord Contact Information: Discord Tag: AirFusion™#1243
 
 # Note/Notes 
-  When self-hosting PowerBot, we recommend downloading the MASTER branch, as that is the latest stable version. 
+  When self-hosting PowerBot, we recommend downloading the latest release under the releases tab. As that is the most stable version.
