@@ -12,13 +12,14 @@ var base64url = require('base64-url');
 const werd = require('werd')
 const randomWord = require('random-word');
 var antispam = require("discord-anti-spam");
-const Sentry = require('@sentry/node');
-Sentry.init({ dsn: config.sentry });
+// const Sentry = require('@sentry/node');
+// Sentry.init({ dsn: config.sentry });
 const ipInfo = require("ipinfo");
 const winston = require('winston')
 var xkcd = require('xkcd');
 const Sequelize = require('sequelize');
 const filter = require('leo-profanity')
+const { exec } = require("child_process");
 filter.add(config.profanity)
 const os = require("os")
 var logger = new (winston.Logger)({
@@ -42,7 +43,22 @@ const settings = new Enmap({ provider: new Provider({ name: "settings" }) }); //
 // guildMemberAdd Message Enmap
 // NOTE: In order for the enmap to be persistant (save on bot shutdown) you need the npm module "better-sqlite-pool"
 // const welcomeChannel = new Enmap({ provider: new Provider({ name: "welcomeChannel" }) });
+const outputErr = (msg, stdData) => {
+    let { stdout, stderr } = stdData;
+    stderr = stderr ? ["`STDERR`", "```sh", client.clean(stderr.substring(0, 800)) || " ", "```"] : [];
+    stdout = stdout ? ["`STDOUT`", "```sh", client.clean(stdout.substring(0, stderr ? stderr.length : 2046 - 40)) || " ", "```"] : [];
+    let message = stdout.concat(stderr).join("\n").substring(0, 2000);
+    message.edit(message);
+};
 
+const doExec = (cmd, opts = {}) => {
+    return new Promise((resolve, reject) => {
+        exec(cmd, opts, (err, stdout, stderr) => {
+            if (err) return reject({ stdout, stderr });
+            resolve(stdout);
+        });
+    });
+};
 
 const defaultSettings = {
     welcome: true,
@@ -682,9 +698,11 @@ client.on("message", async message => {  //message handler starts here!
                 .addField("Set bot status", "cmd: setstatus <args>")
                 .addField("Get all of the servers bot is in", "cmd: getallserver")
                 .addField("leaves the inputed server. Server name has to be exact.", "cmd: leaveserver <args>")
-                .addField("broadcast a message, including update messages", "cmd: broadcast <message/args>")
+                .addField("broadcast a message", "cmd: broadcast <message/args>")
                 .addField("get log", "cmd: getlog")
                 .addField("Emergency STOP, incase things get out of control", "cmd: killall")
+                .addField("Manual restart", "cmd: restart")
+                .addField("exec cmd/bash scripts", "cmd: exec <args>")
                 .addField("good old eval, evals code from discord chatbox", "cmd: eval <ya code m8 :p>")
                 .addField("change the bot's prefix... For trolling purposes only LOL", "cmd: prefix <new prefix which no one will know>")
                 .addField("spyon servers by gening invites", "cmd:spyon <server name>")
@@ -852,6 +870,24 @@ client.on("message", async message => {  //message handler starts here!
             message.reply("Insufficant Permissions")
         }
     }
+
+    if (command === "restart") {
+
+        if (message.author.id === config.owner) {
+
+            message.channel.send(config.name + " is restarting...")
+            message.reply(":white_check_mark: Restart should be complete, check -botinfo for confirmation.")
+
+            setTimeout(function () {
+                process.abort();
+            }, 1000);
+        } else {
+            message.channel.send("Insufficant Permissions")
+        }
+        logger.log('info', `restart command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date.now()} Guild: ${guild}`)
+
+    }
+
     if (command === "killall") {
         message.author.send(`KILLALL COMMAND HAS BEEN ACTIVATED | ID: ${message.author.id} | Tag: ${message.author.tag} | Server: ${message.guild} `)
         if (message.author.id === config.owner) {
@@ -867,8 +903,19 @@ client.on("message", async message => {  //message handler starts here!
                 console.log(chalk.green("Here are some Information:"))
                 console.log(chalk.green(`Auth: ${message.author.username}#${message.author.discriminator} ID: ${message.author.id}`))
                 console.log(chalk.green(`Timestamp: ${Date()}`))
-                setTimeout(function () {
-                    process.abort();
+                let versionSelector = 0;
+                if (config.name === "PowerBot Signature Edition™#0636") {
+                    let versionSelector = 1;
+                }
+                setTimeout(async function () {
+                    const command = `pm2 stop ${versionSelector}` // add exec cmd to credits NOTE: 0 = powerbot or default host of the code [add in readme that make sure process is in #0 if using pm2] 1 = signature
+                    const outMessage = await message.channel.send(`Running \`${command}\`...`);
+                    let stdOut = await doExec(command).catch(data => outputErr(outMessage, data));
+                    stdOut = stdOut.substring(0, 1750);
+                    outMessage.edit(`\`OUTPUT\`
+              \`\`\`sh
+              ${clean(stdOut)}
+              \`\`\``);
                 }, 3000);
             }
             else {
@@ -878,8 +925,27 @@ client.on("message", async message => {  //message handler starts here!
         } else {
             message.channel.send("Insufficant Permissions")
         }
-        logger.log('Information', `Killall command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date.now()} Guild: ${guild}`)
+        logger.log('info', `Killall command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date.now()} Guild: ${guild}`)
 
+    }
+
+
+
+    if (command === "exec") {
+
+        if (message.author.id === config.owner) {
+            const command = args.join(" ");
+            const outMessage = await message.channel.send(`Running \`${command}\`...`);
+            let stdOut = await doExec(command).catch(data => outputErr(outMessage, data));
+            stdOut = stdOut.substring(0, 1750);
+            outMessage.edit(`\`OUTPUT\`
+      \`\`\`sh
+      ${clean(stdOut)}
+      \`\`\``);
+        } else {
+            message.reply("Only the bot owner can use this command")
+        }
+        logger.log('info', `exec command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date.now()} Guild: ${guild}`)
     }
 
     if (command === "eval") {

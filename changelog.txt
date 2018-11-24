@@ -233,8 +233,18 @@ Version 2.8.3
     connected CI, and other intergrations. 
     fixed permissions for clean.js
     
-Version x:
+Version 2.8.4-patch for 2.8.3:
     Fixed setting errors when setting a value to welcome config without the key being in the database. (https://sentry.io/airfusion/power-bot/issues/744342376/?query=is:unresolved)
     added ban by ID
     fixed all/most of the deprecation warnings.
     check sentry for all errors/bugs fixed.
+
+Version x:
+    added setchannel - select the which channel to drop welcome msgs
+    redid botinfo
+    need watch - did the sorry ran out of requests msg for -yt
+    added exec
+    redid -killall
+    added restart
+    update readme w/ new install instrucs
+    added -vote
