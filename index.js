@@ -225,12 +225,38 @@ client.on('guildMemberAdd', async member => {
         // console.log(getDefaultChannel(guild));
         // console.log(member.guild)
         if (member.user.bot) {
-            client.guilds.find(t => t.id == member.guild.id).channels.find(t => t.name == welcomeChanneles).send(`A Wild Bot Has Appeared On The Server... \n The Bot's Name Is: ${member.user} OHHHHHHH... :/`).catch(err => console.error(err));
+            try {
+                //(node:18440) UnhandledPromiseRejectionWarning: TypeError: Cannot read property 'send' of null
+                client.guilds.find(t => t.id == member.guild.id).channels.find(t => t.name == welcomeChanneles).send(`A Wild Bot Has Appeared On The Server... \n The Bot's Name Is: ${member.user} OHHHHHHH... :/`)
+            } catch (err) {
+                console.log(err.name)
+                if (err.name === "TypeError" && err.message === "Cannot read property 'send' of null" || err.name === "DiscordAPIError" && err.message === "Missing Permissions") { // or missing permissions
+                    settings.setProp(member.guild.id, "welcomeChannel", getDefaultChannel(member.guild).name) //client.guilds.find(t => t.id == member.guild.id).channels.first().name
+                    welcomeChanneles = settings.getProp(guild.id, "welcomeChannel");
+                    client.guilds.find(t => t.id == member.guild.id).channels.find(t => t.name == welcomeChanneles).send(`A Wild Bot Has Appeared On The Server... \n The Bot's Name Is: ${member.user} OHHHHHHH... :/`)
+                    message.reply("The channel you have set for the welcome messages is invalid, the welcome messages channel has been reset to the first channel. Please edit it if needed with the -setchannel command.")
+                }
+            }
+
             logger.log('info', `guildMemberAdd (new member join a guild-Bot) (presence update) triggered by ${member.user.tag} ID: ${member.user.id} Time: ${Date()} Guild: ${guild}`)
             console.log(`guildMemberAdd (new member join a guild-Bot) (presence update) triggered by ${member.user.tag} ID: ${member.user.id} Time: ${Date()} Guild: ${guild}`)
         }
         else {
-            client.guilds.find(t => t.id == member.guild.id).channels.find(t => t.name == welcomeChanneles).send(`Welcome ${member.user} to ${guild.name}`).catch(err => console.error(err));  // channels.find("name", "general")
+
+            try {
+                //(node:18440) UnhandledPromiseRejectionWarning: TypeError: Cannot read property 'send' of null
+                client.guilds.find(t => t.id == member.guild.id).channels.find(t => t.name == welcomeChanneles).send(`Welcome ${member.user} to ${guild.name}`)
+            } catch (err) {
+                console.log(err.name)
+                if (err.name === "TypeError" && err.message === "Cannot read property 'send' of null" || err.name === "DiscordAPIError" && err.message === "Missing Permissions") { // or missing permissions
+                    settings.setProp(member.guild.id, "welcomeChannel", getDefaultChannel(member.guild).name) //client.guilds.find(t => t.id == member.guild.id).channels.first().name
+                    welcomeChanneles = settings.getProp(guild.id, "welcomeChannel");
+                    client.guilds.find(t => t.id == member.guild.id).channels.find(t => t.name == welcomeChanneles).send(`Welcome ${member.user} to ${guild.name}`)
+                    getDefaultChannel(member.guild).send("The channel you have set for the welcome messages is invalid, the welcome messages channel has been reset to the first channel. Please edit it if needed with the -setchannel command.")
+                }
+            }
+
+              // channels.find("name", "general")
             logger.log('info', `guildMemberAdd (new member join a guild-user/human) (presence update) triggered by ${member.user.tag} ID: ${member.user.id} Time: ${Date()} Guild: ${guild}`)
             console.log(`guildMemberAdd (new member join a guild-user/human) (presence update) triggered by ${member.user.tag} ID: ${member.user.id} Time: ${Date()} Guild: ${guild}`)
         }
@@ -264,6 +290,11 @@ client.on('guildMemberRemove', async member => {
     welcomeMessages1 = settings.getProp(guild.id, "welcome");
     welcomeChanneles = settings.getProp(guild.id, "welcomeChannel");
 
+    // let channels1 = client.guilds.find(t => t.id == member.guild.id).channels.map((e => e.toString()).join(" "))
+    // if (channels1.findIndex(welcomeChanneles) === -1) {
+    //     settings.setProp(message.guild.id, "welcomeChannel", client.guilds.find(t => t.id == member.guild.id).channels.first)
+    // }
+    // welcomeChanneles = settings.getProp(guild.id, "welcomeChannel");
 
     // // // SQL: tag -> using server id. if false, returh | else continu
     // // const statusss = await WelcomeMsg.findOne({ where: { servID: guild.id } });
@@ -291,14 +322,55 @@ client.on('guildMemberRemove', async member => {
         //         .first();
 
         // }
+        function getDefaultChannel(guild) {
+            // if(guild.channel.has(guild.id))
+            // return guild.channels.get(guild.id)
+
+            // if (guild.channels.exists("name", "general"))
+            //     return guild.channels.find(val11 => val11.name === "general");
+
+            // Now we get into the heavy stuff: first channel in order where the bot can speak
+            // hold on to your hats!
+            return guild.channels
+                .filter(c => c.type === "text" &&
+                    c.permissionsFor(guild.client.user).has("SEND_MESSAGES"))
+                .sort((a, b) => a.position - b.position ||
+                    Long.fromString(a.id).sub(Long.fromString(b.id)).toNumber())
+                .first();
+        }
+
         if (member.user.bot) {
             // guild.defaultChannel.send(`Goodbye to Bot ${member.user} :( `);
-            client.guilds.find(t => t.id == member.guild.id).channels.find(t => t.name == welcomeChanneles).send(`Goodbye to Bot ${member.user} :( `).catch(err => console.error(err));
+            //UnhandledPromiseRejectionWarning: DiscordAPIError: Missing Permissions
+            try {
+                //(node:18440) UnhandledPromiseRejectionWarning: TypeError: Cannot read property 'send' of null
+                client.guilds.find(t => t.id == member.guild.id).channels.find(t => t.name == welcomeChanneles).send(`Goodbye to Bot ${member.user} :( `)
+            } catch (err) {
+                console.log(err.name)
+                if (err.name === "TypeError" && err.message === "Cannot read property 'send' of null" || err.name === "DiscordAPIError" && err.message === "Missing Permissions") { // or missing permissions
+                    settings.setProp(member.guild.id, "welcomeChannel", getDefaultChannel(member.guild).name) //client.guilds.find(t => t.id == member.guild.id).channels.first().name
+                    welcomeChanneles = settings.getProp(guild.id, "welcomeChannel");
+                    client.guilds.find(t => t.id == member.guild.id).channels.find(t => t.name == welcomeChanneles).send(`Goodbye to Bot ${member.user} :( `)
+                    message.reply("The channel you have set for the welcome messages is invalid, the welcome messages channel has been reset to the first channel. Please edit it if needed with the -setchannel command.")
+                }
+            }
             logger.log('info', `guildMemberRemove (member laves a guild-Bot) (presence update) triggered by ${member.user.tag} ID: ${member.user.id} Time: ${Date()} Guild: ${guild}`)
             console.log(`guildMemberRemove (member laves a guild-Bot) (presence update) triggered by ${member.user.tag} ID: ${member.user.id} Time: ${Date()} Guild: ${guild}`)
         }
         else {
-            client.guilds.find(t => t.id == member.guild.id).channels.find(t => t.name == welcomeChanneles).send(`Goodbye to user ${member.user} :(`).catch(err => console.error(err));
+            try {
+                //(node:18440) UnhandledPromiseRejectionWarning: TypeError: Cannot read property 'send' of null
+                client.guilds.find(t => t.id == member.guild.id).channels.find(t => t.name == welcomeChanneles).send(`Goodbye to user ${member.user} :(`)
+            } catch (err) {
+                console.log(err.name)
+                if (err.name === "TypeError" && err.message === "Cannot read property 'send' of null" || err.name === "DiscordAPIError" && err.message === "Missing Permissions") { // or missing permissions
+                    settings.setProp(member.guild.id, "welcomeChannel", getDefaultChannel(member.guild).name) //client.guilds.find(t => t.id == member.guild.id).channels.first().name
+                    welcomeChanneles = settings.getProp(guild.id, "welcomeChannel");
+                    client.guilds.find(t => t.id == member.guild.id).channels.find(t => t.name == welcomeChanneles).send(`Goodbye to user ${member.user} :(`)
+                    getDefaultChannel(member.guild).send("The channel you have set for the welcome messages is invalid, the welcome messages channel has been reset to the first channel. Please edit it if needed with the -setchannel command.")
+                }
+            }
+
             logger.log('info', `guildMemberRemove (member leaves a guild-member/human) (presence update) triggered by ${member.user.tag} ID: ${member.user.id} Time: ${Date()} Guild: ${guild}`)
             console.log(`guildMemberRemove (member leaves a guild-member/human) (presence update) triggered by ${member.user.tag} ID: ${member.user.id} Time: ${Date()} Guild: ${guild}`)
 
@@ -511,7 +583,7 @@ client.on("message", async message => {  //message handler starts here!
                 // const tagList = await WelcomeMsg.findAll(); //{ attributes: ['ServID'] } WelcomeMsg
                 // const tagString = tagList.map(t => t.name).join(', ') || 'No tags set.';
                 // return message.channel.send(`List of tags: ${tagString}`);
-                let configKeys = "";
+                let configKeys = ""; // for when there is no true or false welcome channels.
                 try {
                     Object.keys(guildN).forEach(key => {
                         configKeys += `${guildN[key]}\n`;
@@ -525,11 +597,32 @@ client.on("message", async message => {  //message handler starts here!
                     }
                 }
 
+
+                try {
+                    let test = client.guilds.find(t => t.id == message.guild.id).channels.find(val => val.name === args.join(' ')).id
+                } catch (err) {
+                    message.reply("Please use a channel that is accessible by the bot!")
+                    console.error(err)
+                    return;
+                }
+
+
+                // let channels1 = client.guilds.find(t => t.id == message.guild.id).channels.map(e => e.toString()).join(' ')
+                // if (channels1.findIndex(args.join(' ')) === -1) {
+
+                // } // check if args is part of channel arr 
+                // else {
+
+                // if (channels1.findIndex(welcomeChanneles) === -1) {
+                //     settings.setProp(message.guild.id, "welcomeChannel", client.guilds.find(t => t.id == member.guild.id).channels.first)
+                // }
+
                 settings.setProp(message.guild.id, "welcomeChannel", args.join(' '))
 
                 message.reply(`:white_check_mark: Success! Server welcome channel set to #${args.join(' ')}`)
-
+                //}
                 // console.log("done")
+
             }
         } else {
             message.reply("Insufficant Permissions!")

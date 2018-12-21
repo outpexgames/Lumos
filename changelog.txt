@@ -248,3 +248,5 @@ Version x:
     added restart
     update readme w/ new install instrucs
     added -vote
+    updated welcome msgs to reflect setchannel changes
+    
