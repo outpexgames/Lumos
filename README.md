@@ -97,7 +97,9 @@ Here are credits for all the code I used that was from other repositories.
 # Contact Me
 Feel free to contact me if you find bugs, license issues, missing credits, etc. I am currently only giving out my Discord contact information, but feel free to contact me via Discord. If things become complicated, then I will release my email address.
 
-  * Discord Contact Information: Discord Tag: AirFusion™#1243
+  * Please contact me here:
+    * Email: jfang.cv.ca.us@gmail.com OR jim@jimfang.me
+    * Discord: AirFusion#1706
 
 # Note/Notes 
   When self-hosting PowerBot, we recommend downloading the latest release under the releases tab. As that is the most stable version.
