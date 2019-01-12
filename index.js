@@ -12,8 +12,8 @@ var base64url = require('base64-url');
 const werd = require('werd')
 const randomWord = require('random-word');
 var antispam = require("discord-anti-spam");
-// const Sentry = require('@sentry/node');
-// Sentry.init({ dsn: config.sentry });
+const Sentry = require('@sentry/node'); //Ln 15 & 16 are optional. Sentry Tracking
+Sentry.init({ dsn: config.sentry });
 const ipInfo = require("ipinfo");
 const winston = require('winston')
 var xkcd = require('xkcd');
@@ -793,8 +793,8 @@ client.on("message", async message => {  //message handler starts here!
                 .addField("leaves the inputed server. Server name has to be exact.", "cmd: leaveserver <args>")
                 .addField("broadcast a message", "cmd: broadcast <message/args>")
                 .addField("get log", "cmd: getlog")
-                .addField("Emergency STOP, incase things get out of control", "cmd: killall")
-                .addField("Manual restart", "cmd: restart")
+                .addField("Emergency STOP, incase things get out of control requires pm2, otherwise use restart", "cmd: killall")
+                .addField("Manual restart", "cmd: restart requries pm2, otherwise works as a killall cmd")
                 .addField("exec cmd/bash scripts", "cmd: exec <args>")
                 .addField("good old eval, evals code from discord chatbox", "cmd: eval <ya code m8 :p>")
                 .addField("change the bot's prefix... For trolling purposes only LOL", "cmd: prefix <new prefix which no one will know>")

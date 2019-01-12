@@ -239,7 +239,7 @@ Version 2.8.4-patch for 2.8.3:
     fixed all/most of the deprecation warnings.
     check sentry for all errors/bugs fixed.
 
-Version x:
+Version 2.8.5 - Last Update (More info here: https://docs.google.com/document/d/1MayXI-5Timrbmyfph3joc9w4KEJ0Pr_Dhk0QZpHWR6Y/edit?usp=sharing):
     added setchannel - select the which channel to drop welcome msgs
     redid botinfo
     need watch - did the sorry ran out of requests msg for -yt
@@ -247,6 +247,6 @@ Version x:
     redid -killall
     added restart
     update readme w/ new install instrucs
-    added -vote
+    added -vote // need to update links for selfhosters.
     updated welcome msgs to reflect setchannel changes
     
