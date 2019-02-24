@@ -61,7 +61,7 @@ module.exports = message => {
         cmdFile.run(client, message, args, args2, config, Discord);
 
     } catch (error) {
-        console.log(`Command ${command} faliled\n${error.stack}`);
+        console.log(`Command ${command} failed\n${error.stack}`);
     }
 
 };
