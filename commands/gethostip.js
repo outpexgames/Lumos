@@ -14,8 +14,6 @@ exports.run = function (client, message, args, args2, cmd) {
 
         let user = message.author;
         ipInfo((err, cLoc) => {
-            // user.send(cLoc.ip + cLoc.hostname)
-            // user.send(JSON.stringify(err || cLoc));
             const embed = new Discord.RichEmbed()
                 .setTitle("PowerBot's Host's IP Information - PowerBot Does NOT Log IP Addresses")
                 .setColor("36393E")
@@ -28,7 +26,7 @@ exports.run = function (client, message, args, args2, cmd) {
                 .addField('Location Cords', cLoc.loc)
                 .addField('Postal/Zip Code', cLoc.postal)
                 .addField('ISP/Organization', cLoc.org)
-            user.send({embed: embed})
+            user.send({ embed: embed })
 
         })
         logger.log('info', `gethostip command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)

@@ -1,17 +1,17 @@
 {
   "prefix": "-", //Bot prefix
   "token": "", //Discord token
-  "owner": "", // OwnerID
-  "yt": "", // Token from Google Dev portal
-  "pastebin": "", // API Token
-  "wolfram": "", // Wolfram Alpha token
+  "owner": "", // Owner's discord ID
+  "yt": "", // Token from Google Dev portal https://www.youtube.com/watch?v=VuHLskIdT84
+  "pastebin": "", // API Token https://pastebin.com/api
+  "wolfram": "", // Wolfram Alpha token https://products.wolframalpha.com/api/ --> Get API access for free
   "name": "",  // Bot name + Discrim
   "ownerTag": "", // Owner Discord username + discrim
-  "invLink": "", //Bot invite link
+  "invLink": "", //Bot invite link w/ permissions
   "createMuteRoleUponJoin": false,
   "uploadtoPastebinEval": true,
   "uploadtoFileEval": true,
-  "Gcx": "", //Google custom search key for -google cmd
-  "profanity": [], //seprate additional profanity for -say command using  , in str form. 
-  "sentry" : "" // sentry tracking... Optional
+  "Gcx": "", //Google custom search key for -google cmd https://cse.google.com/cse/all --> create new search engine that searches all of Google
+  "profanity": [], //seprate additional profanity for -say command using  , in str form. ex: ["xxx", "xxxxx", "xxxxx"]
+  "sentry" : "" // sentry tracking... Optional https://sentry.io/signup/ --> create project and place sentry dsn here. See lines 19 & 20 in index.js for more info
 }

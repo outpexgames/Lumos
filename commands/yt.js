@@ -32,7 +32,6 @@ exports.run = function (client, message, args, args2, cmd) {
             } else {
                 localStorage.setItem('Youtube-Search-Feedback.json', JSON.stringify(result, null, 2));
                 message.channel.send({ files: ['Youtube-Search-Feedback.json'] });
-                // console.log(JSON.stringify(result, null, 2))
                 let beforeid = "nothing"
                 let id = "nothing"
                 if (result.items[0].id.kind === "youtube#video") {

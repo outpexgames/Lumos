@@ -18,6 +18,5 @@ exports.run = function (client, message, args, args2, cmd) {
     if (args.join(' ') == "") return message.channel.send({ embed: embed1 })
     const search = client.emojis.find(val => val.name === args.join(' '));
     message.channel.send(`${search}`);
-    logger.log('info', `Emojisearch command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)    
-    
+    logger.log('info', `Emojisearch command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)
 }

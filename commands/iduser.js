@@ -18,7 +18,6 @@ exports.run = function (client, message, args, args2, cmd) {
     if (args.join(' ') == "") return message.channel.send({ embed: embed1 })
     if (!client.users.get(args.join(' '))) return message.reply("No such user on file.")
     message.channel.send(client.users.get(args.join(' ')).username + "#" + client.users.get(args.join(' ')).discriminator);
-
     logger.log('info', `Iduser command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)
 
 }

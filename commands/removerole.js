@@ -21,19 +21,19 @@ exports.run = function (client, message, args, args2, cmd, config) {
         let role = message.guild.roles.find(val => val.name === args2.join(' '));
         if (member.id === message.author.id) return message.reply("You cannot remove a role you have")
         member.removeRole(role)
-        .then((GuildMember) => {
-            message.channel.send(`::white_check_mark: Role ${role} has been removed from ${member} `)
-        })
-     .catch((err) => {
-         console.log(err)
-         message.channel.send(`:x: Was not able to remove Role ${role} from ${member} `)
-         message.channel.send("**Error:** " + err.message + " **Code:** " + err.code)
-         return;
-     })
+            .then((GuildMember) => {
+                message.channel.send(`::white_check_mark: Role ${role} has been removed from ${member} `)
+            })
+            .catch((err) => {
+                console.log(err)
+                message.channel.send(`:x: Was not able to remove Role ${role} from ${member} `)
+                message.channel.send("**Error:** " + err.message + " **Code:** " + err.code)
+                return;
+            })
     }
     else {
         message.channel.send('You do not have the permission MANAGE_ROLES_OR_PERMISSIONS');
     }
-    logger.log('info', `Removerole command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)    
-    
+    logger.log('info', `Removerole command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)
+
 };

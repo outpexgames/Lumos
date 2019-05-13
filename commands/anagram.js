@@ -17,23 +17,15 @@ exports.run = function (client, message, args, args2, cmd) {
         .addField("**Example:**", `${config.prefix}anagram aaab baaa`)
         .addField("**Expected Result From Example:**", "Anagram")
     var second = args2.join(' ');
-    if (!first || !second) return message.channel.send({embed: embed})
-        // message.channel.send("You need to provide the first word!")
-        // stop();
-    
-    // else if (!second) {
-    //     message.channel.send("You need to provide the second word!")
-    //     stop();
-    // }
+    if (!first || !second) return message.channel.send({ embed: embed })
     first = first.replace(second, "")
     first = first.replace(" ", "")
     var reverse = first.split("").reverse().join("");
-
     if (reverse === second) {
         message.channel.send("Anagram");
     } else {
         message.channel.send("Not Anagram");
     }
-    logger.log('info', `Anagram command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)    
-    
+    logger.log('info', `Anagram command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)
+
 };

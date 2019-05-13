@@ -26,6 +26,6 @@ exports.run = function (client, message, args, args2, cmd) {
     if (!low) return message.reply("You need a low range number");
     if (!args2.join(' ')) return message.reply("You need a high range number");
     message.channel.send(ans)
-    logger.log('info', `Numrand command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)    
-    
+    logger.log('info', `Numrand command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)
+
 }

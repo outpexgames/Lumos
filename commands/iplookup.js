@@ -22,7 +22,6 @@ exports.run = function (client, message, args, args2, cmd) {
     }
     else if (args.join(' ') != "") {
         ipInfo(args.join(' '), (err, cLoc) => {
-            // user.send(JSON.stringify(err || cLoc));
             const embed1 = new Discord.RichEmbed()
                 .setTitle(`${args.join(' ')}'s IP Information - PowerBot Does NOT Log IP Addresses`)
                 .setColor("36393E")

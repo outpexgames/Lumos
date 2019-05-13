@@ -19,5 +19,5 @@ exports.run = function (client, message, args, args2, cmd) {
     let numArray = args.map(n => parseInt(n));
     let total = numArray.reduce((p, c) => p * c);
     message.channel.send(total);
-    logger.log('info', `Multi command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)        
+    logger.log('info', `Multi command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)
 };

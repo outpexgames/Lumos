@@ -19,6 +19,6 @@ exports.run = function (client, message, args, args2, cmd) {
     let inpuit = args;
     let answer = Math.sqrt(inpuit)
     message.channel.send(answer);
-    logger.log('info', `Sqrt command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)    
-    
+    logger.log('info', `Sqrt command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)
+
 };

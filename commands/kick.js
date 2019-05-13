@@ -28,7 +28,7 @@ exports.run = function (client, message, args, args2, cmd) {
     if (user === message.author) return message.reply("You cannot kick yourself")
     if (message.guild.member(member) && member.kickable) {
         const channelsendlol = new Discord.RichEmbed()
-            .setColor('#ff8c00') //change the color!!!
+            .setColor('#ff8c00')
             .setTimestamp()
             .setThumbnail(user.avatarURL)
             .addField('Action:', "Kick")
@@ -37,13 +37,9 @@ exports.run = function (client, message, args, args2, cmd) {
             .addField("Moderator:", message.author.username + "#" + message.author.discriminator)
             .addField("Reason:", reason)
             .addField("Server:", message.guild)
-        //  console.log(channelsendlol)
 
-
-
-        // user.send('You have been kicked');
         const okgoogle = new Discord.RichEmbed() // modlog send
-            .setColor('#ff8c00') //change the color!!!
+            .setColor('#ff8c00')
             .setTimestamp()
             .setThumbnail(user.avatarURL)
             .addField('Action:', "Kick")
@@ -51,25 +47,15 @@ exports.run = function (client, message, args, args2, cmd) {
             .addField("User ID:", user.id)
             .addField("Moderator:", message.author.username + "#" + message.author.discriminator)
             .addField("Reason:", reason)
-        //  .addField('Kicked User ID: ', `${message.mentions.users.first().id}`)
-
-        // console.log(okgoogle)
-
-        //message.channel.send("\n\n")
-
 
         message.channel.send({ embed: okgoogle })
         user.send({ embed: channelsendlol })
         setTimeout(function () {
             message.guild.member(user).kick().catch(err => console.error(err))
         }, 1000);
-        
         guild.channels.find(val => val.name === "modlog").send({ embed: okgoogle }).catch(err => console.err(err));
-
     }
     else {
         message.reply(":x: I can not kick " + user)
     }
-
-
 };

@@ -29,7 +29,7 @@ const fs = require('fs');
 const dir = './commands'; //check if work or not...
 let commandsLength = 0;
 fs.readdir(dir, (err, files) => {
-  commandsLength=(files.length);
+    commandsLength = (files.length);
 });
 
 exports.run = function (client, message, args, args2, cmd) {
@@ -64,8 +64,6 @@ exports.run = function (client, message, args, args2, cmd) {
         .addField(`:regional_indicator_h: :regional_indicator_o: :regional_indicator_s: :regional_indicator_t: Host Name`, `${os.hostname}`, true)
         .addField(`:white_check_mark: Host OS`, `${os.platform}`, true)
 
-    //    .addField(`:electric_plug: CPU Usage:`,);
-
     if (args.join(' ') === "nerdy") {
         message.channel.send({ embed: embed })
     }
@@ -80,10 +78,10 @@ exports.run = function (client, message, args, args2, cmd) {
             .addField('🤵 Total Users', (totalPeople - botNumber), true)
             .addField(':arrow_left: Prefix', config.prefix, true)
             .addField(':clipboard: # of Commands - Some not accessable to users', commandsLength - 1 + 20, true)
-            .addField(`${brokenglass} Shards`, 'N/A',true)
+            .addField(`${brokenglass} Shards`, 'N/A', true)
             .addField(`:heart: Upvote ${config.name}`, `[Discord Bot List (discordbots.org)](https://discordbots.org/bot/460610749283172353)\n[Discord Bot List](https://discordbotlist.com/bots/460610749283172353)\n[Bots on Discord](https://bots.ondiscord.xyz/bots/460610749283172353)\n[Bots for Discord](https://botsfordiscord.com/bots/460610749283172353)`, true) // check if this is working with the custom emoji
             .addField(`:moneybag: Donate`, `[DonateBot](https://donatebot.io/checkout/430303752357019648)\n[Patreon](https://www.patreon.com/airfusion)`, true) //check if everything runs here.
-            message.channel.send({ embed: embednotNerdy })
-        }
+        message.channel.send({ embed: embednotNerdy })
+    }
     logger.log('info', `Botinfo command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)
 };

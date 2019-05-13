@@ -20,6 +20,6 @@ exports.run = function (client, message, args, args2, cmd, cmd2) {
     else {
         message.reply(":x: Insufficant Permissions!")
     }
-    logger.log('info', `Reload command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)    
-    
+    logger.log('info', `Reload command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)
+
 };

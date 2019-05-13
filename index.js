@@ -1,3 +1,7 @@
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Jim Fang. All rights reserved.
+ *  Licensed under the MIT License. See LICENSE in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
 
 const Discord = require('discord.js');
 const client = new Discord.Client();
@@ -18,6 +22,8 @@ const ipInfo = require("ipinfo");
 const winston = require('winston')
 var xkcd = require('xkcd');
 const Sequelize = require('sequelize');
+var Wolfram = require('node-wolfram')
+require('./util/eventLoader')(client);
 const filter = require('leo-profanity')
 const { exec } = require("child_process");
 filter.add(config.profanity)
@@ -38,11 +44,8 @@ var pastebin = require('./node_modules/pastebin/src/pastebin.js')(config.pastebi
 const { binary } = require('./util.js')
 const Enmap = require('enmap');
 const Provider = require('enmap-sqlite');
-const settings = new Enmap({ provider: new Provider({ name: "settings" }) }); // settings = welcomeMsg
+const settings = new Enmap({ provider: new Provider({ name: "settings" }) });
 
-// guildMemberAdd Message Enmap
-// NOTE: In order for the enmap to be persistant (save on bot shutdown) you need the npm module "better-sqlite-pool"
-// const welcomeChannel = new Enmap({ provider: new Provider({ name: "welcomeChannel" }) });
 const outputErr = (msg, stdData) => {
     let { stdout, stderr } = stdData;
     stderr = stderr ? ["`STDERR`", "```sh", client.clean(stderr.substring(0, 800)) || " ", "```"] : [];
@@ -51,7 +54,7 @@ const outputErr = (msg, stdData) => {
     message.edit(message);
 };
 
-const doExec = (cmd, opts = {}) => {
+const doExec = (cmd, opts = {}) => { // -exec func
     return new Promise((resolve, reject) => {
         exec(cmd, opts, (err, stdout, stderr) => {
             if (err) return reject({ stdout, stderr });
@@ -64,40 +67,8 @@ const defaultSettings = {
     welcome: true,
     welcomeChannel: "general"
 }
-// var wolfram = require('wolfram').createClient(config.wolfram)
-// const sequelize = new Sequelize('database', 'user', 'password', {
-//     host: 'localhost',
-//     dialect: 'sqlite',
-//     logging: false,
-//     operatorsAliases: false,
-//     // SQLite only
-//     storage: 'database.sqlite',
-// });
-// //const WelcomeMsg = 
-// const WelcomeMsg = sequelize.define('welcomeMsg', {
-//     servID: {
-//         type: Sequelize.STRING,
-//         unique: true,
-//     },
-//     messages: {
-//         type: Sequelize.BOOLEAN,
-//         defaultValue: true,
-//         allowNull: false
-//     }
-//     // username: Sequelize.STRING,
-//     // usage_count: {
-//     //     type: Sequelize.INTEGER,
-//     //     defaultValue: 0,
-//     //     allowNull: false,
-//     // },
-// });
 
-// WelcomeMsg.sync();
-// WelcomeMsg.sync({ force: true });
 
-var Wolfram = require('node-wolfram')
-
-require('./util/eventLoader')(client);
 
 function getRandomIntInclusive(min, max) {
     min = Math.ceil(min);
@@ -108,26 +79,10 @@ function getRandomIntInclusive(min, max) {
 client.on('error', console.error);
 
 client.on('guildCreate', async (guild) => {
-    console.log(chalk.white(`Joined guild ${guild.name} ID: ${guild.id}  Owner ID: ${guild.ownerID} Size: ${guild.memberCount}`)) //Owner: ${guild.owner.user.tag}
+    console.log(chalk.white(`Joined guild ${guild.name} ID: ${guild.id}  Owner ID: ${guild.ownerID} Size: ${guild.memberCount}`))
     logger.log('info', `Joined guild ${guild.name} ID: ${guild.id}  Owner ID: ${guild.ownerID} Size: ${guild.memberCount} Time: ${Date()}`)
     settings.set(guild.id, defaultSettings);
     logger.log('info', `Database SET`)
-    //add tag -> server id. | default send welcome messages "true"
-    // try {
-    //     // equivalent to: INSERT INTO tags (name, descrption, username) values (?, ?, ?);
-    //     const welmsg = await WelcomeMsg.create({
-    //         servID: guild.id,
-    //         messages: true
-    //     });
-    //     // return message.reply(`Tag ${tag.name} added.`);
-    //     return console.log("data added");
-    // }
-    // catch (e) {
-    //     if (e.name === 'SequelizeUniqueConstraintError') {
-    //         return console.log('That tag already exists.');
-    //     }
-    //     return console.log('Something went wrong with adding a tag.');
-    // }
     if (config.createMuteRoleUponJoin) {
         guild.createRole({
             name: `Mute`,
@@ -146,29 +101,16 @@ client.on('guildDelete', async (guild) => {
     logger.log('info', `Left/Kicked from guild ${guild.name} ID: ${guild.id}  Owner ID: ${guild.ownerID} Size: ${guild.memberCount} Time ${Date()}`)
     settings.delete(guild.id);
     logger.log('info', 'Database DEL')
-    //removetag -> using server id 
-    // const rowCount = await WelcomeMsg.destroy({ where: { servID: guild.id } });
-    // if (!rowCount) return console.log('That server tag did not exist.');
-
-    // return console.log('server tag deleted.');
 });
 
 client.on('guildMemberAdd', async member => {
-    // This information still needs to be filled in, so please look through ~Eton
-    // if (!settings.getProp(guild.id, "welcomeChannel")) return console.log('No Enmap Settings Found');
-    // client.guilds.find(t => t.id == member.guild.id).channels.find(t => t.id == client.guildMemberEnmap.get(member.guild.id)).send("Welcome!");
-
-
-    // I'm not quite sure if this code is used for something else so I've left it here ~Eton
-    let guild = member.guild; //= settings.getProp(guild.id, "welcome");
+    let guild = member.guild;
     let welcomeMessages;
     let welcomeChanneles;
     try {
         welcomeMessages = settings.getProp(guild.id, "welcome");
         welcomeChanneles = settings.getProp(guild.id, "welcomeChannel");
     } catch (err) {
-        // console.log(err.name)
-        // console.log(err.message)
         console.log(err)
         if (err.indexOf(" does not exist in the enmap settings") != -1) {
             settings.set(guild.id, defaultSettings);
@@ -177,61 +119,14 @@ client.on('guildMemberAdd', async member => {
     welcomeMessages = settings.getProp(guild.id, "welcome");
     welcomeChanneles = settings.getProp(guild.id, "welcomeChannel");
 
-    // const statuss = await WelcomeMsg.findOne({ where: { servID: guild.id } });
-    // console.log(guild.id)
-    // console.log(statuss)
-    // if (statuss) {
-    // equivalent to: UPDATE tags SET usage_count = usage_count + 1 WHERE name = 'tagName';
-    // tag.increment('usage_count');
-    // return message.channel.send(tag.get('description'));
-    // if (statuss.get('messages') === true) {
     if (welcomeMessages) {
-
-        // function getDefaultChannel(guild) {
-        //     // if(guild.channel.has(guild.id))
-        //     // return guild.channels.get(guild.id)
-
-        //     if (guild.channels.has('name', "general"))
-        //         return guild.channels.find(val => val.name === "general");
-
-        //     // Now we get into the heavy stuff: first channel in order where the bot can speak
-        //     // hold on to your hats!
-        //     return guild.channels
-        //         .filter(c => c.type === "text" &&
-        //             c.permissionsFor(guild.client.user).has("SEND_MESSAGES"))
-        //         .sort((a, b) => a.position - b.position ||
-        //             Long.fromString(a.id).sub(Long.fromString(b.id)).toNumber())
-        //         .first();
-        // }
-
-        // //  let where = getDefaultChannel;
-        // // console.log(getDefaultChannel(guild));
-        // // console.log(member.guild)
-        // if (member.user.bot) {
-        //     getDefaultChannel(member.guild).send(`A Wild Bot Has Appeared On The Server... \n The Bot's Name Is: ${member.user} OHHHHHHH... :/`).catch(err => console.error(err));
-        //     logger.log('info', `guildMemberAdd (new member join a guild-Bot) (presence update) triggered by ${member.user.tag} ID: ${member.user.id} Time: ${Date()} Guild: ${guild}`)
-        //     console.log(`guildMemberAdd (new member join a guild-Bot) (presence update) triggered by ${member.user.tag} ID: ${member.user.id} Time: ${Date()} Guild: ${guild}`)
-        // }
-        // else {
-        //     getDefaultChannel(member.guild).send(`Welcome ${member.user} to ${guild.name}`).catch(err => console.error(err));  // channels.find("name", "general")
-        //     logger.log('info', `guildMemberAdd (new member join a guild-user/human) (presence update) triggered by ${member.user.tag} ID: ${member.user.id} Time: ${Date()} Guild: ${guild}`)
-        //     console.log(`guildMemberAdd (new member join a guild-user/human) (presence update) triggered by ${member.user.tag} ID: ${member.user.id} Time: ${Date()} Guild: ${guild}`)
-        // }
-
-
-
-
-        //  let where = getDefaultChannel;
-        // console.log(getDefaultChannel(guild));
-        // console.log(member.guild)
         if (member.user.bot) {
             try {
-                //(node:18440) UnhandledPromiseRejectionWarning: TypeError: Cannot read property 'send' of null
                 client.guilds.find(t => t.id == member.guild.id).channels.find(t => t.name == welcomeChanneles).send(`A Wild Bot Has Appeared On The Server... \n The Bot's Name Is: ${member.user} OHHHHHHH... :/`)
             } catch (err) {
                 console.log(err.name)
                 if (err.name === "TypeError" && err.message === "Cannot read property 'send' of null" || err.name === "DiscordAPIError" && err.message === "Missing Permissions") { // or missing permissions
-                    settings.setProp(member.guild.id, "welcomeChannel", getDefaultChannel(member.guild).name) //client.guilds.find(t => t.id == member.guild.id).channels.first().name
+                    settings.setProp(member.guild.id, "welcomeChannel", getDefaultChannel(member.guild).name)
                     welcomeChanneles = settings.getProp(guild.id, "welcomeChannel");
                     client.guilds.find(t => t.id == member.guild.id).channels.find(t => t.name == welcomeChanneles).send(`A Wild Bot Has Appeared On The Server... \n The Bot's Name Is: ${member.user} OHHHHHHH... :/`)
                     message.reply("The channel you have set for the welcome messages is invalid, the welcome messages channel has been reset to the first channel. Please edit it if needed with the -setchannel command.")
@@ -244,27 +139,20 @@ client.on('guildMemberAdd', async member => {
         else {
 
             try {
-                //(node:18440) UnhandledPromiseRejectionWarning: TypeError: Cannot read property 'send' of null
                 client.guilds.find(t => t.id == member.guild.id).channels.find(t => t.name == welcomeChanneles).send(`Welcome ${member.user} to ${guild.name}`)
             } catch (err) {
                 console.log(err.name)
                 if (err.name === "TypeError" && err.message === "Cannot read property 'send' of null" || err.name === "DiscordAPIError" && err.message === "Missing Permissions") { // or missing permissions
-                    settings.setProp(member.guild.id, "welcomeChannel", getDefaultChannel(member.guild).name) //client.guilds.find(t => t.id == member.guild.id).channels.first().name
+                    settings.setProp(member.guild.id, "welcomeChannel", getDefaultChannel(member.guild).name)
                     welcomeChanneles = settings.getProp(guild.id, "welcomeChannel");
                     client.guilds.find(t => t.id == member.guild.id).channels.find(t => t.name == welcomeChanneles).send(`Welcome ${member.user} to ${guild.name}`)
                     getDefaultChannel(member.guild).send("The channel you have set for the welcome messages is invalid, the welcome messages channel has been reset to the first channel. Please edit it if needed with the -setchannel command.")
                 }
             }
-
-              // channels.find("name", "general")
             logger.log('info', `guildMemberAdd (new member join a guild-user/human) (presence update) triggered by ${member.user.tag} ID: ${member.user.id} Time: ${Date()} Guild: ${guild}`)
             console.log(`guildMemberAdd (new member join a guild-user/human) (presence update) triggered by ${member.user.tag} ID: ${member.user.id} Time: ${Date()} Guild: ${guild}`)
         }
 
-        //     } else {
-        //         return console.log(`Could not find tag`);
-        //     }
-        // }
     } else {
 
     }
@@ -279,8 +167,6 @@ client.on('guildMemberRemove', async member => {
         welcomeMessages1 = settings.getProp(guild.id, "welcome");
         welcomeChanneles = settings.getProp(guild.id, "welcomeChannel");
     } catch (err) {
-        // console.log(err.name)
-        // console.log(err.message)
         console.log(err)
         console.log(err.indexOf(" does not exist in the enmap settings") != -1)
         if (err.name === "TypeError" && err.message === "Cannot convert undefined or null to object" || err.indexOf(" does not exist in the enmap settings") != -1) { //  
@@ -289,46 +175,8 @@ client.on('guildMemberRemove', async member => {
     }
     welcomeMessages1 = settings.getProp(guild.id, "welcome");
     welcomeChanneles = settings.getProp(guild.id, "welcomeChannel");
-
-    // let channels1 = client.guilds.find(t => t.id == member.guild.id).channels.map((e => e.toString()).join(" "))
-    // if (channels1.findIndex(welcomeChanneles) === -1) {
-    //     settings.setProp(message.guild.id, "welcomeChannel", client.guilds.find(t => t.id == member.guild.id).channels.first)
-    // }
-    // welcomeChanneles = settings.getProp(guild.id, "welcomeChannel");
-
-    // // // SQL: tag -> using server id. if false, returh | else continu
-    // // const statusss = await WelcomeMsg.findOne({ where: { servID: guild.id } });
-    // // if (statusss) {
-    //     // equivalent to: UPDATE tags SET usage_count = usage_count + 1 WHERE name = 'tagName';
-    //     // tag.increment('usage_count');
-    //     // return message.channel.send(tag.get('description'));
-    //     if (statusss.get('messages') === true) {
     if (welcomeMessages1) {
-        // function getDefaultChannel(guild) {
-        //     // if (guild.channel.has(guild.id))
-        //     //     return guild.channels.get(guild.id)
-
-
-        //     if (guild.channels.has('name', "general"))
-        //         return guild.channels.find(val1 => val1.name === "general");
-
-        //     // Now we get into the heavy stuff: first channel in order where the bot can speak
-        //     // hold on to your hats!
-        //     return guild.channels
-        //         .filter(c => c.type === "text" &&
-        //             c.permissionsFor(guild.client.user).has("SEND_MESSAGES"))
-        //         .sort((a, b) => a.position - b.position ||
-        //             Long.fromString(a.id).sub(Long.fromString(b.id)).toNumber())
-        //         .first();
-
-        // }
         function getDefaultChannel(guild) {
-            // if(guild.channel.has(guild.id))
-            // return guild.channels.get(guild.id)
-
-            // if (guild.channels.exists("name", "general"))
-            //     return guild.channels.find(val11 => val11.name === "general");
-
             // Now we get into the heavy stuff: first channel in order where the bot can speak
             // hold on to your hats!
             return guild.channels
@@ -340,15 +188,13 @@ client.on('guildMemberRemove', async member => {
         }
 
         if (member.user.bot) {
-            // guild.defaultChannel.send(`Goodbye to Bot ${member.user} :( `);
-            //UnhandledPromiseRejectionWarning: DiscordAPIError: Missing Permissions
             try {
-                //(node:18440) UnhandledPromiseRejectionWarning: TypeError: Cannot read property 'send' of null
+
                 client.guilds.find(t => t.id == member.guild.id).channels.find(t => t.name == welcomeChanneles).send(`Goodbye to Bot ${member.user} :( `)
             } catch (err) {
                 console.log(err.name)
-                if (err.name === "TypeError" && err.message === "Cannot read property 'send' of null" || err.name === "DiscordAPIError" && err.message === "Missing Permissions") { // or missing permissions
-                    settings.setProp(member.guild.id, "welcomeChannel", getDefaultChannel(member.guild).name) //client.guilds.find(t => t.id == member.guild.id).channels.first().name
+                if (err.name === "TypeError" && err.message === "Cannot read property 'send' of null" || err.name === "DiscordAPIError" && err.message === "Missing Permissions") {
+                    settings.setProp(member.guild.id, "welcomeChannel", getDefaultChannel(member.guild).name)
                     welcomeChanneles = settings.getProp(guild.id, "welcomeChannel");
                     client.guilds.find(t => t.id == member.guild.id).channels.find(t => t.name == welcomeChanneles).send(`Goodbye to Bot ${member.user} :( `)
                     message.reply("The channel you have set for the welcome messages is invalid, the welcome messages channel has been reset to the first channel. Please edit it if needed with the -setchannel command.")
@@ -373,13 +219,6 @@ client.on('guildMemberRemove', async member => {
 
             logger.log('info', `guildMemberRemove (member leaves a guild-member/human) (presence update) triggered by ${member.user.tag} ID: ${member.user.id} Time: ${Date()} Guild: ${guild}`)
             console.log(`guildMemberRemove (member leaves a guild-member/human) (presence update) triggered by ${member.user.tag} ID: ${member.user.id} Time: ${Date()} Guild: ${guild}`)
-
-            //         }
-            //     } else {
-
-            //     }
-            // }
-            // return console.log(`Could not find tag`);
         }
 
     } else {
@@ -415,9 +254,7 @@ client.on("message", async message => {  //message handler starts here!
     const prefixMention = new RegExp(`^<@!?${client.user.id}> `);
     const prefix = message.content.match(prefixMention) ? message.content.match(prefixMention)[0] : message.content.charAt(0);
 
-
-
-    // command = command.slice(config.prefix.length);
+    
     if (prefix === config.prefix) {
         command = message.content.split(" ")[0];
         command = command.slice(config.prefix.length);
@@ -440,11 +277,8 @@ client.on("message", async message => {  //message handler starts here!
     if (command === "serverconf") {
         if ((message.member.hasPermission("MANAGE_MESSAGES") && message.member.hasPermission("MANAGE_GUILD")) || message.member.hasPermission("ADMINISTRATOR") || message.author.id === config.owner) {
             try {
-                const guildConf = settings.get(message.guild.id); // || defaultSettings
+                const guildConf = settings.get(message.guild.id);
                 const key = args[0];
-                // const tagList = await WelcomeMsg.findAll(); //{ attributes: ['ServID'] } WelcomeMsg
-                // const tagString = tagList.map(t => t.name).join(', ') || 'No tags set.';
-                // return message.channel.send(`List of tags: ${tagString}`);
                 let configKeys;
 
                 configKeys = "";
@@ -452,36 +286,31 @@ client.on("message", async message => {  //message handler starts here!
                     configKeys += `${guildConf[key]}\n`;
                 });
             } catch (err) {
-                // console.log(err)
-                // console.log(err.indexOf(" does not exist in the enmap settings") != -1)
-                if (err.name === "TypeError" && err.message === "Cannot convert undefined or null to object" || err.indexOf(" does not exist in the enmap settings") != -1) { //  
+                if (err.name === "TypeError" && err.message === "Cannot convert undefined or null to object" || err.indexOf(" does not exist in the enmap settings") != -1) { 
                     settings.set(message.guild.id, defaultSettings);
                 }
 
             }
-            const guildConf = settings.get(message.guild.id); // || defaultSettings
-            // console.log(guildConf.welcome)
-
+            const guildConf = settings.get(message.guild.id);
             const key = args[0];
             configKeys = "";
             Object.keys(guildConf).forEach(key => {
                 configKeys += `${guildConf[key]}\n`;
             });
-            // message.channel.send(`The following are the server's current configuration: \`\`\`${configKeys}\`\`\``);
             let welcomeStatus = guildConf.welcome
             let channelStatus = guildConf.welcomeChannel
             if (!welcomeStatus) {
                 const serverconfinfo1 = new Discord.RichEmbed()
                     .setDescription(`**${guild}'s Server Configuration** \n Welcome Messages: <true> means welcome msgs are enabled <false> means they are turned off.  Welcome Message Channel: the channel where welcome msgs will go to if welcome msgs are enabled.`)
                     .setColor("36393E")
-                    .addField("Welcome Messages", `${welcomeStatus}`) //configKeys.welcome
+                    .addField("Welcome Messages", `${welcomeStatus}`)
                     .addField("Welcome Message Channel", `N/A`)
                 message.channel.send({ embed: serverconfinfo1 })
             } else {
                 const serverconfinfo = new Discord.RichEmbed()
                     .setDescription(`${guild}'s Server Configuration | Welcome Messages: <true> means welcome msgs are enabled <false> means they are turned off.  Welcome Message Channel: the channel where welcome msgs will go to if welcome msgs are enabled.`)
                     .setColor("36393E")
-                    .addField("Welcome Messages", `${welcomeStatus}`) //configKeys.welcome
+                    .addField("Welcome Messages", `${welcomeStatus}`)
                     .addField("Welcome Message Channel", `#${channelStatus}`)
                 message.channel.send({ embed: serverconfinfo })
             }
@@ -498,7 +327,6 @@ client.on("message", async message => {  //message handler starts here!
                 .addField("**Usage:**", `${config.prefix}setmsg <true for welcome msgs, false for no welcome msgs>`)
                 .addField("**Example:**", `${config.prefix}setmsg true`)
                 .addField("**Expected Result From Example:**", "Welcome messages for the current server should be turned on.")
-            //add helper
             if (args.join(' ') === '') return message.channel.send({ embed: setmsghelp })
             let input;
             if (args.join(' ') === "true") {
@@ -511,11 +339,7 @@ client.on("message", async message => {  //message handler starts here!
                 return;
             }
 
-            let guildN = settings.get(message.guild.id); // || defaultSettings
-
-            // const tagList = await WelcomeMsg.findAll(); //{ attributes: ['ServID'] } WelcomeMsg
-            // const tagString = tagList.map(t => t.name).join(', ') || 'No tags set.';
-            // return message.channel.send(`List of tags: ${tagString}`);
+            let guildN = settings.get(message.guild.id);
             let configKeys = "";
             try {
                 Object.keys(guildN).forEach(key => {
@@ -528,29 +352,11 @@ client.on("message", async message => {  //message handler starts here!
                     settings.set(message.guild.id, defaultSettings);
                 }
             }
-
             settings.setProp(message.guild.id, "welcome", input)
-
             message.reply(`:white_check_mark: Success! Server welcome messages set to ${input}`)
-
-            // console.log("done")
         } else {
             message.reply("Insufficant Permissions!")
         }
-        // edittag -> using server id | option: set true / false for welcome msg
-        // ADVANCED: Display current welcome msg status in helper
-        // let inputt;
-        // if (args.join(' ').toLowerCase === "true") {
-        //     inputt = true
-        // }
-        // else if (args.join(' ').toLowerCase === 'false') {
-        //     inputt = false
-        // }
-        // const affectedRows = await WelcomeMsg.update({ messages: inputt }, { where: { servID: message.guild.id } });
-        // if (affectedRows > 0) {
-        //     return console.log(`Tag ${message.guild.id} was edited.`);
-        // }
-        // return console.log(`Could not find a tag with name ${message.guild.id}.`);
     }
 
     if (command === "setchannel") {
@@ -567,23 +373,8 @@ client.on("message", async message => {  //message handler starts here!
                 message.reply("Enter the name of the channel only! Without the hashtag!")
 
             } else {
-                // let input;
-                // if (args.join(' ') === "true") {
-                //     input = true
-                // }
-                // else if (args.join(' ') === "false") {
-                //     input = false
-                // }
-                // else {
-                //     return;
-                // }
-
-                let guildN = settings.get(message.guild.id); // || defaultSettings
-
-                // const tagList = await WelcomeMsg.findAll(); //{ attributes: ['ServID'] } WelcomeMsg
-                // const tagString = tagList.map(t => t.name).join(', ') || 'No tags set.';
-                // return message.channel.send(`List of tags: ${tagString}`);
-                let configKeys = ""; // for when there is no true or false welcome channels.
+                let guildN = settings.get(message.guild.id);
+                let configKeys = "";
                 try {
                     Object.keys(guildN).forEach(key => {
                         configKeys += `${guildN[key]}\n`;
@@ -605,39 +396,19 @@ client.on("message", async message => {  //message handler starts here!
                     console.error(err)
                     return;
                 }
-
-
-                // let channels1 = client.guilds.find(t => t.id == message.guild.id).channels.map(e => e.toString()).join(' ')
-                // if (channels1.findIndex(args.join(' ')) === -1) {
-
-                // } // check if args is part of channel arr 
-                // else {
-
-                // if (channels1.findIndex(welcomeChanneles) === -1) {
-                //     settings.setProp(message.guild.id, "welcomeChannel", client.guilds.find(t => t.id == member.guild.id).channels.first)
-                // }
-
                 settings.setProp(message.guild.id, "welcomeChannel", args.join(' '))
 
                 message.reply(`:white_check_mark: Success! Server welcome channel set to #${args.join(' ')}`)
-                //}
-                // console.log("done")
-
             }
         } else {
             message.reply("Insufficant Permissions!")
         }
-
-        // settings.setProp(message.guild.id, "welcomeChannel", args.join(' '))
-        // console.log('done')
     }
     if (command === "prefix") {
         if (message.author.id === config.owner) {
             config.prefix = args.join(' ');
             fs.writeFile('./config.json', JSON.stringify(config, null, 2), function (err) {
                 if (err) return console.error(err);
-                // console.log(JSON.stringify(config));
-                // console.log('writing to ' + './config.json');
                 message.channel.send(`Prefix Successfully Changed to ${config.prefix}.`)
             });
         } else {
@@ -699,10 +470,6 @@ client.on("message", async message => {  //message handler starts here!
                             for (var b = 0; b < pod.subpod.length; b++) {
                                 var subpod = pod.subpod[b];
                                 //can also display the plain text, but the images are prettier
-                                /*for(var c=0; c<subpod.plaintext.length; c++)
-                                {
-                                    response += '\t'+subpod.plaintext[c];
-                                }*/
                                 for (var d = 0; d < subpod.img.length; d++) {
                                     response += "\n" + subpod.img[d].$.src;
                                     message.channel.send(response);
@@ -743,7 +510,6 @@ client.on("message", async message => {  //message handler starts here!
             console.error(error)
         }
 
-        // client.users.
         find("id", config.owner).send("Test")
         message.guild.name
     }
@@ -757,13 +523,10 @@ client.on("message", async message => {  //message handler starts here!
     if (command === "setmuterole") {
         if (message.author.id != config.owner) return message.reply("Invalid Permissions - Command is owner only.")
         else {
-            // if (args.join(' ') != "true" || args.join(' ') != "false") return message.reply("Please enter \"true\" for yes, and \"false\" for no.")
             if (args.join(' ') === "true") {
                 config.createMuteRoleUponJoin = true;
                 fs.writeFile('./config.json', JSON.stringify(config, null, 2), function (err) {
                     if (err) return console.error(err);
-                    // console.log(JSON.stringify(config));
-                    // console.log('writing to ' + './config.json');
                     message.channel.send(`createMuteRoleUponJoin Successfully Changed to ${config.createMuteRoleUponJoin}.`)
                 });
             }
@@ -771,8 +534,6 @@ client.on("message", async message => {  //message handler starts here!
                 config.createMuteRoleUponJoin = false;
                 fs.writeFile('./config.json', JSON.stringify(config, null, 2), function (err) {
                     if (err) return console.error(err);
-                    // console.log(JSON.stringify(config));
-                    // console.log('writing to ' + './config.json');
                     message.channel.send(`createMuteRoleUponJoin Successfully Changed to ${config.createMuteRoleUponJoin}.`)
                 });
             }
@@ -811,13 +572,10 @@ client.on("message", async message => {  //message handler starts here!
     if (command === "setpastebineval") {
         if (message.author.id != config.owner) return message.reply("Invalid Permissions - Command is owner only.")
         else {
-            // if (args.join(' ') != "true" || args.join(' ') != "false") return message.reply("Please enter \"true\" for yes, and \"false\" for no.")
             if (args.join(' ') === "true") {
                 config.uploadtoPastebinEval = true;
                 fs.writeFile('./config.json', JSON.stringify(config, null, 2), function (err) {
                     if (err) return console.error(err);
-                    // console.log(JSON.stringify(config));
-                    // console.log('writing to ' + './config.json');
                     message.channel.send(`uploadtoPastebinEval Successfully Changed to ${config.createMuteRoleUponJoin}.`)
                 });
             }
@@ -825,8 +583,6 @@ client.on("message", async message => {  //message handler starts here!
                 config.uploadtoPastebinEval = false;
                 fs.writeFile('./config.json', JSON.stringify(config, null, 2), function (err) {
                     if (err) return console.error(err);
-                    // console.log(JSON.stringify(config));
-                    // console.log('writing to ' + './config.json');
                     message.channel.send(`uploadtoPastebinEval Successfully Changed to ${config.createMuteRoleUponJoin}.`)
                 });
             }
@@ -836,13 +592,10 @@ client.on("message", async message => {  //message handler starts here!
     if (command === "setuploadfileeval") {
         if (message.author.id != config.owner) return message.reply("Invalid Permissions - Command is owner only.")
         else {
-            // if (args.join(' ') != "true" || args.join(' ') != "false") return message.reply("Please enter \"true\" for yes, and \"false\" for no.")
             if (args.join(' ') === "true") {
                 config.uploadtoFileEval = true;
                 fs.writeFile('./config.json', JSON.stringify(config, null, 2), function (err) {
                     if (err) return console.error(err);
-                    // console.log(JSON.stringify(config));
-                    // console.log('writing to ' + './config.json');
                     message.channel.send(`uploadtoFileEval Successfully Changed to ${config.uploadtoFileEval}.`)
                 });
             }
@@ -850,8 +603,6 @@ client.on("message", async message => {  //message handler starts here!
                 config.uploadtoFileEval = false;
                 fs.writeFile('./config.json', JSON.stringify(config, null, 2), function (err) {
                     if (err) return console.error(err);
-                    // console.log(JSON.stringify(config));
-                    // console.log('writing to ' + './config.json');
                     message.channel.send(`uploadtoFileEval Successfully Changed to ${config.uploadtoFileEval}.`)
                 });
             }
@@ -863,7 +614,6 @@ client.on("message", async message => {  //message handler starts here!
         const config = require("./config.json");
         var guild = message.guild;
         if (message.author.id === config.owner) {
-            // client.user.setGame(args.join(' '));
             client.user.setActivity(args.join(' '))
 
         }
@@ -900,35 +650,11 @@ client.on("message", async message => {  //message handler starts here!
         message.author.send(getx.name)
     }
 
-    // if (command === "getallserverid") { // new
-    //     if (message.author.id === config.owner) {
-    //         let user = message.author;
-    //         // let x = 0 
-    //         // user.send(client.guilds.map(e => e.id).join(`[(${x})], `));
-    //         // x++;
-    //     }
-    //     else {
-    //         return message.channel.send("Insufficant Permissions");
-    //     }
-    //     logger.log('info', `getallserver command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date.now()} Guild: ${guild}`)
-    // }
-
     if (command === "broadcast") {
         if (message.author.id === config.owner) {
-            // var check1 = base64url.encode(rand.toString())
-            // if (!args.join(' ')) {
-            //     message.channel.send('Please get a password! It has been Directly Messaged to you!')
-            //     message.author.send("Base 64 of " + rand)
-            //     message.author.send("Then remove any equal signs(=) from the result!")
-            // }
-            // else if (args.join(' ') === check1) {
             function getDefaultChannel(guild) {
-                // if(guild.channel.has(guild.id))
-                // return guild.channels.get(guild.id)
-
                 if (guild.channels.exists("name", "general"))
                     return guild.channels.find(val11 => val11.name === "general");
-
                 // Now we get into the heavy stuff: first channel in order where the bot can speak
                 // hold on to your hats!
                 return guild.channels
@@ -1108,7 +834,6 @@ function clean(text) {
 
 
 var token = /[\w\d]{24}\.[\w\d]{6}\.[\w\d-_]{27}/g;
-// Promise.reject(new Error(`Error. ${Promise}`));
 client.on("debug", error => {
     console.log(chalk.cyan(error.replace(token, "HIDDEN")));
 });

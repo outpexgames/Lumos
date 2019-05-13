@@ -10,13 +10,6 @@ exports.run = function (client, message, args, args2, cmd) {
     const config = require("../config.json");
     var guild = message.guild;
     let game = ''
-    // const embed19 = new Discord.RichEmbed()
-    //     .setColor("#f0ffff")
-    //     .setDescription("**Command: **" + `${config.prefix}userstats`)
-    //     .addField("**Usage:**", `${config.prefix}userstats <@username>`)
-    //     .addField("**Example:**", `${config.prefix}userstats @AirFusion`)
-    //     .addField("**Expected Result From Example:**", "Mentioned user's stats & information should be returned.")
-    // if (args.join(' ') == "") return message.channel.send({ embed: embed19 })
     let user = message.mentions.users.first()
     if (message.author === user || !user) {
         if (message.author.presence.game === null) {
@@ -29,7 +22,6 @@ exports.run = function (client, message, args, args2, cmd) {
             .setAuthor('User Info For ' + message.author.username)
             .setColor('#2D7FFF')
             .setThumbnail(message.author.avatarURL)
-            //.setDescription('do `pls serverinfo` to see detailed info about the server')
             .addField('Discriminator: ', message.author.discriminator)
             .addField('Status', message.author.presence.status, true)
             .addField('Playing', game, true)
@@ -50,14 +42,10 @@ exports.run = function (client, message, args, args2, cmd) {
             .setAuthor('User Info For ' + user.username)
             .setColor('#2D7FFF')
             .setThumbnail(user.avatarURL)
-            //.setDescription('do `pls serverinfo` to see detailed info about the server')
             .addField('Discriminator: ', user.discriminator)
             .addField('Status', user.presence.status, true)
             .addField('Playing', game, true)
-            //.addField('Joined Server', message.mentions.users.first().joinedAt)
             .addField('Created Account', user.createdAt)
-
-        // .addField('Roles', message.member.roles.size > 0 ? message.member.roles.map(d => d.name).join(', ') : 'None')
 
         message.channel.send({ embed: userInfo })
     }

@@ -41,7 +41,6 @@ exports.run = function (client, message, args, args2, cmd) {
         .addField("**Expected Result From Example:**", "Specified User Should Be Banned; Ban Log Should Be Sent To Channel #modlog")
     if (message.mentions.users.size < 1 && reason.length < 1) return message.channel.send({ embed: embed })
     if (!message.guild.member(message.author).hasPermission('BAN_MEMBERS')) return message.reply('You must be a moderator to ban people!').catch(console.error)
-    //  if (message.mentions.users.size < 1 || args[0] === "") return message.reply('Please mention someone to ban!').catch(console.error)
     if (reason.length < 1) return message.reply('Please supply a reason for the ban!').catch(console.error)
     if (!message.guild.member(client.user).hasPermission('BAN_MEMBERS')) return message.reply('I do not have the correct permissions!').catch(console.error)
     if (user === message.author) return message.reply("You cannot ban yourself")
@@ -49,12 +48,9 @@ exports.run = function (client, message, args, args2, cmd) {
 
 
     if (isnum === false) {
-        if (message.guild.member(user).bannable) { //message.guild.member(member) && member.bannable
-
-            //  .addField('Kicked User ID: ', `${message.mentions.users.first().id}`)
-            //message.channel.send("\n\n")
-            const channelsendlol = new Discord.RichEmbed()
-                .setColor('#ff0000') //change the color!!!
+        if (message.guild.member(user).bannable) {
+            const channelsendlol = new Discord.RichEmbed()//send to current channel
+                .setColor('#ff0000')
                 .setTimestamp()
                 .setThumbnail(user.avatarURL)
                 .addField('Action:', "Ban[Mention]")
@@ -64,8 +60,8 @@ exports.run = function (client, message, args, args2, cmd) {
                 .addField("Reason:", reason)
                 .addField("Server:", message.guild)
 
-            const okgoogle = new Discord.RichEmbed()//modlog
-                .setColor('#ff0000') //change the color!!!
+            const okgoogle = new Discord.RichEmbed()//modlog sending
+                .setColor('#ff0000')
                 .setTimestamp()
                 .setThumbnail(user.avatarURL)
                 .addField('Action:', "Ban[Mention]")
@@ -82,15 +78,13 @@ exports.run = function (client, message, args, args2, cmd) {
             guild.channels.find(val1 => val1.name === "modlog").send({ embed: okgoogle }).catch(e);
 
         }
-
-
         else {
             message.reply(":x: I can not ban " + user)
         }
 
     } else if (isnum === true) {
-        const userSend = new Discord.RichEmbed()//modlog
-            .setColor('#ff0000') //change the color!!!
+        const userSend = new Discord.RichEmbed()
+            .setColor('#ff0000')
             .setTimestamp()
             .setThumbnail(client.users.get(user).avatarURL)
             .addField('Action:', "Ban[ID]")
@@ -107,8 +101,8 @@ exports.run = function (client, message, args, args2, cmd) {
 
 
 
-                const idBanmodlog = new Discord.RichEmbed()//modlog
-                    .setColor('#ff0000') //change the color!!!
+                const idBanmodlog = new Discord.RichEmbed()
+                    .setColor('#ff0000')
                     .setTimestamp()
                     .setThumbnail(client.users.get(user).avatarURL)
                     .addField('Action:', "Ban[ID]")

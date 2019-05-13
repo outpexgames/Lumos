@@ -9,8 +9,6 @@ exports.run = function (client, message, args, args2, cmd) {
     const config = require("../config.json");
     var guild = message.guild;
     function getDefaultChannel(guild) {
-        // if(guild.channel.has(guild.id))
-        // return guild.channels.get(guild.id)
 
         if (guild.channels.has('name', "general"))
             return guild.channels.find(val => val.name === "general");

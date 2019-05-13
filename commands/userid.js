@@ -17,9 +17,9 @@ exports.run = function (client, message, args, args2, cmd) {
         .addField("**Example:**", `${config.prefix}userid @AirFusion`)
         .addField("**Expected Result From Example:**", "<my id>")
     if (!user) {
-        return message.channel.send({embed: embed19})
+        return message.channel.send({ embed: embed19 })
     }
     message.channel.send(user.id);
-    logger.log('info', `Userid command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)    
-    
+    logger.log('info', `Userid command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)
+
 }

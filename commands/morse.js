@@ -17,7 +17,7 @@ exports.run = function (client, message, args, args2, cmd) {
         .addField("**Example:**", `${config.prefix}morse hello`)
         .addField("**Expected Result From Example:**", ":smile: :smile: :smile: :smile::smile::smile: :eggplant: :smile: :smile::smile: :eggplant: :smile: :smile::eggplant: :eggplant: :eggplant:")
     if (args.join(' ') == "") return message.channel.send({embed: embed1})
-    let morsed = morse(args.join(' ')) //if in exports.run, need to put morse const from line front
+    let morsed = morse(args.join(' '))
     if (morsed.length > 0) {
         message.channel.send("🍆 Means -")
         message.channel.send("😄 Means ·\n\n")
@@ -26,7 +26,6 @@ exports.run = function (client, message, args, args2, cmd) {
         message.reply("Your message has been flaged for spam, therefore it won't send")
     } else {
         message.reply("Input cannot be empty :frowning:");
-
     }
     logger.log('info', `Morse command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)    
 };

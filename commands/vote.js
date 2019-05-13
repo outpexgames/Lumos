@@ -16,6 +16,6 @@ exports.run = function (client, message, args, args2, cmd, res) {
         .addField("Discord Bot List (discordbotlist.com)", `https://discordbotlist.com/bots/460610749283172353`)
         .addField("Bots on Discord", "https://bots.ondiscord.xyz/bots/460610749283172353")
         .addField("Bots for Discord", "https://botsfordiscord.com/bots/460610749283172353")
-    message.channel.send({embed: embed})
-    logger.log('info', `vote command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)    
+    message.channel.send({ embed: embed })
+    logger.log('info', `vote command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)
 };

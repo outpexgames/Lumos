@@ -54,17 +54,13 @@ exports.run = function (client, message, args, args2) {
     if (!string && !shift) return message.channel.send({ embed: embed })
     if (!string) return message.reply("You need to fill in a string")
     if (!shift) return message.reply("You need to fill in a shift")
-    //var array = temparray[0].split()
     var res = ""
     if (shift > 25) {
         shift = shift % 26;
     }
     for (var i = 0; i < string.length; i++) {
-        // console.log(array[i])
         res += decode(array[i], shift)
         res.replace("undefined", " ");
-        //message.channel.send("Your answer is " + res)
-        // console.log(array[i])
     }
 
     for (; ;) {

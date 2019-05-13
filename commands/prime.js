@@ -27,6 +27,6 @@ exports.run = function (client, message, args, args2, cmd) {
     if (args.join(' ') == "") return message.channel.send({ embed: embed19 })
     if (parseInt(args.join(' ')) > 500000) return message.reply("Number is too big, try a smaller one!")
     message.channel.send(getNthPrime(args.join(' ')))
-    logger.log('info', `Prime command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)    
-    
+    logger.log('info', `Prime command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)
+
 }

@@ -1,9 +1,9 @@
 const winston = require('winston')
 var logger = new (winston.Logger)({
-    transports: [
-        new winston.transports.Console(),
-        new winston.transports.File({ filename: './log.txt' })
-    ]
+        transports: [
+                new winston.transports.Console(),
+                new winston.transports.File({ filename: './log.txt' })
+        ]
 })
 exports.run = function (client, message, args, args2, cmd) {
         const Discord = require('discord.js');
@@ -18,7 +18,6 @@ exports.run = function (client, message, args, args2, cmd) {
         if (args == "" || args2 == "") return message.channel.send({ embed: embed })
         let numArray = args.map(n => parseInt(n));
         let total = numArray.reduce((p, c) => p + c);
-
         message.channel.send(total);
-        logger.log('info', `Add command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)    
+        logger.log('info', `Add command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)
 };

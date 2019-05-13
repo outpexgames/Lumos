@@ -33,31 +33,31 @@ exports.run = function (client, message, args, args2, cmd) {
     else if (computerchoose === 3) {
         computerfinal = "scissor";
     }
-    if ( (userInput === 'rock' && computerfinal === "rock") || (userInput === 'rocks' && computerfinal === "rock") ) {
+    if ((userInput === 'rock' && computerfinal === "rock") || (userInput === 'rocks' && computerfinal === "rock")) {
         message.channel.send("Tie! :>" + `You chose: ${userInput}. I chose: ${computerfinal}.`)
     }
-    else if ((userInput === 'rock' && computerfinal === "paper") || (userInput === 'rocks' && computerfinal === "paper"))  {
+    else if ((userInput === 'rock' && computerfinal === "paper") || (userInput === 'rocks' && computerfinal === "paper")) {
         message.channel.send("I win! :)" + `You chose: ${userInput}. I chose: ${computerfinal}.`)
     }
     else if ((userInput === 'rock' && computerfinal === "scissor") || (userInput === "rocks" && computerfinal === "scissor")) {
         message.channel.send("You win :(" + `You chose: ${userInput}. I chose: ${computerfinal}.`)
     }
-    else if ( (userInput === 'paper' && computerfinal === "rock") || (userInput === 'papers' && computerfinal === "rock")) {
+    else if ((userInput === 'paper' && computerfinal === "rock") || (userInput === 'papers' && computerfinal === "rock")) {
         message.channel.send("You win :(" + `You chose: ${userInput}. I chose: ${computerfinal}.`)
     }
-    else if ( (userInput === 'paper' && computerfinal === "paper") || (userInput === "papers" && computerfinal === "paper") ) {
+    else if ((userInput === 'paper' && computerfinal === "paper") || (userInput === "papers" && computerfinal === "paper")) {
         message.channel.send("Tie! :>" + `You chose: ${userInput}. I chose: ${computerfinal}.`)
     }
-    else if ( (userInput === 'paper' && computerfinal === "scissor") || (userInput === "papers" && computerfinal === 'scissor') ) {
+    else if ((userInput === 'paper' && computerfinal === "scissor") || (userInput === "papers" && computerfinal === 'scissor')) {
         message.channel.send("I win! :)" + `You chose: ${userInput}. I chose: ${computerfinal}.`)
     }
-    else if ( (userInput === 'scissor' && computerfinal === 'rock') || (userInput === "scissors" && computerfinal === "rock") ) {
+    else if ((userInput === 'scissor' && computerfinal === 'rock') || (userInput === "scissors" && computerfinal === "rock")) {
         message.channel.send("I win! :)" + `You chose: ${userInput}. I chose: ${computerfinal}.`)
     }
-    else if ( (userInput === 'scissor' && computerfinal === 'paper') || (userInput === "scissors" && computerfinal === "paper") ) {
+    else if ((userInput === 'scissor' && computerfinal === 'paper') || (userInput === "scissors" && computerfinal === "paper")) {
         message.channel.send("You win :(" + `You chose: ${userInput}. I chose: ${computerfinal}.`)
     }
-    else if ( (userInput === 'scissor' && computerfinal === 'scissor') || (userInput === "scissors" && computerfinal === "scissor")) {
+    else if ((userInput === 'scissor' && computerfinal === 'scissor') || (userInput === "scissors" && computerfinal === "scissor")) {
         message.channel.send("Tie! :>" + `You chose: ${userInput}. I chose: ${computerfinal}.`)
     }
     else if (userInput != 'scissor' || userInput != 'scissors' || userInput != 'rock' || userInput != 'rocks' || userInput != 'paper' || userInput != 'papers') {
@@ -66,6 +66,6 @@ exports.run = function (client, message, args, args2, cmd) {
     else {
         message.channel.send(":x: Failed to Execute the command.")
     }
-    logger.log('info', `Rps command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)    
-    
+    logger.log('info', `Rps command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)
+
 }

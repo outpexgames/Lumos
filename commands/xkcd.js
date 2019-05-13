@@ -7,7 +7,6 @@ var logger = new (winston.Logger)({
 })
 
 exports.run = function (client, message, args, args2, cmd) {
-    // let user = message.author;
     var xkcd = require('xkcd');
     const Discord = require('discord.js')
     const config = require("../config.json");

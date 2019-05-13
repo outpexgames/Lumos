@@ -5,7 +5,7 @@
 [![Build Status](https://travis-ci.org/AirFusion45/Power-Bot.svg?branch=master)](https://travis-ci.org/AirFusion45/Power-Bot?branch=master)
 # Power-Bot
 PowerBot is a multipurpose discord bot made using [discord.js](https://discord.js.org/). 
-Power Bot is now officially public! :)
+PowerBot is in the middle of a "acquisition". I will keep everyone posted about the isssue. Currently, I am planning to transfer the project to someone else.
 
 # Self Hosting PowerBot
 You can host PowerBot on a raspberry pi, or web hosting services like AWS or Heroku. For this guide, I am only going to go over hosting on a raspberry pi/computer.
@@ -95,7 +95,7 @@ Here are credits for all the code I used that was from other repositories.
   * Majority of bot structure from AnIdiotsGuide's Tutorial-Bot [here](https://github.com/AnIdiotsGuide/Tutorial-Bot).
 
 # Contact Me
-Feel free to contact me if you find bugs, license issues, missing credits, etc. I am currently only giving out my Discord contact information, but feel free to contact me via Discord. If things become complicated, then I will release my email address.
+Feel free to contact me if you find bugs, license issues, missing credits, etc. I am currently only giving out my Discord contact information, but feel free to contact me via Discord and my email.
 
   * Please contact me here:
     * Email: jfang.cv.ca.us@gmail.com OR jim@jimfang.me

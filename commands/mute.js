@@ -22,8 +22,6 @@ exports.run = function (client, message, args, args2, cmd) {
         .addField("**Expected Result From Example:**", "Mentioned User Muted with Mute Role")
     if (args.join(' ') == "") return message.channel.send({ embed: embed19 })
     let muteRole = client.guilds.get(message.guild.id).roles.find(val => val.name === 'Mute')
-    // let modlog = guild.channels.find("name", "modlog")
-    //  if (!modlog) return message.reply("mod-log required")
     if (!muteRole) return message.reply("Mute Role required")
     if (message.mentions.users.size < 1) return message.reply("You must mention someone to mute them.").catch(console.error)
     if (reason.length < 1) return message.reply("Reason Required")
@@ -32,7 +30,7 @@ exports.run = function (client, message, args, args2, cmd) {
     message.guild.member(user).addRole(muteRole).catch(err => console.error(err))
 
     const embed = new Discord.RichEmbed()
-        .setColor('#ffbf00') //change the color!!!
+        .setColor('#ffbf00')
         .setTimestamp()
         .setThumbnail(user.avatarURL)
         .addField('Action:', "Mute")
@@ -44,7 +42,7 @@ exports.run = function (client, message, args, args2, cmd) {
 
 
     const embed1 = new Discord.RichEmbed()
-        .setColor('#ffbf00') //change the color!!!
+        .setColor('#ffbf00')
         .setTimestamp()
         .setThumbnail(user.avatarURL)
         .addField('Action:', "Mute")
@@ -54,7 +52,7 @@ exports.run = function (client, message, args, args2, cmd) {
         .addField("Reason:", reason)
 
     message.channel.send({ embed: embed1 })
-    user.send({embed: embed})
+    user.send({ embed: embed })
     guild.channels.find(val1 => val1.name === "modlog").send({ embed: embed1 }).catch(err => console.error(err));
 
 

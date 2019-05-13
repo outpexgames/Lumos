@@ -12,16 +12,13 @@ exports.run = function (client, message, args, args2, cmd) {
     var guild = message.guild;
     logger.log('info', `Commands command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}`)
     const embed = new Discord.RichEmbed()
-        .setColor('#ccff00') //change the color!
+        .setColor('#ccff00')
         .setTitle("PowerBot Commands\n\n")
         .addField("Prefix:", `\`${config.prefix}\``)
-
         .addField("Caution!:", "__**Every Command Starts with the Prefix**__\n__**Every Thing below is in the format of:**__\n__**<Command>|<Command Description>(Special Notes)**__\n__**<Usage>**__")
         .addField('^|Calculate Exponents', `\`^<Base> <Exponent>\``)
         .addField('add|Add Numbers', `\`add <First Number> <Second Number>\``)
         .addField('addrole|Add Roles to Users **(Special Permission Required: MANAGE_ROLES_OR_PERMISSIONS)**', `\`addrole <@user> <Role>\``)
-        // .addField('afk|Set the Author of the message AFK', `\`afk\``)
-        // .addField('afkexit|Set the Author of the message from AFK to online/active', `\`afkexit\``)
         .addField('anagram|Finds if Two Words are Anagrams', `\`anagram <Word1> <Word2>\``)
         .addField("avasteal|Steals someone's avatar", `\`avasteal <@user>\``)
         .addField('avatar|Gives You a Link to Your Avatar', `\`avatar\``)
@@ -80,22 +77,6 @@ exports.run = function (client, message, args, args2, cmd) {
         .addField("wolfram|Searches Wolfram Alpha for the user input", `\`wolfram <query>\``)
         .addField('xkcd|Return a xkcd comic', `\`xkcd (to return the current xkcd) , xkcd <comic number>\``)
         .addField('yt|Return a YouTube video', `\`yt <query>\``)
-    ////////////////////////////
-
-    //add ccencode & ccdecode
-
-    // .addField('dnd|Set the Author of the message in Do Not Disturb Mode', `\`dnd\``)
-    // .addField('dndexit|Set the Author of the message from Do Not Disturb to active/online', `\`dndexit\``)
-
-
-
-
-
-
-    //reload missing & not working
-
-    //  .addField("setgame|Sets PowerBot's game! **(Special Permissions Required: This Command Is Owner ONLY!)**", `\`setgame <Mood/Game>\``)
-    //25
     const embedNew = new Discord.RichEmbed()
         .setColor('36393E') //change the color!
         .setTitle("PowerBot Commands\n\n")
@@ -103,27 +84,21 @@ exports.run = function (client, message, args, args2, cmd) {
         .setFooter(`${config.name} Commands`)
         .setTimestamp()
         .setTitle(`Please use the prefix (${config.prefix}) in front of all commands!`)
-
         .addField(`:tools: **General**`, `commands, help, avatar, avasteal, checklist, color, date, dm, embed, emojimap, emojisearch, feedback, google, invite, iplookup (your ip will NOT be logged!), pika, ping, rps, say, serverinv, wolfram, xkcd, yt`, true)
-
         .addField(`:one: :two: :three: **Math Related**`, `^, add, div, multi, numrand, prime, sqrt, subtract, triangle`, true)
-
         .addField(`:desktop: :computer: **Computer Science Related**`, `binary, ccdecode, ccencode, morse`, true)
-
         .addField(`:regional_indicator_a: :regional_indicator_b: :regional_indicator_c: **Words/ELA Related**`, `anagram, randword`, true)
-
         .addField(`:hammer: **Moderation**`, `addrole, ban, clean, kick, lockdown (lockdown unlock), masspurge, mute (mute role required), purge, removerole, unmute, warn`, true)
-
         .addField(`:information_source: **Information**`, `botinfo, game, serverinfo, iduser, userid, userinfo`, true)
-        
-if (args.join(' ')==="legacy") {
-    message.channel.send({ embed: embed })
-    message.channel.send({ embed: embed1 })
-    message.channel.send({ embed: embed2 })
-}
-else {
-    message.channel.send({embed: embedNew})
-}
+
+    if (args.join(' ') === "legacy") {
+        message.channel.send({ embed: embed })
+        message.channel.send({ embed: embed1 })
+        message.channel.send({ embed: embed2 })
+    }
+    else {
+        message.channel.send({ embed: embedNew })
+    }
 
 
 };
