@@ -1,14 +1,9 @@
-[![Discord Bots](https://discordbots.org/api/widget/460610749283172353.svg)](https://discordbots.org/bot/460610749283172353)
-[![PowerBot](https://bots.ondiscord.xyz/bots/460610749283172353/embed?theme=dark&showGuilds=true)](https://bots.ondiscord.xyz/bots/460610749283172353)
- [![Bots for Discord](https://botsfordiscord.com/api/bot/460610749283172353/widget)](https://botsfordiscord.com/bots/460610749283172353)
-[![Waffle.io - Columns and their card count](https://badge.waffle.io/AirFusion45/Power-Bot.svg?columns=all)](https://waffle.io/AirFusion45/Power-Bot)
-[![Build Status](https://travis-ci.org/AirFusion45/Power-Bot.svg?branch=master)](https://travis-ci.org/AirFusion45/Power-Bot?branch=master)
-# Power-Bot
-PowerBot is a multipurpose discord bot made using [discord.js](https://discord.js.org/). 
-PowerBot is in the middle of a "acquisition". I will keep everyone posted about the isssue. Currently, I am planning to transfer the project to someone else.
+# Lumos
+Lumos (formally PowerBot) is a multipurpose discord bot made using [discord.js](https://discord.js.org/). 
+Lumos is in the middle of a "acquisition". I will keep everyone posted about the isssue. Currently, I am planning to transfer the project to someone else.
 
-# Self Hosting PowerBot
-You can host PowerBot on a raspberry pi, or web hosting services like AWS or Heroku. For this guide, I am only going to go over hosting on a raspberry pi/computer.
+# Self Hosting Lumos
+You can host Lumos on a raspberry pi, or web hosting services like AWS or Heroku. For this guide, I am only going to go over hosting on a raspberry pi/computer.
 
   * __**Prerequisites:**__
     * A computer that has command prompt, or terminal access.
@@ -16,7 +11,7 @@ You can host PowerBot on a raspberry pi, or web hosting services like AWS or Her
     * Know the basics of how to add a Discord Bot to servers, setup & get tokens, etc.
     
   * __**Instructions:**__ (This guide only works on windows. Read the 8th bullet point for more details.)
-    * Download the PowerBot code from Github in a zip, and unzip it.
+    * Download the Lumos code from Github in a zip, and unzip it.
     * Then delete the node modules folder & the .vscode folder.
     * Head over to Discord's Developer Page [here](https://discordapp.com/developers/applications/me) to register a bot. 
     * After registering a bot, grab the bot's token. This will be used in the next step when the config needs to be filled in. A Discord Bot token should look like this: `MzgxPDyNotARealTokenTk0.DhPVkg.ThisIsNotRealnDzjK_rgdOJe4`. (<------- This is not a real token.)
@@ -36,24 +31,24 @@ You can host PowerBot on a raspberry pi, or web hosting services like AWS or Her
     * To invite the bot to a server, paste the link into your browser, and select the server that you want to add the bot to. Make sure all the required permissions are checked and click "Authorize".
     * You are all set, head to your server and check the bot out!
 
-# Adding PowerBot To Your Discord Server
-You can also just add PowerBot to your existing server. PowerBot has been already hosted for you in this option.
+# Adding Lumos To Your Discord Server
+You can also just add Lumos to your existing server. Lumos has been already hosted for you in this option.
 
   * __**Prerequisites:**__
     * You need to have the "Manage Server" permission of the server __**OR**__ Be the owner of the server.
-    * When adding PowerBot, make sure that the bot has "ADMINISTRATOR" permissions on your server.
+    * When adding Lumos, make sure that the bot has "ADMINISTRATOR" permissions on your server.
     * A link is provided [here](https://discordapp.com/oauth2/authorize?client_id=460610749283172353&scope=bot&permissions=2146958591) with all of the required permissions pre-selected.
    
   * __**Basic Operations Guide**__
-    * The prefix of PowerBot is `-`.
+    * The prefix of Lumos is `-`.
     * For general help, the support server & additional notes type `-help`.
     * For the full commands list, type `-commands`.
     * Each command is called using the prefix, in the following form: `-<command>` where <command> is the command. For example, to call the command ping, you would type `-ping`.
-    * To check if PowerBot has the correct permissions, just type `-checklist`. If `PowerBot ADMINISTRATOR Permissions:` says `true` then PowerBot has the required permissions to function.
+    * To check if Lumos has the correct permissions, just type `-checklist`. If `Lumos ADMINISTRATOR Permissions:` says `true` then Lumos has the required permissions to function.
     * Feel free to join [this support server](https://discord.gg/KSjW2wB) if additional help is needed!
 
-# PowerBot Features
-This is not a command list. Some of the descriptions after the dash are not actually how you use that command. Use `-commands` in a server with PowerBot or use this commands list link [here](https://hastebin.com/rahorilewo.xml) to find PowerBot's full command list.
+# Lumos Features
+This is not a command list. Some of the descriptions after the dash are not actually how you use that command. Use `-commands` in a server with Lumos or use this commands list link [here](https://hastebin.com/rahorilewo.xml) to find Lumos' full command list.
   * Announcements - User join & leave announcements
   * Moderation:
     * Admin/Mod Commands - kick, ban, warn, mute
@@ -61,7 +56,7 @@ This is not a command list. Some of the descriptions after the dash are not actu
   * Utility Commands - server info, user info 
   * Mathematical Commands - Full Wolfram Alpha integration, basic calculations, find the nth prime, randomize numbers, etc
   * General Chat Commands - Google search integration, YouTube search integration, avatar steal, send DMs using the bot, send embed messages in chat, show all & search server's custom emojis, etc
-  * Data & Computer Related Commands - Getting information about your IP address & another IP address (Fully secured by a registered npm API, PowerBot DOES NOT log your IP address), binary, morse, caesar cipher encode & decode integration
+  * Data & Computer Related Commands - Getting information about your IP address & another IP address (Fully secured by a registered npm API, Lumos DOES NOT log your IP address), binary, morse, caesar cipher encode & decode integration
   * English Related Commands - Find random words, check if a word is an anagram
   * Fun Commands :) - rock paper scissors, party commands
 
@@ -70,11 +65,11 @@ This is not a command list. Some of the descriptions after the dash are not actu
 
 # Contributors 
   * Chroish#4151 (Discord Tag) - First one to start using the bot before beta & numerous bug reports
-  * Peter da Best#2547 (Discord Tag) - PowerBot Beta Tester & bug reporter
-  * FlubberGhasted#0741 (Discord Tag) - PowerBot Beta Tester & Reported major input bug
-  * Alexander#4377 (Discord Tag) - Multiple bug reports (-rps, -say, anti spam [WIP]) & suggested -party command & Invited PowerBot to multiple servers :) 
-  * D A N#7517 (Discord Tag) - PowerBot Beta Tester & requested -wolfram command
-  * Peter da Best#2547 (Discord Tag) - PowerBot "anti-crash" Tester (Great effort on trying to crash the bot!) :)
+  * Peter da Best#2547 (Discord Tag) - Lumos Beta Tester & bug reporter
+  * FlubberGhasted#0741 (Discord Tag) - Lumos Beta Tester & Reported major input bug
+  * Alexander#4377 (Discord Tag) - Multiple bug reports (-rps, -say, anti spam [WIP]) & suggested -party command & Invited Lumos to multiple servers :) 
+  * D A N#7517 (Discord Tag) - Lumos Beta Tester & requested -wolfram command
+  * Peter da Best#2547 (Discord Tag) - Lumos "anti-crash" Tester (Great effort on trying to crash the bot!) :)
   * Eton#4446 (Discord Tag) [Github Profile [here](https://github.com/ethamitc)] - Added customizable welcome command w/ channel selectors. Improved on exsisting welcome msg command. Code further edited by AirFusion.
 
 # License 
@@ -102,4 +97,4 @@ Feel free to contact me if you find bugs, license issues, missing credits, etc. 
     * Discord: AirFusion#1706
 
 # Note/Notes 
-  When self-hosting PowerBot, we recommend downloading the latest release under the releases tab. As that is the most stable version.
+  When self-hosting Lumos, we recommend downloading the latest release under the releases tab. As that is the most stable version.
