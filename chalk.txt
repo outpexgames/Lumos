@@ -1,6 +1,0 @@
-Chalk Information:
-Bold: Disconnect & Reconnect messages
-Green: Ready & Ready Information
-Cyan: Debug Information
-Yellow: Warning Information
-Red: Error Information
