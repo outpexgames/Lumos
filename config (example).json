@@ -2,8 +2,8 @@
   "prefix": "!", //Bot prefix
   "token": "NTgzMTA1MjAzMTcyMDE2MTI4.XO3tpw.bdQ1ARhL5SCoDgNaCzFBNdMRKX4", //Discord token
   "owner": "568247122801983510", // Owner's discord ID
-  "yt": "", // Token from Google Dev portal https://www.youtube.com/watch?v=VuHLskIdT84
-  "pastebin": "", // API Token https://pastebin.com/api
+  "yt": "", // Token from Google Dev portal https://
+  "pastebin": "cd76bc147a0078f680ba8b0f5279b6bf", // API Token https://pastebin.com/api
   "wolfram": "", // Wolfram Alpha token https://products.wolframalpha.com/api/ --> Get API access for free
   "name": "",  // Bot name + Discrim
   "ownerTag": "", // Owner Discord username + discrim
