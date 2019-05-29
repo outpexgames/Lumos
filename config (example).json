@@ -1,6 +1,6 @@
 {
-  "prefix": "-", //Bot prefix
-  "token": "", //Discord token
+  "prefix": "!", //Bot prefix
+  "token": "NTgzMTA1MjAzMTcyMDE2MTI4.XO3tpw.bdQ1ARhL5SCoDgNaCzFBNdMRKX4", //Discord token
   "owner": "", // Owner's discord ID
   "yt": "", // Token from Google Dev portal https://www.youtube.com/watch?v=VuHLskIdT84
   "pastebin": "", // API Token https://pastebin.com/api
