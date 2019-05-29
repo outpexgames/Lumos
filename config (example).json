@@ -7,7 +7,7 @@
   "wolfram": "", // Wolfram Alpha token https://products.wolframalpha.com/api/ --> Get API access for free
   "name": "",  // Bot name + Discrim
   "ownerTag": "", // Owner Discord username + discrim
-  "invLink": "", //Bot invite link w/ permissions
+  "invLink": "https://discordapp.com/api/oauth2/authorize?client_id=583105203172016128&permissions=8&scope=bot", //Bot invite link w/ permissions
   "createMuteRoleUponJoin": false,
   "uploadtoPastebinEval": true,
   "uploadtoFileEval": true,
